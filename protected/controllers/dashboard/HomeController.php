@@ -1,7 +1,7 @@
 <?php
 
 class HomeController extends Controller {
-	public $layout='//layouts/dashboard';
+	public $layout='//layouts/dashboard/home';
 	
 	public function actionIndex()
 	{
