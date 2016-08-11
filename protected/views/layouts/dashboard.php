@@ -19,13 +19,17 @@
 			</button>
 			<a class="navbar-brand" href="#">ITSC</a>
 			<div id="navbar">
-				<nav class="nav navbar-nav pull-xs-left">
-					<a class="nav-item nav-link" href="#">Dashboard</a>
-					<a class="nav-item nav-link" href="#">Settings</a>
-					<a class="nav-item nav-link" href="#">Profile</a>
-					<a class="nav-item nav-link" href="#">Help</a>
-				</nav>
+			<?php $this->widget('zii.widgets.CMenu', array(
+				'htmlOptions' => array('class' => 'nav navbar-nav pull-xs-left', 'id' => 'mainmenu'),
+				'items' => array(
+					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/dashboard/home/index'), 'linkOptions' => array('class' => 'nav-link')),
+					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/dashboard/image/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/dashboard/help'), 'linkOptions' => array('class' => 'nav-link')),
+				),
+				'itemCssClass' => 'nav-item',
+			))?>
 			</div>
-		</nav>		
+		</nav>
+		<?php echo $content ?>		
 	</body>
 </html>

@@ -12,5 +12,7 @@ return array(
 		'Open' => '打开',
 		'Latest' => '最新',
 		'Popular' => '最热',
+		'Image' => '图片',
+		'Help' => '帮助',
 		
 );

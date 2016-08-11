@@ -1,25 +1,19 @@
 <?php
 
-class ImageController extends Controller
-{
-	private $folders = array();
+class ImageController extends Controller {
+	public $layout='//layouts/dashboard';
 	
-	public function getFolders() {
-		return $this->folders;
-	}
-	
-	public function actionIndex($path = "")
-	{
+	public function actionIndex($path = '') {
 		$imagePath = Yii::app()->params['imagePath'];
-		if (isset($path)) $imagePath .= '/' . $path;
-		
+		if ('' != $path) $imagePath .= '/' . $path;
 		$di = new DirectoryIterator($imagePath);
+		$folders = array();
 		foreach ($di as $file) {
 			if ($file->isDir() && !$file->isDot()) {
-				$this->folders[] = $file->getFilename();
+				$folders[] = $file->getFilename();
 			}
 		}
-		$this->render('index');
+		$this->render('index', array('folders' => $folders));
 	}
 	
 	public function actionBuild($path) {

@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 <div class="row">
 	<div class="col-md-8">
 		<div class="row">
-			<?php foreach ($this->folders as $folder) {?>
+			<?php foreach ($folders as $folder) {?>
 			<div class="col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
