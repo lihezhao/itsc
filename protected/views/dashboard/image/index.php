@@ -2,12 +2,11 @@
 /* @var $this ImageController */
 
 $this->breadcrumbs=array(
-	Yii::t('itsc', 'Dashboard') => $this->createUrl('dashboard/home'),
-	Yii::t('itsc', 'Image manager'),
+	Yii::t('itsc', 'Image Manager'),
 );
 ?>
 <div class="page-header">
-	<h1><?php echo Yii::t('itsc', 'Image manager'); ?></h1>
+	<h1><?php echo Yii::t('itsc', 'Image Manager'); ?></h1>
 </div>
 <div class="row">
 	<div class="col-md-8">

@@ -23,7 +23,7 @@
 			<?php $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav navbar-nav pull-xs-left', 'id' => 'mainmenu'),
 				'items' => array(
-					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/dashboard/home/index'), 'linkOptions' => array('class' => 'nav-link')),
+					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/dashboard/index/index'), 'linkOptions' => array('class' => 'nav-link')),
 					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/dashboard/image/index'), 'linkOptions' => array('class' =>'nav-link')),
 					array('label' => Yii::t('itsc', 'Settings'), 'url' => array('/dashboard/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
 					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/dashboard/help'), 'linkOptions' => array('class' => 'nav-link')),
@@ -32,6 +32,7 @@
 			))?>
 			</div>
 		</nav>
+		
 		<?php echo $content ?>				
 	</body>
 </html>

@@ -1,13 +1,10 @@
 <?php
 
-class HomeController extends Controller {
-	public $layout='//layouts/dashboard/home';
+class IndexController extends Controller {
+	public $layout='//layouts/dashboard/index';
 	
 	public function actionIndex()
 	{
-		
-		
-		
 		$this->render('index');
 	}
 
