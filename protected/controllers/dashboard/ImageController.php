@@ -1,7 +1,7 @@
 <?php
 
 class ImageController extends Controller {
-	public $layout='//layouts/dashboard';
+	public $layout='//layouts/dashboard/image';
 	
 	public function actionIndex($path = '') {
 		$imagePath = Yii::app()->params['imagePath'];
