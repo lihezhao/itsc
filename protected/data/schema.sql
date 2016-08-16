@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-08-09 11:33:16
+-- Generation Time: 2016-08-16 13:58:58
 -- 服务器版本： 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -87,13 +87,25 @@ CREATE TABLE `t_exif` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `t_folder`
+--
+
+CREATE TABLE `t_folder` (
+  `path` varchar(512) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `t_image`
 --
 
 CREATE TABLE `t_image` (
   `id` char(32) NOT NULL DEFAULT '',
   `path` varchar(512) NOT NULL,
-  `create_at` datetime DEFAULT NULL
+  `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -105,6 +117,12 @@ CREATE TABLE `t_image` (
 --
 ALTER TABLE `t_exif`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `t_folder`
+--
+ALTER TABLE `t_folder`
+  ADD KEY `path` (`path`(255));
 
 --
 -- Indexes for table `t_image`
