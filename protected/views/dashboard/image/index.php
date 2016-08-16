@@ -11,14 +11,14 @@ $this->breadcrumbs=array(
 <div class="row">
 	<div class="col-md-8">
 		<div class="row">
-			<?php foreach ($folders as $folder) {?>
+			<?php foreach ($folders as $path => $folder) {?>
 			<div class="col-md-4">
-				<div class="thumbnail">
-					<div class="caption">
-						<h3><?php echo Yii::t('itsc', 'Folder') . ' ' . basename($folder->path) ; ?></h3>
+				<div class="card">
+					<div class="card-block">
+						<h4 class="card-title"><?php echo Yii::t('itsc', 'Folder') . ' ' . basename($folder->path) ; ?></h4>
 						<p>
-							<a href="<?php echo $this->createUrl('dashboard/image/build', array('path' => basename($folder->path))); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Build');?></a>
-							<a href="<?php echo $this->createUrl('dashboard/image', array('path' => basename($folder->path))); ?>" class="btn btn-success" role="button"><?php echo Yii::t('itsc', 'Open');?></a>
+							<a href="<?php echo $this->createUrl('dashboard/image/build', array('path' => $path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Build');?></a>
+							<a href="<?php echo $this->createUrl('dashboard/image', array('path' => $path)); ?>" class="btn btn-success" role="button"><?php echo Yii::t('itsc', 'Open');?></a>
 						</p>
 					</div>
 				</div>

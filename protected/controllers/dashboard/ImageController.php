@@ -19,7 +19,7 @@ class ImageController extends Controller {
 						print_r($folder->getErrors());exit;
 					}
 				}
-				$folders[] = $folder;
+				$folders[str_replace(Yii::app()->params['imagePath'] . '\\', '', $folder->path)] = $folder;
 			}
 		}
 		$this->render('index', array('folders' => $folders));

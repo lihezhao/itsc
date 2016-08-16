@@ -16,6 +16,7 @@ class DirectoryReader {
 						if (!$image->save()) {
 							print_r($image->getErrors());exit;
 						}
+						$image = ImageFile::model()->find('path=:path', array(':path'=>$fileName));
 						$exif->id = $image->id;
 						$exif->insert();
 					}
