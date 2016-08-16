@@ -10,7 +10,16 @@ class ImageController extends Controller {
 		$folders = array();
 		foreach ($di as $file) {
 			if ($file->isDir() && !$file->isDot()) {
-				$folders[] = $file->getFilename();
+				$folder = Folder::model()->find('path=:path', array(':path' => $file->getPathname()));
+				if ($folder) {
+				} else {
+					$folder = new Folder();
+					$folder->path = $file->getPathname();
+					if (!$folder->save()) {
+						print_r($folder->getErrors());exit;
+					}
+				}
+				$folders[] = $folder;
 			}
 		}
 		$this->render('index', array('folders' => $folders));

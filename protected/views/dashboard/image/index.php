@@ -15,10 +15,10 @@ $this->breadcrumbs=array(
 			<div class="col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
-						<h3><?php echo $folder; ?></h3>
+						<h3><?php echo Yii::t('itsc', 'Folder') . ' ' . basename($folder->path) ; ?></h3>
 						<p>
-							<a href="<?php echo $this->createUrl('dashboard/image/build', array('path' => $folder)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Build');?></a>
-							<a href="<?php echo $this->createUrl('dashboard/image', array('path' => $folder)); ?>" class="btn btn-success" role="button"><?php echo Yii::t('itsc', 'Open');?></a>
+							<a href="<?php echo $this->createUrl('dashboard/image/build', array('path' => basename($folder->path))); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Build');?></a>
+							<a href="<?php echo $this->createUrl('dashboard/image', array('path' => basename($folder->path))); ?>" class="btn btn-success" role="button"><?php echo Yii::t('itsc', 'Open');?></a>
 						</p>
 					</div>
 				</div>
@@ -28,5 +28,6 @@ $this->breadcrumbs=array(
 	</div>
 	<div class="col-md-4">
 	</div>
+	
 </div>
 

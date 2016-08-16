@@ -6,7 +6,7 @@
  * The followings are the available columns in table '{{image}}':
  * @property string $id
  * @property string $path
- * @property string $create_at
+ * @property string $created_at
  *
  * The followings are the available model relations:
  * @property Exif $exif
@@ -32,10 +32,10 @@ class BaseImage extends CActiveRecord
 			array('path', 'required'),
 			array('id', 'length', 'max'=>32),
 			array('path', 'length', 'max'=>512),
-			array('create_at', 'safe'),
+			array('created_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, path, create_at', 'safe', 'on'=>'search'),
+			array('id, path, created_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +59,7 @@ class BaseImage extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'path' => 'Path',
-			'create_at' => 'Create At',
+			'created_at' => 'Created At',
 		);
 	}
 
@@ -83,7 +83,7 @@ class BaseImage extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('create_at',$this->create_at,true);
+		$criteria->compare('created_at',$this->created_at,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

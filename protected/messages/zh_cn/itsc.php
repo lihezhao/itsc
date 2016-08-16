@@ -16,5 +16,6 @@ return array(
 		'Image' => '图片',
 		'Help' => '帮助',
 		'Settings' => '设置',
+		'Folder' => '文件夹',
 		
 );
