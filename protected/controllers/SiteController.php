@@ -30,6 +30,8 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		
+		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
+		
 		$dataProvider = new CActiveDataProvider('Exif', array(
 			'criteria' => array(
 				'order' => 'dateTimeOriginal DESC',
@@ -41,7 +43,6 @@ class SiteController extends Controller
 		));
 		
 		$this->render('index', array('dataProvider' => $dataProvider));
-		
 	}
 
 	/**
