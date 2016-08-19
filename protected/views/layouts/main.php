@@ -59,8 +59,6 @@
 
 	<?php echo $content; ?>
 
-	<div class="clear"></div>
-
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
 		All Rights Reserved.<br/>
@@ -71,13 +69,6 @@
 <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
 <script src="//cdn.bootcss.com/masonry/4.1.0/masonry.pkgd.min.js"></script>
-<script>
-$('.grid').masonry({
-	  // options
-	  itemSelector: '.grid-item',
-	  columnWidth: 256,
-	  isAnimated: true,
-	});
-</script>
+
 </body>
 </html>

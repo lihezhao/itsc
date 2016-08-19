@@ -22,9 +22,22 @@ $this->pageTitle=Yii::app()->name;
 	'itemCssClass' => 'nav-item',
 ));
 ?>
+<input type="hidden" id="imageUrl" value="<?php echo $this->createUrl('image/thumb') ?>">
+
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider' => $dataProvider,
   	'itemView' => '_view',
   	'itemsCssClass' => 'grid',
+	'pager' => array(
+			'header' => '',
+			'class' => 'LinkPager',
+			'internalPageCssClass' => 'page-item',
+			'firstPageCssClass' => 'page-item',
+			'previousPageCssClass' => 'page-item',
+			'nextPageCssClass' => 'page-item',
+			'lastPageCssClass' => 'page-item',
+			'selectedPageCssClass' => 'active',
+			'htmlOptions' => array('class' => 'pagination m-x-auto'),
+	),
+	'pagerCssClass' => 'Page navigation',
 ));?>
-

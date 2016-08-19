@@ -5,7 +5,7 @@
 
 <div class="grid-item">
 	<a href="#">
-		<img class="img-thumbnail" src="<?php echo $data->getThumb(256, 256) ?>">
+		<img class="img-thumbnail" id="<?php echo $data->id ?>">
 	</a>
 	<div class="caption">
 	<b><?php echo CHtml::encode($data->getAttributeLabel('dateTimeOriginal')); ?>:</b>

@@ -28,7 +28,7 @@ class ImageController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'thumb'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -152,7 +152,7 @@ class ImageController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Image::model()->findByPk($id);
+		$model=ImageFile::model('ImageFile')->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -169,5 +169,10 @@ class ImageController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	public function actionThumb($id, $width, $height) {
+		$exif = Exif::model('Exif')->findByPk($id);
+		echo $exif->getThumb($width, $height);
 	}
 }
