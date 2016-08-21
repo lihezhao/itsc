@@ -5,10 +5,33 @@ $this->pageTitle=Yii::app()->name;
 ?>
 
 <?php $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'image-search-form',
+	'id' => 'search-form',
+	'action' => Yii::app()->createUrl($this->route),
 	'method' => 'get',
 ));?>
-<div class="form-group"></div>
+<div class="form-group">
+	<?php echo $form->labelEx($model, 'make')?>
+	<?php echo $form->checkBoxList($model, 'make',
+			$makeData,
+			array('template' => '<label class="custom-control custom-checkbox">{input}<span class="custom-control-indicator"></span><span class="custom-control-description">{labelTitle}</span></label>',
+					'separator' => '',
+					'class' => 'custom-control-input',
+					'uncheckValue' => null,
+					'container' => '',
+			))?>
+</div>
+<div class="form-group">
+	<?php echo $form->labelEx($model, 'isoSpeedRatings')?>
+	<?php echo $form->checkBoxList($model, 'isoSpeedRatings',
+			$isoSpeedRatingsData,
+			array('template' => '<label class="custom-control custom-checkbox">{input}<span class="custom-control-indicator"></span><span class="custom-control-description">{labelTitle}</span></label>',
+				  'separator' => '',
+				  'class' => 'custom-control-input',
+				  'uncheckValue' => null,
+				  'container' => '',
+			))?>
+</div>
+
 <?php $this->endWidget() ?>
 
 <?php $this->widget('zii.widgets.CMenu', array(

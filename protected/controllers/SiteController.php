@@ -29,11 +29,45 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		
+		$model = new ImageForm;
+		$isoSpeedRatings = ISOSpeedRatings::model('ISOSpeedRatings')->findAll();
+		$isoSpeedRatingsData = array();
+		foreach ($isoSpeedRatings as $isoSpeedRating) {
+			$isoSpeedRatingsData[$isoSpeedRating->isospeedratings] = $isoSpeedRating->isospeedratings . '(' . $isoSpeedRating->count . ')';
+		}
+		$makes = Make::model('Make')->findAll();
+		$makeData = array();
+		foreach ($makes as $make) {
+			$makeData[$make->make] = $make->make . '(' . $make->count . ')';
+		}
 		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
+
+		$condition = '1=1 ';
+		
+		if (isset($_GET['ImageForm']['isoSpeedRatings'])) {
+			$model->isoSpeedRatings = $_GET['ImageForm']['isoSpeedRatings'];
+			$condition .= 'and (';
+		
+			foreach ($_GET['ImageForm']['isoSpeedRatings'] as $isospeedrating) {
+				if ($isospeedrating != '') {
+					$condition .= 'isospeedratings=' . $isospeedrating . ' or ';
+				}
+			}
+			$condition = substr($condition, 0, strlen($condition) - 4) . ')';
+		}
+		if (isset($_GET['ImageForm']['make'])) {
+			$model->make = $_GET['ImageForm']['make'];
+			$condition .= 'and (';
+		
+			foreach ($_GET['ImageForm']['make'] as $make) {
+				$condition .= 'make="' . $make . '" or ';
+			}
+			$condition = substr($condition, 0, strlen($condition) - 4) . ')';
+		}
 		
 		$dataProvider = new CActiveDataProvider('Exif', array(
 			'criteria' => array(
+				'condition' => $condition,
 				'order' => 'dateTimeOriginal DESC',
 			),
 			'pagination' => array(
@@ -42,7 +76,13 @@ class SiteController extends Controller
 
 		));
 		
-		$this->render('index', array('dataProvider' => $dataProvider));
+		$this->render('index',
+					  array('model' => $model,
+					  		'isoSpeedRatings' => $isoSpeedRatings,
+					  		'isoSpeedRatingsData' => $isoSpeedRatingsData,
+					  		'make' => $make,
+					  		'makeData' => $makeData,
+					  		'dataProvider' => $dataProvider));
 	}
 
 	/**

@@ -24,5 +24,10 @@ $(function() {
 			}
 		});
 	});
-	
+	$('input[name="ImageForm[isoSpeedRatings][]"]').click(function() {
+		$('#search-form').submit();
+	});
+	$('input[name="ImageForm[make][]"]').click(function() {
+		$('#search-form').submit();
+	});
 });

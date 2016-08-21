@@ -17,5 +17,6 @@ return array(
 		'Help' => '帮助',
 		'Settings' => '设置',
 		'Folder' => '文件夹',
-		
+		'ISOSpeedRatings' => 'ISO感光度',
+		'Make' => '设备制造商',
 );

@@ -6,7 +6,7 @@ class Exif extends BaseExif {
 	public function getFileType() {
 		return $this->imgtype[$this->fileType];
 	}
-	
+		
 	public function getThumb($width, $height) {
 	
 		$dir = pathinfo($this->pathName, PATHINFO_DIRNAME);
@@ -20,8 +20,13 @@ class Exif extends BaseExif {
 			$image = Yii::app()->image->load($this->pathName);
 	
 			$image->resize($width, $height);
-			if ($this->orientation == 8) {
-				$image->rotate(270);
+			switch ($this->orientation) {
+				case 6:
+					$image->rotate(90);
+					break;
+				case 8:
+					$image->rotate(270);
+					break;
 			}
 	
 			if (is_dir($thumbPath)) {
