@@ -38,4 +38,24 @@ class Exif extends BaseExif {
 		return str_replace(Yii::app()->params['thumbPath'],
 				Yii::app()->params['thumbUrl'], $fileName);
 	}
+	
+	public static function buildStatsTables() {
+		$sql = 'drop table {{flash}};';
+		$sql .= 'create table {{flash}} as select flash, count(*) as count from {{exif}} group by flash;';
+		$sql .= 'drop table {{make}};';
+		$sql .= 'create table {{make}} as select make, count(*) as count from {{exif}} group by make;';
+		$sql .= 'drop table {{isospeedratings}};';
+		$sql .= 'create table {{isospeedratings}} as select ISOSpeedRatings, count(*) as count from {{exif}} group by ISOSpeedRatings;';
+		$sql .= 'drop table {{focallength}};';
+		$sql .= 'create table {{focallength}} as select focalLength, count(*) as count from {{exif}} group by focalLength;';
+		$sql .= 'drop table {{exposuretime}};';
+		$sql .= 'create table {{exposuretime}} as select exposureTime, count(*) as count from {{exif}} group by exposureTime;';
+		$sql .= 'drop table {{aperturefnumber}};';
+		$sql .= 'create table {{aperturefnumber}} as select apertureFNumber, count(*) as count from {{exif}} group by apertureFNumber;';
+		$sql .= 'drop table {{model}};';
+		$sql .= 'create table {{model}} as select model, count(*) as count from {{exif}} group by model;';
+		$connection = Yii::app()->db;
+		$command = $connection->createCommand($sql);
+		$command->execute();
+	}
 }
