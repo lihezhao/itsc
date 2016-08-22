@@ -30,40 +30,17 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$model = new ImageForm;
-		$isoSpeedRatings = ISOSpeedRatings::model('ISOSpeedRatings')->findAll();
-		$isoSpeedRatingsData = array();
-		foreach ($isoSpeedRatings as $isoSpeedRating) {
-			$isoSpeedRatingsData[$isoSpeedRating->isospeedratings] = $isoSpeedRating->isospeedratings . '(' . $isoSpeedRating->count . ')';
-		}
-		$makes = Make::model('Make')->findAll();
-		$makeData = array();
-		foreach ($makes as $make) {
-			$makeData[$make->make] = $make->make . '(' . $make->count . ')';
-		}
 		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
 
 		$condition = '1=1 ';
 		
-		if (isset($_GET['ImageForm']['isoSpeedRatings'])) {
-			$model->isoSpeedRatings = $_GET['ImageForm']['isoSpeedRatings'];
-			$condition .= 'and (';
-		
-			foreach ($_GET['ImageForm']['isoSpeedRatings'] as $isospeedrating) {
-				if ($isospeedrating != '') {
-					$condition .= 'isospeedratings=' . $isospeedrating . ' or ';
-				}
-			}
-			$condition = substr($condition, 0, strlen($condition) - 4) . ')';
-		}
-		if (isset($_GET['ImageForm']['make'])) {
-			$model->make = $_GET['ImageForm']['make'];
-			$condition .= 'and (';
-		
-			foreach ($_GET['ImageForm']['make'] as $make) {
-				$condition .= 'make="' . $make . '" or ';
-			}
-			$condition = substr($condition, 0, strlen($condition) - 4) . ')';
-		}
+		$condition = $this->addCondition($model, 'isoSpeedRatings', $condition);
+		$condition = $this->addCondition($model, 'make', $condition);
+		$condition = $this->addCondition($model, 'flash', $condition);
+		$condition = $this->addCondition($model, 'focalLength', $condition);
+		$condition = $this->addCondition($model, 'exposureTime', $condition);
+		$condition = $this->addCondition($model, 'apertureFNumber', $condition);
+		$condition = $this->addCondition($model, 'model', $condition);
 		
 		$dataProvider = new CActiveDataProvider('Exif', array(
 			'criteria' => array(
@@ -78,11 +55,27 @@ class SiteController extends Controller
 		
 		$this->render('index',
 					  array('model' => $model,
-					  		'isoSpeedRatings' => $isoSpeedRatings,
-					  		'isoSpeedRatingsData' => $isoSpeedRatingsData,
-					  		'make' => $make,
-					  		'makeData' => $makeData,
+					  		'isoSpeedRatingsData' => ISOSpeedRatings::listData(),
+					  		'makeData' => Make::listData(),
+					  		'flashData' => Flash::listData(),
+					  		'focalLengthData' => FocalLength::listData(),
+					  		'exposureTimeData' => ExposureTime::listData(),
+					  		'apertureFNumberData' => ApertureFNumber::listData(),
+					  		'modelData' => Model::listData(),
 					  		'dataProvider' => $dataProvider));
+	}
+	
+	private function addCondition($model, $field, $condition) {
+		if (isset($_GET['ImageForm'][$field])) {
+			$model->$field = $_GET['ImageForm'][$field];
+			$condition .= 'and (';
+		
+			foreach ($_GET['ImageForm'][$field] as $v) {
+				$condition .= $field . '="' . $v . '" or ';
+			}
+			$condition = substr($condition, 0, strlen($condition) - 4) . ')';
+		}
+		return $condition;
 	}
 
 	/**

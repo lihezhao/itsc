@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-08-16 13:58:58
+-- Generation Time: 2016-08-22 13:05:16
 -- 服务器版本： 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -19,6 +19,17 @@ SET time_zone = "+00:00";
 --
 -- Database: `itsc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_aperturefnumber`
+--
+
+CREATE TABLE `t_aperturefnumber` (
+  `apertureFNumber` varchar(16) NOT NULL COMMENT '快门光圈',
+  `count` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -56,9 +67,9 @@ CREATE TABLE `t_exif` (
   `width` int(11) NOT NULL COMMENT '拍摄分辨率宽',
   `apertureValue` int(11) NOT NULL COMMENT '光圈',
   `shutterSpeedValue` int(11) NOT NULL COMMENT '快门速度',
-  `apertureFNumber` int(11) NOT NULL COMMENT '快门光圈',
+  `apertureFNumber` varchar(16) NOT NULL COMMENT '快门光圈',
   `maxApertureValue` int(11) NOT NULL COMMENT '最大光圈值',
-  `exposureTime` int(11) NOT NULL COMMENT '曝光时间',
+  `exposureTime` varchar(8) NOT NULL COMMENT '曝光时间',
   `fNumber` int(11) NOT NULL COMMENT 'F-Number',
   `meteringMode` int(11) NOT NULL COMMENT '测光模式',
   `lightSource` int(11) NOT NULL COMMENT '光源',
@@ -87,6 +98,39 @@ CREATE TABLE `t_exif` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `t_exposuretime`
+--
+
+CREATE TABLE `t_exposuretime` (
+  `exposureTime` varchar(8) NOT NULL COMMENT '曝光时间',
+  `count` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_flash`
+--
+
+CREATE TABLE `t_flash` (
+  `flash` int(11) NOT NULL COMMENT '闪光灯',
+  `count` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_focallength`
+--
+
+CREATE TABLE `t_focallength` (
+  `focalLength` int(11) NOT NULL COMMENT '焦距',
+  `count` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `t_folder`
 --
 
@@ -106,6 +150,39 @@ CREATE TABLE `t_image` (
   `id` char(32) NOT NULL DEFAULT '',
   `path` varchar(512) NOT NULL,
   `created_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_isospeedratings`
+--
+
+CREATE TABLE `t_isospeedratings` (
+  `ISOSpeedRatings` int(11) NOT NULL COMMENT 'ISO感光度',
+  `count` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_make`
+--
+
+CREATE TABLE `t_make` (
+  `make` varchar(128) NOT NULL COMMENT '制造商',
+  `count` bigint(21) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_model`
+--
+
+CREATE TABLE `t_model` (
+  `model` varchar(128) NOT NULL COMMENT '型号',
+  `count` bigint(21) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

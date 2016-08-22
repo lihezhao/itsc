@@ -4,10 +4,10 @@
  * This is the model class for table "{{isospeedratings}}".
  *
  * The followings are the available columns in table '{{isospeedratings}}':
- * @property integer $isospeedratings
- * @property integer $count
+ * @property integer $ISOSpeedRatings
+ * @property string $count
  */
-class BaseISOSpeedRatings extends CActiveRecord
+class BaseIsospeedratings extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -25,10 +25,12 @@ class BaseISOSpeedRatings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('isospeedratings, count', 'numerical', 'integerOnly'=>true),
+			array('ISOSpeedRatings', 'required'),
+			array('ISOSpeedRatings', 'numerical', 'integerOnly'=>true),
+			array('count', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('isospeedratings, count', 'safe', 'on'=>'search'),
+			array('ISOSpeedRatings, count', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,7 +51,7 @@ class BaseISOSpeedRatings extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'isospeedratings' => 'Isospeedratings',
+			'ISOSpeedRatings' => 'ISO感光度',
 			'count' => 'Count',
 		);
 	}
@@ -72,8 +74,8 @@ class BaseISOSpeedRatings extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('isospeedratings',$this->isospeedratings);
-		$criteria->compare('count',$this->count);
+		$criteria->compare('ISOSpeedRatings',$this->ISOSpeedRatings);
+		$criteria->compare('count',$this->count,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -84,7 +86,7 @@ class BaseISOSpeedRatings extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return BaseISOSpeedRatings the static model class
+	 * @return BaseIsospeedratings the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -18,5 +18,10 @@ return array(
 		'Settings' => '设置',
 		'Folder' => '文件夹',
 		'ISOSpeedRatings' => 'ISO感光度',
-		'Make' => '设备制造商',
+		'Make' => '照相机制造商',
+		'Model' => '照相机型号',
+		'Flash' => '闪光灯模式',
+		'Focal Length (mm)' => '焦距 (毫米)',
+		'Exposure Time (s)' => '曝光时间 (秒)',
+		'Aperture FNumber' => '光圈值',
 );
