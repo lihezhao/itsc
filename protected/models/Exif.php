@@ -90,9 +90,10 @@ class Exif extends BaseExif {
 					$val = self::getVal($row[$field], self::$lightSourceArr);
 					break;
 				default:
-					$val = $row[$field];
+					$val = $row[$field] == '' ? '未知' : $row[$field];
 			}
-			$result[$row[$field]] = $val . '(' . $row['cnt'] . ')';
+			$key = $row[$field] == '' ? 'unknown' : $row[$field];
+			$result[$key] = $val . '(' . $row['cnt'] . ')';
 		}
 		return $result;
 	}

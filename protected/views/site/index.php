@@ -3,7 +3,7 @@
 
 $this->pageTitle=Yii::app()->name;
 ?>
-
+<div class="card card-block">
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'id' => 'search-form',
 	'action' => Yii::app()->createUrl($this->route),
@@ -11,8 +11,8 @@ $this->pageTitle=Yii::app()->name;
 ));?>
 <?php foreach ($listDatas as $field => $listData) {?>
 <div class="form-group row">
-	<?php echo $form->labelEx($model, $field, array('class' => 'col-md-2 col-form-label'))?>
-	<div class="col-md-10 col-form-label">
+	<?php echo $form->labelEx($model, $field, array('class' => 'col-md-2 col-form-label col-form-label-sm'))?>
+	<div class="col-md-10 col-form-label col-form-label-sm">
 	<div class="row">
 	<?php echo $form->checkBoxList($model, $field,
 			$listData,
@@ -27,7 +27,7 @@ $this->pageTitle=Yii::app()->name;
 </div>
 <?php }?>
 <?php $this->endWidget() ?>
-
+</div>
 <?php $this->widget('zii.widgets.CMenu', array(
 	'htmlOptions' => array('class' => 'nav nav-tabs'),
 	'items' => array(

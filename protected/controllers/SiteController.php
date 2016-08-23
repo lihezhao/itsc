@@ -79,6 +79,7 @@ class SiteController extends Controller
 			$condition .= 'and (';
 		
 			foreach ($_GET['ImageForm'][$field] as $v) {
+				$v = $v == 'unknown' ? '' : $v;
 				$condition .= $field . '="' . $v . '" or ';
 			}
 			$condition = substr($condition, 0, strlen($condition) - 4) . ')';
