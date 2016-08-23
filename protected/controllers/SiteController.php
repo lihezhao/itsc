@@ -41,6 +41,9 @@ class SiteController extends Controller
 		$condition = $this->addCondition($model, 'exposureTime', $condition);
 		$condition = $this->addCondition($model, 'apertureFNumber', $condition);
 		$condition = $this->addCondition($model, 'model', $condition);
+		$condition = $this->addCondition($model, 'exposureBiasValue', $condition);
+		$condition = $this->addCondition($model, 'meteringMode', $condition);
+		$condition = $this->addCondition($model, 'lightSource', $condition);
 		
 		$dataProvider = new CActiveDataProvider('Exif', array(
 			'criteria' => array(
@@ -55,13 +58,18 @@ class SiteController extends Controller
 		
 		$this->render('index',
 					  array('model' => $model,
-					  		'isoSpeedRatingsData' => ISOSpeedRatings::listData(),
-					  		'makeData' => Make::listData(),
-					  		'flashData' => Flash::listData(),
-					  		'focalLengthData' => FocalLength::listData(),
-					  		'exposureTimeData' => ExposureTime::listData(),
-					  		'apertureFNumberData' => ApertureFNumber::listData(),
-					  		'modelData' => Model::listData(),
+					  		'listDatas' => array(
+					  			'isoSpeedRatings' => Exif::listData('ISOSpeedRatings'),
+					  			'make' => Exif::listData('make'),
+					  			'flash' => Exif::listData('flash'),
+					  			'focalLength' => Exif::listData('focalLength'),
+					  			'exposureTime' => Exif::listData('exposureTime'),
+					  			'apertureFNumber' => Exif::listData('apertureFNumber'),
+					  			'model' => Exif::listData('model'),
+					  			'exposureBiasValue' => Exif::listData('exposureBiasValue'),
+					  			'meteringMode' => Exif::listData('meteringMode'),
+					  			'lightSource' => Exif::listData('lightSource'),
+					  		),
 					  		'dataProvider' => $dataProvider));
 	}
 	
