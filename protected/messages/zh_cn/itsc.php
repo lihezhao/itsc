@@ -24,4 +24,7 @@ return array(
 		'Focal Length (mm)' => '焦距 (毫米)',
 		'Exposure Time (s)' => '曝光时间 (秒)',
 		'Aperture FNumber' => '光圈值',
+		'Exposure Bias Value' => '曝光补偿',
+		'Metering Mode' => '测光模式',
+		'Light Source' => '光源',
 );

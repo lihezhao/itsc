@@ -24,25 +24,7 @@ $(function() {
 			}
 		});
 	});
-	$('input[name="ImageForm[isoSpeedRatings][]"]').click(function() {
-		$('#search-form').submit();
-	});
-	$('input[name="ImageForm[make][]"]').click(function() {
-		$('#search-form').submit();
-	});
-	$('input[name="ImageForm[flash][]"]').click(function() {
-		$('#search-form').submit();
-	});
-	$('input[name="ImageForm[focalLength][]"]').click(function() {
-		$('#search-form').submit();
-	});
-	$('input[name="ImageForm[exposureTime][]"]').click(function() {
-		$('#search-form').submit();
-	});
-	$('input[name="ImageForm[apertureFNumber][]"]').click(function() {
-		$('#search-form').submit();
-	});
-	$('input[name="ImageForm[model][]"]').click(function() {
+	$('.custom-control-input').click(function() {
 		$('#search-form').submit();
 	});
 

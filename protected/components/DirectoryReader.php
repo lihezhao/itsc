@@ -23,6 +23,5 @@ class DirectoryReader {
 				}
 			}
 		}
-		Exif::buildStatsTables();
 	}
 }

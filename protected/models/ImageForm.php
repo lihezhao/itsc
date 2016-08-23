@@ -7,6 +7,9 @@ class ImageForm extends CFormModel {
 	public $exposureTime;
 	public $apertureFNumber;
 	public $model;
+	public $exposureBiasValue;
+	public $meteringMode;
+	public $lightSource;
 	public function attributeLabels() {
 		return array(
 			'isoSpeedRatings' => Yii::t('itsc', 'ISOSpeedRatings'),
@@ -16,6 +19,9 @@ class ImageForm extends CFormModel {
 			'exposureTime' => Yii::t('itsc', 'Exposure Time (s)'),
 			'apertureFNumber' => Yii::t('itsc', 'Aperture FNumber'),
 			'model' => Yii::t('itsc', 'Model'),
+			'exposureBiasValue' => Yii::t('itsc', 'Exposure Bias Value'),
+			'meteringMode' => Yii::t('itsc', 'Metering Mode'),
+			'lightSource' => Yii::t('itsc', 'Light Source'),
 		);
 	}
 }

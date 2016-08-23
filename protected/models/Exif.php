@@ -39,23 +39,61 @@ class Exif extends BaseExif {
 				Yii::app()->params['thumbUrl'], $fileName);
 	}
 	
-	public static function buildStatsTables() {
-		$sql = 'drop table {{flash}};';
-		$sql .= 'create table {{flash}} as select flash, count(*) as count from {{exif}} group by flash;';
-		$sql .= 'drop table {{make}};';
-		$sql .= 'create table {{make}} as select make, count(*) as count from {{exif}} group by make;';
-		$sql .= 'drop table {{isospeedratings}};';
-		$sql .= 'create table {{isospeedratings}} as select ISOSpeedRatings, count(*) as count from {{exif}} group by ISOSpeedRatings;';
-		$sql .= 'drop table {{focallength}};';
-		$sql .= 'create table {{focallength}} as select focalLength, count(*) as count from {{exif}} group by focalLength;';
-		$sql .= 'drop table {{exposuretime}};';
-		$sql .= 'create table {{exposuretime}} as select exposureTime, count(*) as count from {{exif}} group by exposureTime;';
-		$sql .= 'drop table {{aperturefnumber}};';
-		$sql .= 'create table {{aperturefnumber}} as select apertureFNumber, count(*) as count from {{exif}} group by apertureFNumber;';
-		$sql .= 'drop table {{model}};';
-		$sql .= 'create table {{model}} as select model, count(*) as count from {{exif}} group by model;';
+	private static $meteringModeArr = array(
+		"0"   =>  "未知",
+		"1"   =>  "平均",
+		"2"   =>  "中央重点平均测光",
+		"3"   =>  "点",
+		"4"   =>  "分区",
+		"5"   =>  "评估",
+		"6"   =>  "局部",
+		"255" =>  "其他"
+    );
+	
+	private static $lightSourceArr = array(
+		"0"    =>  "未知",
+		"1"    =>  "日光",
+		"2"    =>  "荧光灯",
+		"3"    =>  "钨丝灯",
+		"10"  =>  "闪光灯",
+		"17"  =>  "标准灯光A",
+		"18"  =>  "标准灯光B",
+		"19"  =>  "标准灯光C",
+		"20"  =>  "D55",
+		"21"  =>  "D65",
+		"22"  =>  "D75",
+		"255"  =>  "其他"
+    );
+	
+	private static $resolutionUnitArr = array(
+		"",
+		"",
+		"英寸",
+		"厘米");
+	
+	private static function getVal($name, $arr) {
+		return isset($arr[$name]) ? $arr[$name] : '未知'; 
+	}
+	
+	public static function listData($field) {
+		$result = array();
+		$sql = "select $field, count(*) as cnt from {{exif}} group by $field";
 		$connection = Yii::app()->db;
 		$command = $connection->createCommand($sql);
-		$command->execute();
+		$rows = $command->queryAll();
+		foreach ($rows as $row) {
+			switch ($field) {
+				case 'meteringMode':
+					$val = self::getVal($row[$field], self::$meteringModeArr);
+					break;
+				case 'lightSource':
+					$val = self::getVal($row[$field], self::$lightSourceArr);
+					break;
+				default:
+					$val = $row[$field];
+			}
+			$result[$row[$field]] = $val . '(' . $row['cnt'] . ')';
+		}
+		return $result;
 	}
 }
