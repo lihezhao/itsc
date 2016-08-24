@@ -58,17 +58,21 @@ class SiteController extends Controller
 		
 		$this->render('index',
 					  array('model' => $model,
-					  		'listDatas' => array(
-					  			'isoSpeedRatings' => Exif::listData('ISOSpeedRatings'),
-					  			'make' => Exif::listData('make'),
-					  			'flash' => Exif::listData('flash'),
-					  			'focalLength' => Exif::listData('focalLength'),
-					  			'exposureTime' => Exif::listData('exposureTime'),
-					  			'apertureFNumber' => Exif::listData('apertureFNumber'),
-					  			'model' => Exif::listData('model'),
-					  			'exposureBiasValue' => Exif::listData('exposureBiasValue'),
-					  			'meteringMode' => Exif::listData('meteringMode'),
-					  			'lightSource' => Exif::listData('lightSource'),
+					  		'filterGroups' => array(
+					  				'Basic' => array(
+					  						'make' => Exif::listData('make'),
+					  						'model' => Exif::listData('model'),
+					  				),
+					  				'Advanced' => array(
+					  						'flash' => Exif::listData('flash'),
+					  						'focalLength' => Exif::listData('focalLength'),
+					  						'exposureTime' => Exif::listData('exposureTime'),
+					  						'isoSpeedRatings' => Exif::listData('ISOSpeedRatings'),
+					  						'apertureFNumber' => Exif::listData('apertureFNumber'),
+					  						'exposureBiasValue' => Exif::listData('exposureBiasValue'),
+					  						'meteringMode' => Exif::listData('meteringMode'),
+					  						'lightSource' => Exif::listData('lightSource'),
+					  				),
 					  		),
 					  		'dataProvider' => $dataProvider));
 	}

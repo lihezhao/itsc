@@ -27,4 +27,7 @@ return array(
 		'Exposure Bias Value' => '曝光补偿',
 		'Metering Mode' => '测光模式',
 		'Light Source' => '光源',
+		'Basic' => '基本',
+		'Advanced' => '高级',
+		'OK' => '确定',
 );

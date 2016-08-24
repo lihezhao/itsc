@@ -1,6 +1,6 @@
 <?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,7 +67,7 @@
 
 </div><!-- page -->
 <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>
 <script src="//cdn.bootcss.com/masonry/4.1.0/masonry.pkgd.min.js"></script>
 
 </body>
