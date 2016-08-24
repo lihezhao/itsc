@@ -59,13 +59,22 @@
 
 	<?php echo $content; ?>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
 
-</div><!-- page -->
+</div>
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<p>
+				Copyright &copy; <?php echo date('Y'); ?> by ITSC.org.cn
+				All Rights Reserved.
+				<?php echo Yii::powered(); ?>
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
 <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>
 <script src="//cdn.bootcss.com/masonry/4.1.0/masonry.pkgd.min.js"></script>
