@@ -165,4 +165,18 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+	
+	public function actionSignup() {
+		$model = new SignupForm;
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'signup-form') {
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+		if (isset($_POST['SignupForm'])) {
+			$model->attributes = $_POST['SignupForm'];
+			if ($model->validate() && $model->signup())
+				$this->redirect(Yii::app()->user->returnUrl);
+		}
+		$this->render('signup', array('model' => $model));
+	}
 }

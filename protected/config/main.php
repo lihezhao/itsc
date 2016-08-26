@@ -2,7 +2,7 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-Yii::setPathOfAlias('blog', Yii::getFrameworkPath() . '/../demos/blog');
+Yii::setPathOfAlias('blog', Yii::getFrameworkPath() . '/../demos/blog/protected');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -18,7 +18,8 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.helpers.*',
-		'blog.protected.components.UserIdentity',
+		'blog.components.UserIdentity',
+		'blog.models.User',
 	),
 
 	'modules'=>array(
