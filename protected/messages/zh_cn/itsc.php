@@ -10,6 +10,7 @@ return array(
 		'Password Confirm' => '密码确认',
 		'Email' => '电子邮箱',
 		'Profile' => '自我介绍',
+		'Verification Code' => '验证码',
 		'Remember me next time' => '记住我的登录状态',
 		'Dashboard' => '控制台',
 		'Logout' => '退出登录',

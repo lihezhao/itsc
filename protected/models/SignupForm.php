@@ -6,13 +6,13 @@ class SignupForm extends CFormModel {
 	public $passwordConfirm;
 	public $email;
 	public $profile;
-	
+	public $verifyCode;
 	
 	public function rules() {
 		return array(
 			array('username, password, passwordConfirm, email, profile', 'required'),
 			array('passwordConfirm', 'authenticate'),
-				
+			array('verifyCode', 'captcha', 'allowEmpty' => !CCaptcha::checkRequirements()),
 		);
 	}
 	
@@ -23,6 +23,7 @@ class SignupForm extends CFormModel {
 			'passwordConfirm' => Yii::t('itsc', 'Password Confirm'),
 			'email' => Yii::t('itsc', 'Email'),
 			'profile' => Yii::t('itsc', 'Profile'),
+			'verifyCode' => Yii::t('itsc', 'Verification Code'),
 		);
 	}
 	
