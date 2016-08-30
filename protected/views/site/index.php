@@ -71,4 +71,5 @@ $this->pageTitle=Yii::app()->name;
 			'htmlOptions' => array('class' => 'pagination m-x-auto'),
 	),
 	'pagerCssClass' => 'Page navigation',
+	'afterAjaxUpdate' => 'loadImages',
 ));?>

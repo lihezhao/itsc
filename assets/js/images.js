@@ -1,4 +1,8 @@
 $(function() {
+	loadImages(null, null);
+});
+
+function loadImages(id, data) {
 	var images = $('.img-thumbnail');
 	var url = $('#imageUrl').val();
 	var count = 0;
@@ -24,5 +28,4 @@ $(function() {
 			}
 		});
 	});
-
-});
+}

@@ -5,12 +5,11 @@ class SignupForm extends CFormModel {
 	public $password;
 	public $passwordConfirm;
 	public $email;
-	public $profile;
 	public $verifyCode;
 	
 	public function rules() {
 		return array(
-			array('username, password, passwordConfirm, email, profile', 'required'),
+			array('username, password, passwordConfirm, email, verifyCode', 'required'),
 			array('passwordConfirm', 'authenticate'),
 			array('verifyCode', 'captcha', 'allowEmpty' => !CCaptcha::checkRequirements()),
 		);
@@ -36,6 +35,11 @@ class SignupForm extends CFormModel {
 	}
 	
 	public function signup() {
-		
+		$model = new ItscUser;
+		$model->attributes = $this->attributes;
+		if (!$model->save()) {
+			print_r($model->getErrors());exit;
+		}
+		return true;
 	}
 }

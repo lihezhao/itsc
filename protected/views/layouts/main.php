@@ -21,14 +21,14 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-fixed-top navbar-light bg-faded">
+	<nav class="navbar navbar-fixed-top navbar-dark bg-faded" style="background-color: #5774c2;">
 		<div class="container">
 			<a class="navbar-brand" href="#">ITSC</a>
 				<?php $this->widget('zii.widgets.CMenu',array(
 					'htmlOptions' => array('class' => 'nav navbar-nav', 'id' => 'mainmenu'),
 					'items'=>array(
 						array('label'=>Yii::t('itsc', 'Home'), 'url'=>array('/site/index'), 'linkOptions' => array('class' => 'nav-link')),
-						array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about'), 'linkOptions' => array('class' => 'nav-link')),
+						array('label'=>Yii::t('itsc', 'About'), 'url'=>array('/site/page', 'view'=>'about'), 'linkOptions' => array('class' => 'nav-link')),
 						array('label'=>'Contact', 'url'=>array('/site/contact'), 'linkOptions' => array('class' => 'nav-link')),
 					),
 					'itemCssClass' => 'nav-item',

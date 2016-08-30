@@ -7,14 +7,16 @@ $this->breadcrumbs = array(
 
 <h1><?php echo Yii::t('itsc', 'Sign up') ?></h1>
 <?php CHtml::$errorCss = 'form-control-danger'?>
+<div class="row">
+<div class="form col-md-6">
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'id' => 'signup-form',
-	'errorMessageCssClass' => 'has-danger',
+	'errorMessageCssClass' => 'form-control-feedback form-control-sm',
 	'enableAjaxValidation' => true,
 	'enableClientValidation' => true,
 	'clientOptions' => array(
 		'validateOnSubmit' => true,
-		'errorCssClass' => 'form-control-danger',
+		'errorCssClass' => 'has-danger',
 	),
 ));?>
 <div class="form-group">
@@ -23,7 +25,7 @@ $this->breadcrumbs = array(
 	))?>
 	<?php echo $form->textField($model, 'username', array(
 			'class' => 'form-control form-control-sm',
-			'placeholder' => Yii::t('itsc', 'Username'),
+			'placeholder' => $model->getAttributeLabel('username'),
 	))?>
 	<?php echo $form->error($model, 'username')?>
 </div>
@@ -73,3 +75,5 @@ $this->breadcrumbs = array(
 <?php echo CHtml::submitButton(Yii::t('itsc', 'Sign up'), array('class' => 'btn btn-primary'))?>
 
 <?php $this->endWidget()?>
+</div>
+</div>

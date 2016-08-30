@@ -32,7 +32,9 @@ class SiteController extends Controller
 		$model = new ImageForm;
 		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
 
-		$condition = '1=1 ';
+		$sqlCount = 'select count(*) from {{exif}} where 1=1 ';
+		$sql = 'select * from {{image}} i, {{exif}} e where i.id=e.id ';
+		$condition = '';
 		
 		$condition = $this->addCondition($model, 'isoSpeedRatings', $condition);
 		$condition = $this->addCondition($model, 'make', $condition);
@@ -45,15 +47,15 @@ class SiteController extends Controller
 		$condition = $this->addCondition($model, 'meteringMode', $condition);
 		$condition = $this->addCondition($model, 'lightSource', $condition);
 		
-		$dataProvider = new CActiveDataProvider('Exif', array(
-			'criteria' => array(
-				'condition' => $condition,
-				'order' => 'dateTimeOriginal DESC',
-			),
+		$sqlCount .= $condition; 
+		$count = Yii::app()->db->createCommand($sqlCount)->queryScalar();
+		$sql .= $condition . ' order by dateTimeOriginal DESC';
+		
+		$dataProvider = new CSqlDataProvider($sql, array(
+			'totalItemCount' => $count,
 			'pagination' => array(
 				'pageSize' => '20', 
 			)
-
 		));
 		
 		$this->render('index',
@@ -174,8 +176,10 @@ class SiteController extends Controller
 		}
 		if (isset($_POST['SignupForm'])) {
 			$model->attributes = $_POST['SignupForm'];
-			if ($model->validate() && $model->signup())
-				$this->redirect(Yii::app()->user->returnUrl);
+			if ($model->validate() && $model->signup()) {
+				$_POST['LoginForm'] = $_POST['SignupForm'];
+				$this->actionLogin();
+			}
 		}
 		$this->render('signup', array('model' => $model));
 	}

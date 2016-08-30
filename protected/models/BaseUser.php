@@ -9,6 +9,7 @@
  * @property string $password
  * @property string $email
  * @property string $profile
+ * @property string $created_at
  */
 class BaseUser extends CActiveRecord
 {
@@ -28,13 +29,13 @@ class BaseUser extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, username, password, email', 'required'),
+			array('username, password, email', 'required'),
 			array('id', 'length', 'max'=>32),
 			array('username, password, email', 'length', 'max'=>128),
-			array('profile', 'safe'),
+			array('profile, created_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, profile', 'safe', 'on'=>'search'),
+			array('id, username, password, email, profile, created_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +61,7 @@ class BaseUser extends CActiveRecord
 			'password' => 'Password',
 			'email' => 'Email',
 			'profile' => 'Profile',
+			'created_at' => 'Created At',
 		);
 	}
 
@@ -86,6 +88,7 @@ class BaseUser extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('profile',$this->profile,true);
+		$criteria->compare('created_at',$this->created_at,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

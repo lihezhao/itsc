@@ -20,6 +20,10 @@ return array(
 		'application.helpers.*',
 		'blog.components.UserIdentity',
 		'blog.models.User',
+		'blog.models.Post',
+		'blog.models.Comment',
+		'blog.models.Tag',
+		'blog.controllers.PostController',
 	),
 
 	'modules'=>array(
@@ -81,8 +85,13 @@ return array(
 		'image' => array(
 			'class' => 'application.extensions.image.CImageComponent',
 			'driver' => 'GD',
-		)
-
+		),
+		'clientScript' => array(
+			'coreScriptPosition' => CClientScript::POS_END,
+			'scriptMap' => array(
+					'jquery.js' => false,
+			),
+		),
 	),
 
 	// application-level parameters that can be accessed
