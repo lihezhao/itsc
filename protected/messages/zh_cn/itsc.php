@@ -50,4 +50,8 @@ return array(
 		'Title' => '标题',
 		'Content' => '内容',
 		'Draft' => '草案',
+		'Published' => '发布',
+		'Archived' => '存档',
+		'Status' => '状态',
+		'Blog' => '博客',
 );

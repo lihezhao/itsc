@@ -42,7 +42,16 @@
 				'rows'=>6)); ?>
 		<?php echo $form->error($model,'content'); ?>
 	</div>
-
+	<?php if (CCaptcha::checkRequirements()):?>
+	
+	<div class="form-group">
+		<?php echo $form->labelEx($model, 'verifyCode')?>
+		<?php echo $form->textField($model, 'verifyCode', array(
+				'class' => 'form-control',
+				'placeholder' => Yii::t()
+		))?>
+	</div>
+	<?php endif;?>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton(Yii::t('itsc', $model->isNewRecord ? 'Submit' : 'Save'), array('class' => 'btn btn-primary')); ?>
 	</div>

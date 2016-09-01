@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-08-22 13:05:16
+-- Generation Time: 2016-09-01 11:51:28
 -- 服务器版本： 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -30,6 +30,23 @@ CREATE TABLE `t_aperturefnumber` (
   `apertureFNumber` varchar(16) NOT NULL COMMENT '快门光圈',
   `count` bigint(21) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_comment`
+--
+
+CREATE TABLE `t_comment` (
+  `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `author` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `url` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `post_id` char(32) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -166,6 +183,20 @@ CREATE TABLE `t_isospeedratings` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `t_lookup`
+--
+
+CREATE TABLE `t_lookup` (
+  `id` int(11) NOT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `code` int(11) NOT NULL,
+  `type` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `t_make`
 --
 
@@ -185,9 +216,60 @@ CREATE TABLE `t_model` (
   `count` bigint(21) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_post`
+--
+
+CREATE TABLE `t_post` (
+  `id` char(32) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `tags` text COLLATE utf8_unicode_ci,
+  `status` int(11) NOT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `author_id` char(32) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_tag`
+--
+
+CREATE TABLE `t_tag` (
+  `id` char(32) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `frequency` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `t_user`
+--
+
+CREATE TABLE `t_user` (
+  `id` char(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `username` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `profile` text COLLATE utf8_unicode_ci,
+  `created_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `t_comment`
+--
+ALTER TABLE `t_comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_comment_post` (`post_id`);
 
 --
 -- Indexes for table `t_exif`
@@ -208,14 +290,60 @@ ALTER TABLE `t_image`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `t_lookup`
+--
+ALTER TABLE `t_lookup`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `t_post`
+--
+ALTER TABLE `t_post`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_post_author` (`author_id`);
+
+--
+-- Indexes for table `t_tag`
+--
+ALTER TABLE `t_tag`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `t_user`
+--
+ALTER TABLE `t_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `t_lookup`
+--
+ALTER TABLE `t_lookup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- 限制导出的表
 --
+
+--
+-- 限制表 `t_comment`
+--
+ALTER TABLE `t_comment`
+  ADD CONSTRAINT `FK_comment_post` FOREIGN KEY (`post_id`) REFERENCES `t_post` (`id`) ON DELETE CASCADE;
 
 --
 -- 限制表 `t_exif`
 --
 ALTER TABLE `t_exif`
   ADD CONSTRAINT `t_exif_ibfk_1` FOREIGN KEY (`id`) REFERENCES `t_image` (`id`);
+
+--
+-- 限制表 `t_post`
+--
+ALTER TABLE `t_post`
+  ADD CONSTRAINT `FK_post_author` FOREIGN KEY (`author_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

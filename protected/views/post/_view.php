@@ -13,7 +13,7 @@
 		?>
 	</div>
 	<div class="nav">
-		<?php echo implode(', ', $data->tagLinks); ?>
+		<?php echo '<span class="tag tag-info">' . implode('</span>, <span class="tag tag-info">', $data->tagLinks) . '</span>'; ?>
 		<br/>
 		<?php echo CHtml::link('Permalink', $data->url); ?> |
 		<?php echo CHtml::link("Comments ({$data->commentCount})",$data->url.'#comments'); ?> |

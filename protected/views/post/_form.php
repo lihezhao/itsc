@@ -1,32 +1,38 @@
 <div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm'); ?>
+<?php CHtml::$errorCss = 'form-control-danger'?>
+<?php $form = $this->beginWidget('CActiveForm', array(
+	'enableAjaxValidation' => true,
+	'enableClientValidation' => true,
+	'clientOptions' => array(
+		'errorCssClass' => 'has-danger',
+	),
+)); ?>
 
 	<p class="note"><?php echo Yii::t('itsc', 'Fields with <span class="required">*</span> are required.')?></p>
 
 	<?php echo CHtml::errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'title'); ?>
+	<div class="form-group">
+		<?php echo Translator::translateSubString('Title', $form->labelEx($model,'title')); ?>
 		<?php echo $form->textField($model,'title', array(
 				'class' => 'form-control',
-				'placeholder' => $model->getAttributeLabel('title'),
+				'placeholder' => Yii::t('itsc', 'Title'),
 		)); ?>
-		<?php echo $form->error($model,'title'); ?>
+		<?php echo Translator::translateSubString('Title', $form->error($model,'title')); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'content'); ?>
+		<?php echo Translator::translateSubString('Content', $form->labelEx($model,'content')); ?>
 		<?php echo CHtml::activeTextArea($model,'content',array(
 				'class' => 'form-control',
-				'placeholder' => $model->getAttributeLabel('content'),
+				'placeholder' => Yii::t('itsc', 'Content'),
 				'rows'=>10, 'cols'=>70)); ?>
 		<p class="hint">You may use <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a>.</p>
 		<?php echo $form->error($model,'content'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'tags'); ?>
+		<?php echo Translator::translateSubString('Tags', $form->labelEx($model,'tags')); ?>
 		<?php $this->widget('CAutoComplete', array(
 			'model'=>$model,
 			'attribute'=>'tags',
@@ -39,8 +45,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->dropDownList($model,'status',Lookup::items('PostStatus'), array('class' => 'form-control')); ?>
+		<?php echo Translator::translateSubString('Status', $form->labelEx($model,'status')); ?>
+		<?php echo $form->dropDownList($model,'status',Translator::translateArray(Lookup::items('PostStatus')), array('class' => 'form-control')); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
 
