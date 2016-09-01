@@ -1,7 +1,5 @@
 <?php
 class Comment extends BaseComment {
-	public $verifyCode;
-	
 	public function getAttributeLabel($attribute) {
 		return Yii::t('itsc', parent::getAttributeLabel($attribute));
 	}
