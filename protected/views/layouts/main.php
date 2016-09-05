@@ -49,7 +49,7 @@
 <div class="container" id="page">
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
+			'links'=>Translator::translateArray($this->breadcrumbs),
 			'tagName' => 'ol',
 			'htmlOptions' => array('class' => 'breadcrumb'),
 			'activeLinkTemplate' => '<li class="breadcrumb-item"><a href="{url}">{label}</a></li>',

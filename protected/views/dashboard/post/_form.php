@@ -40,7 +40,7 @@
 			'multiple'=>true,
 			'htmlOptions'=>array('class' => 'form-control', 'size'=>50),
 		)); ?>
-		<p class="hint">Please separate different tags with commas.</p>
+		<p class="hint"><?php echo Yii::t('itsc', 'Please separate different tags with commas.')?></p>
 		<?php echo $form->error($model,'tags'); ?>
 	</div>
 

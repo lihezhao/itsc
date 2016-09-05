@@ -1,5 +1,10 @@
 <?php
 class Post extends BasePost {
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+	
 	public function getAttributeLabel($attribute) {
 		return Yii::t('itsc', parent::getAttributeLabel($attribute));
 	}

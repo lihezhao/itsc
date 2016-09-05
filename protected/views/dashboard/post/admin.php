@@ -3,7 +3,7 @@ $this->breadcrumbs=array(
 	'Manage Posts',
 );
 ?>
-<h1>Manage Posts</h1>
+<h1><?php echo Yii::t('itsc', 'Manage Posts')?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$model->search(),
@@ -14,12 +14,14 @@ $this->breadcrumbs=array(
 		array(
 			'name'=>'title',
 			'type'=>'raw',
-			'value'=>'CHtml::link(CHtml::encode($data->title), $data->url)'
+			'value'=>'CHtml::link(CHtml::encode($data->title), $data->url)',
+			'class' => 'CBootstrapDataColumn',
 		),
 		array(
 			'name'=>'status',
 			'value'=>'Yii::t("itsc", Lookup::item("PostStatus",$data->status))',
 			'filter'=>Translator::translateArray(Lookup::items('PostStatus')),
+			'class' => 'CBootstrapDataColumn',
 		),
 		array(
 			'name'=>'create_time',

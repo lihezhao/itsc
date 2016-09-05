@@ -13,7 +13,7 @@
 			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
 				<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
+			'links'=>Translator::translateArray($this->breadcrumbs),
 			'tagName' => 'ol',
 			'htmlOptions' => array('class' => 'breadcrumb'),
 			'activeLinkTemplate' => '<li class="breadcrumb-item"><a href="{url}">{label}</a></li>',

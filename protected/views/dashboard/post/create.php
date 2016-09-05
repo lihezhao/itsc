@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	Yii::t('itsc', 'Create Post'),
+	'Create Post',
 );
 ?>
 <h1><?php echo Yii::t('itsc', 'Create Post')?></h1>
