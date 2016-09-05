@@ -21,7 +21,7 @@
 		<?php echo Translator::translateSubString('Title', $form->error($model,'title')); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo Translator::translateSubString('Content', $form->labelEx($model,'content')); ?>
 		<?php echo CHtml::activeTextArea($model,'content',array(
 				'class' => 'form-control',
@@ -31,7 +31,7 @@
 		<?php echo $form->error($model,'content'); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo Translator::translateSubString('Tags', $form->labelEx($model,'tags')); ?>
 		<?php $this->widget('CAutoComplete', array(
 			'model'=>$model,
@@ -44,13 +44,13 @@
 		<?php echo $form->error($model,'tags'); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo Translator::translateSubString('Status', $form->labelEx($model,'status')); ?>
 		<?php echo $form->dropDownList($model,'status',Translator::translateArray(Lookup::items('PostStatus')), array('class' => 'form-control')); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="form-group buttons">
 		<?php echo CHtml::submitButton(Yii::t('itsc', $model->isNewRecord ? 'Create' : 'Save'), array('class' => 'btn btn-primary')); ?>
 	</div>
 

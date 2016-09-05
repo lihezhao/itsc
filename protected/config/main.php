@@ -18,11 +18,11 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.helpers.*',
+		'application.controllers.base.*',
 		'blog.components.UserIdentity',
 		'blog.models.User',
 		'blog.models.Tag',
 		'blog.models.Lookup',
-		'blog.controllers.PostController',
 	),
 
 	'modules'=>array(
@@ -93,11 +93,6 @@ return array(
 		),
 	),
 		
-	'controllerMap' => array(
-			'post' => 'blog.controllers.PostController',
-	),
-		
-
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(

@@ -25,6 +25,7 @@
 				'items' => array(
 					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/dashboard/index/index'), 'linkOptions' => array('class' => 'nav-link')),
 					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/dashboard/image/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('itsc', 'Blog'), 'url' => array('/dashboard/post/index'), 'linkOptions' => array('class' =>'nav-link')),
 					array('label' => Yii::t('itsc', 'Settings'), 'url' => array('/dashboard/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
 					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/dashboard/help'), 'linkOptions' => array('class' => 'nav-link')),
 				),
@@ -33,6 +34,8 @@
 			</div>
 		</nav>
 		
-		<?php echo $content ?>				
+		<?php echo $content ?>
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>						
 	</body>
 </html>
