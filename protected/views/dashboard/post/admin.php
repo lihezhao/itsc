@@ -6,9 +6,9 @@ $this->breadcrumbs=array(
 <h1><?php echo Yii::t('itsc', 'Manage Posts')?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
+	'cssFile' => false,
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
-	'cssFile' => false,
 	'itemsCssClass' => 'table table-striped table-hover',
 	'columns'=>array(
 		array(

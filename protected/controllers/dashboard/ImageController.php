@@ -1,6 +1,6 @@
 <?php
 
-class ImageController extends Controller {
+class ImageController extends BaseImageController {
 	public $layout='//layouts/dashboard/image';
 	
 	public function actionIndex($path = '') {
