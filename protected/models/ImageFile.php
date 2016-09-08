@@ -1,6 +1,8 @@
 <?php
 
 class ImageFile extends BaseImage {
+	const STATUS_HIDE = 0;
+	const STATUS_SHOW = 1;
 	protected function beforeSave() {
 		if (parent::beforeSave()) {
 			if ($this->isNewRecord) {

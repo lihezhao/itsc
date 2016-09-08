@@ -3,6 +3,33 @@
 class ImageController extends BaseImageController {
 	public $layout='//layouts/dashboard/image';
 	
+	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	public function accessRules()
+	{
+		return array(
+				array('allow',  // allow all users to perform 'index' and 'view' actions
+						'actions'=>array('index','view'),
+						'users'=>array('*'),
+				),
+				array('allow', // allow authenticated user to perform 'create' and 'update' actions
+						'actions'=>array('create','update'),
+						'users'=>array('@'),
+				),
+				array('allow', // allow admin user to perform 'admin' and 'delete' actions
+						'actions'=>array('admin','delete', 'show'),
+						'users'=>array('admin'),
+				),
+				array('deny',  // deny all users
+						'users'=>array('*'),
+				),
+		);
+	}
+	
+	
 	public function actionIndex($path = '') {
 		$imagePath = Yii::app()->params['imagePath'];
 		if ('' != $path) $imagePath .= '/' . $path;
@@ -33,6 +60,27 @@ class ImageController extends BaseImageController {
 		$dr = new DirectoryReader();
 		$dr->read($imagePath);
 		$this->render('index');
+	}
+	
+	public function actionAdmin() {
+		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile('assets/js/imageAdmin.js', CClientScript::POS_END);
+		parent::actionAdmin();
+	}
+	
+	public function actionShow($id) {
+		if (Yii::app()->request->isPostRequest) {
+			$image = $this->loadModel($id);
+			if ($image->status == ImageFile::STATUS_HIDE) {
+				$image->status = ImageFile::STATUS_SHOW;
+				$result = Yii::t('itsc', 'Hide');
+			} else {
+				$image->status = ImageFile::STATUS_HIDE;
+				$result = Yii::t('itsc', 'Show');
+			}
+			$image->save();
+			echo $result;
+		}
 	}
 
 	// Uncomment the following methods and override them if needed

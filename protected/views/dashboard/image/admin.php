@@ -39,30 +39,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<input type="hidden" id="imageUrl" value="<?php echo $this->createUrl('image/thumb') ?>">
+<?php $this->widget('zii.widgets.CListView', array(
 	'cssFile' => false,
 	'id'=>'image-file-grid',
-	'itemsCssClass' => 'table table-striped table-hover',		
+	'itemsTagName' => 'ul',
+	'itemsCssClass' => 'media-list',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		array(
-			'name' => 'path',
-			'class' => 'CBootstrapDataColumn',
-		),
-		array(
-			'name' => 'created_at',
-			'class' => 'CBootstrapDataColumn',
-		),
-		array(
-			'name' => 'tags',
-			'class' => 'CBootstrapDataColumn',
-		),
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+	'itemView' => '_view',
 	'pager' => array(
 			'class' => 'LinkPager',
 	),

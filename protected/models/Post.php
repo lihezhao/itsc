@@ -27,4 +27,9 @@ class Post extends BasePost {
 			$this->id = $post->id;
 		}
 	}
+	
+	protected function afterDelete() {
+		$this->id = '\'' . $this->id . '\''; 
+		parent::afterDelete();	
+	}
 }

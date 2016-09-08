@@ -65,4 +65,6 @@ return array(
 		'One comment' => '评论',
 		'Leave a Comment' => '发表评论',
 		'Update' => '更新',
+		'Hide' => '隐藏',
+		'Show' => '显示',
 );

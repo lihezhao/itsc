@@ -33,7 +33,7 @@ class SiteController extends Controller
 		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
 
 		$sqlCount = 'select count(*) from {{exif}} where 1=1 ';
-		$sql = 'select * from {{image}} i, {{exif}} e where i.id=e.id ';
+		$sql = 'select * from {{image}} i, {{exif}} e where i.id=e.id and i.status=' . ImageFile::STATUS_SHOW;
 		$condition = '';
 		
 		$condition = $this->addCondition($model, 'isoSpeedRatings', $condition);
