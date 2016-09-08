@@ -13,5 +13,6 @@ class ImageFile extends BaseImage {
 		} else {
 			return false;
 		}
-	}	
+	}
+	
 }

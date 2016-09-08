@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs=array(
+	'Blog',
 	'Manage Posts',
 );
 ?>

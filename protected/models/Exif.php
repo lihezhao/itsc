@@ -97,4 +97,24 @@ class Exif extends BaseExif {
 		}
 		return $result;
 	}
+	
+	public function search() {
+		$criteria = new CDbCriteria();
+	
+		$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);
+		$criteria->addInCondition('make', $this->make);
+		$criteria->addInCondition('flash', $this->flash);
+		$criteria->addInCondition('focalLength', $this->focalLength);
+		$criteria->addInCondition('exposureTime', $this->exposureTime);
+		$criteria->addInCondition('apertureFNumber', $this->apertureFNumber);
+		$criteria->addInCondition('model', $this->model);
+		$criteria->addInCondition('exposureBiasValue', $this->exposureBiasValue);
+		$criteria->addInCondition('meteringMode', $this->meteringMode);
+		$criteria->addInCondition('lightSource', $this->lightSource);
+		
+		return new CActiveDataProvider($this, array(
+			'criteria' => $criteria,
+		));
+	}
+	
 }

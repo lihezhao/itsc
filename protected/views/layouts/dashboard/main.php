@@ -25,7 +25,7 @@
 				'items' => array(
 					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/dashboard/index/index'), 'linkOptions' => array('class' => 'nav-link')),
 					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/dashboard/image/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Blog'), 'url' => array('/dashboard/post/admin'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('itsc', 'Blog'), 'url' => array('/dashboard/post/index'), 'linkOptions' => array('class' =>'nav-link')),
 					array('label' => Yii::t('itsc', 'Settings'), 'url' => array('/dashboard/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
 					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/dashboard/help'), 'linkOptions' => array('class' => 'nav-link')),
 				),

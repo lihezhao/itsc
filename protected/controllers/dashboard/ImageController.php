@@ -29,8 +29,13 @@ class ImageController extends BaseImageController {
 		);
 	}
 	
+	public function actionIndex() {
+		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile('assets/js/imageAdmin.js', CClientScript::POS_END);
+		parent::actionAdmin();	
+	}
 	
-	public function actionIndex($path = '') {
+	public function actionIndex1($path = '') {
 		$imagePath = Yii::app()->params['imagePath'];
 		if ('' != $path) $imagePath .= '/' . $path;
 		$di = new DirectoryIterator($imagePath);
@@ -60,12 +65,6 @@ class ImageController extends BaseImageController {
 		$dr = new DirectoryReader();
 		$dr->read($imagePath);
 		$this->render('index');
-	}
-	
-	public function actionAdmin() {
-		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
-		Yii::app()->clientScript->registerScriptFile('assets/js/imageAdmin.js', CClientScript::POS_END);
-		parent::actionAdmin();
 	}
 	
 	public function actionShow($id) {
