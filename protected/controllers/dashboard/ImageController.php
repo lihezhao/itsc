@@ -1,6 +1,6 @@
 <?php
 
-class ImageController extends BaseImageController {
+class ImageController extends BaseExifController {
 	public $layout='//layouts/dashboard/image';
 	
 	/**
@@ -69,7 +69,7 @@ class ImageController extends BaseImageController {
 	
 	public function actionShow($id) {
 		if (Yii::app()->request->isPostRequest) {
-			$image = $this->loadModel($id);
+			$image = ImageFile::model()->findByPk($id);
 			if ($image->status == ImageFile::STATUS_HIDE) {
 				$image->status = ImageFile::STATUS_SHOW;
 				$result = Yii::t('itsc', 'Hide');

@@ -15,4 +15,8 @@ class ImageFile extends BaseImage {
 		}
 	}
 	
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 }

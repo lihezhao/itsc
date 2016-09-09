@@ -100,17 +100,36 @@ class Exif extends BaseExif {
 	
 	public function search() {
 		$criteria = new CDbCriteria();
-	
-		$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);
-		$criteria->addInCondition('make', $this->make);
-		$criteria->addInCondition('flash', $this->flash);
-		$criteria->addInCondition('focalLength', $this->focalLength);
-		$criteria->addInCondition('exposureTime', $this->exposureTime);
-		$criteria->addInCondition('apertureFNumber', $this->apertureFNumber);
-		$criteria->addInCondition('model', $this->model);
-		$criteria->addInCondition('exposureBiasValue', $this->exposureBiasValue);
-		$criteria->addInCondition('meteringMode', $this->meteringMode);
-		$criteria->addInCondition('lightSource', $this->lightSource);
+		if (isset($this->ISOSpeedRatings)) {
+			$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);
+		}
+		if (isset($this->make)) {
+			$criteria->addInCondition('make', $this->make);
+		}
+		if (isset($this->flash)) {
+			$criteria->addInCondition('flash', $this->flash);
+		}
+		if (isset($this->focalLength)) {
+			$criteria->addInCondition('focalLength', $this->focalLength);
+		}
+		if (isset($this->exposureTime)) {
+			$criteria->addInCondition('exposureTime', $this->exposureTime);
+		}
+		if (isset($this->apertureFNumber)) {
+			$criteria->addInCondition('apertureFNumber', $this->apertureFNumber);
+		}
+		if (isset($this->model)) {
+			$criteria->addInCondition('model', $this->model);
+		}
+		if (isset($this->exposureBiasValue)) {
+			$criteria->addInCondition('exposureBiasValue', $this->exposureBiasValue);
+		}
+		if (isset($this->meteringMode)) {
+			$criteria->addInCondition('meteringMode', $this->meteringMode);
+		}
+		if (isset($this->lightSource)) {
+			$criteria->addInCondition('lightSource', $this->lightSource);
+		}
 		
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
