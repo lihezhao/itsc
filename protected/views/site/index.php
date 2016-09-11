@@ -2,46 +2,27 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-form form').submit(function(){
+	$('#image-list').yiiListView.update('image-list',
+		{
+		data: $(this).serialize(),
+		url: $(this).attr('action')
+		}
+	);
+	return false;
+});
+");
+
 ?>
-<div class="card">
-	<div class="card-block">
-<?php $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'search-form',
-	'action' => Yii::app()->createUrl($this->route),
-	'method' => 'get',
-));?>
-<?php foreach ($filterGroups as $group => $listDatas) {?>
-<div class="row">
-	<a class="btn-sm" data-toggle="collapse" href="#<?php echo $group ?>" aria-expanded=<?php echo $group == 'Basic' ? '"true"' : '"false"' ?> aria-controls="<?php echo $group ?>">
-   		<?php echo Yii::t('itsc', $group) ?>
-	</a>
-</div>
-<div class="collapse<?php echo $group == 'Basic' ? ' in' : ''?>" id="<?php echo $group ?>">
-<?php foreach ($listDatas as $field => $listData) {?>
-<div class="form-group row">
-	<?php echo $form->labelEx($model, $field, array('class' => 'col-md-2 col-form-label col-form-label-sm'))?>
-	<div class="col-md-10 col-form-label col-form-label-sm">
-	<div class="row">
-	<?php echo $form->checkBoxList($model, $field,
-			$listData,
-			array('template' => '<div class="col-md-3"><label class="custom-control custom-checkbox">{input}<span class="custom-control-indicator"></span><span class="custom-control-description">{labelTitle}</span></label></div>',
-					'separator' => '',
-					'class' => 'custom-control-input',
-					'uncheckValue' => null,
-					'container' => 'div',
-			))?>
-	</div>
-	</div>
-</div>
-<?php }?>
-</div>
-<?php }?>
-<div class="row">
-<?php echo CHtml::submitButton(Yii::t('itsc', 'OK'), array('class' => 'btn btn-outline-success btn-sm')); ?>
-</div>
-<?php $this->endWidget() ?>
-</div>
-</div>
+<div class="search-form">
+<?php $this->renderPartial('/image/_search',array(
+	'model'=>$model,
+	'front' => true,
+)); ?>
+</div><!-- search-form -->
+
 <?php $this->widget('zii.widgets.CMenu', array(
 	'htmlOptions' => array('class' => 'nav nav-tabs'),
 	'items' => array(
@@ -56,7 +37,8 @@ $this->pageTitle=Yii::app()->name;
 <input type="hidden" id="imageUrl" value="<?php echo $this->createUrl('image/thumb') ?>">
 
 <?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider' => $dataProvider,
+	'id'=>'image-list',
+	'dataProvider'=>$model->search(),
   	'itemView' => '_view',
   	'itemsCssClass' => 'grid',
 	'pager' => array(

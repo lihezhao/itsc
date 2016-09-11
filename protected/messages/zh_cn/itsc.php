@@ -67,4 +67,5 @@ return array(
 		'Update' => '更新',
 		'Hide' => '隐藏',
 		'Show' => '显示',
+		'Manage Images' => '图片管理',
 );

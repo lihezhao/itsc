@@ -29,68 +29,17 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$model = new ImageForm;
+		$model=new Exif('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Exif']))
+			$model->attributes=$_GET['Exif'];
 		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
 
 		$sqlCount = 'select count(*) from {{exif}} where 1=1 ';
-		$sql = 'select * from {{image}} i, {{exif}} e where i.id=e.id and i.status=' . ImageFile::STATUS_SHOW;
-		$condition = '';
+		$sql = 'select * from {{image}} i, {{exif}} e where i.id=e.id and i.status=' . Image::STATUS_SHOW;
 		
-		$condition = $this->addCondition($model, 'isoSpeedRatings', $condition);
-		$condition = $this->addCondition($model, 'make', $condition);
-		$condition = $this->addCondition($model, 'flash', $condition);
-		$condition = $this->addCondition($model, 'focalLength', $condition);
-		$condition = $this->addCondition($model, 'exposureTime', $condition);
-		$condition = $this->addCondition($model, 'apertureFNumber', $condition);
-		$condition = $this->addCondition($model, 'model', $condition);
-		$condition = $this->addCondition($model, 'exposureBiasValue', $condition);
-		$condition = $this->addCondition($model, 'meteringMode', $condition);
-		$condition = $this->addCondition($model, 'lightSource', $condition);
-		
-		$sqlCount .= $condition; 
-		$count = Yii::app()->db->createCommand($sqlCount)->queryScalar();
-		$sql .= $condition . ' order by dateTimeOriginal DESC';
-		
-		$dataProvider = new CSqlDataProvider($sql, array(
-			'totalItemCount' => $count,
-			'pagination' => array(
-				'pageSize' => '20', 
-			)
+		$this->render('index', array('model' => $model,
 		));
-		
-		$this->render('index',
-					  array('model' => $model,
-					  		'filterGroups' => array(
-					  				'Basic' => array(
-					  						'make' => Exif::listData('make'),
-					  						'model' => Exif::listData('model'),
-					  				),
-					  				'Advanced' => array(
-					  						'flash' => Exif::listData('flash'),
-					  						'focalLength' => Exif::listData('focalLength'),
-					  						'exposureTime' => Exif::listData('exposureTime'),
-					  						'isoSpeedRatings' => Exif::listData('ISOSpeedRatings'),
-					  						'apertureFNumber' => Exif::listData('apertureFNumber'),
-					  						'exposureBiasValue' => Exif::listData('exposureBiasValue'),
-					  						'meteringMode' => Exif::listData('meteringMode'),
-					  						'lightSource' => Exif::listData('lightSource'),
-					  				),
-					  		),
-					  		'dataProvider' => $dataProvider));
-	}
-	
-	private function addCondition($model, $field, $condition) {
-		if (isset($_GET['ImageForm'][$field])) {
-			$model->$field = $_GET['ImageForm'][$field];
-			$condition .= 'and (';
-		
-			foreach ($_GET['ImageForm'][$field] as $v) {
-				$v = $v == 'unknown' ? '' : $v;
-				$condition .= $field . '="' . $v . '" or ';
-			}
-			$condition = substr($condition, 0, strlen($condition) - 4) . ')';
-		}
-		return $condition;
 	}
 
 	/**

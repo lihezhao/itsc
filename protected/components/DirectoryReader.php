@@ -6,17 +6,17 @@ class DirectoryReader {
 		foreach ($di as $file) {
 			if ($file->isFile()) {
 				$fileName = $file->getPathname();
-				$image = ImageFile::model()->find('path=:path', array(':path'=>$fileName));
+				$image = Image::model()->find('path=:path', array(':path'=>$fileName));
 				if ($image) {
 				} else {
 					$exif = $exifReader->read($fileName);
 					if ($exif->fileType != 0) {
-						$image = new ImageFile();
+						$image = new Image();
 						$image->path = $fileName;
 						if (!$image->save()) {
 							print_r($image->getErrors());exit;
 						}
-						$image = ImageFile::model()->find('path=:path', array(':path'=>$fileName));
+						$image = Image::model()->find('path=:path', array(':path'=>$fileName));
 						$exif->id = $image->id;
 						$exif->insert();
 					}

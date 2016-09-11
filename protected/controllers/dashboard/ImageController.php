@@ -69,12 +69,12 @@ class ImageController extends BaseExifController {
 	
 	public function actionShow($id) {
 		if (Yii::app()->request->isPostRequest) {
-			$image = ImageFile::model()->findByPk($id);
-			if ($image->status == ImageFile::STATUS_HIDE) {
-				$image->status = ImageFile::STATUS_SHOW;
+			$image = Image::model()->findByPk($id);
+			if ($image->status == Image::STATUS_HIDE) {
+				$image->status = Image::STATUS_SHOW;
 				$result = Yii::t('itsc', 'Hide');
 			} else {
-				$image->status = ImageFile::STATUS_HIDE;
+				$image->status = Image::STATUS_HIDE;
 				$result = Yii::t('itsc', 'Show');
 			}
 			$image->save();

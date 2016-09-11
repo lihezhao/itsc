@@ -81,10 +81,10 @@ return array(
 			),
 		),
 			
-		'image' => array(
+/*		'image' => array(
 			'class' => 'application.extensions.image.CImageComponent',
 			'driver' => 'GD',
-		),
+		),*/
 		'clientScript' => array(
 			'coreScriptPosition' => CClientScript::POS_END,
 			'scriptMap' => array(

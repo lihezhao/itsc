@@ -17,7 +17,8 @@ class Exif extends BaseExif {
 		$fileName = $thumbPath . '/' . $file;
 		if (file_exists($fileName)) {
 		} else {
-			$image = Yii::app()->image->load($this->pathName);
+			Yii::import('application.extensions.image.Image');
+			$image = new Image($this->pathName);
 	
 			$image->resize($width, $height);
 			switch ($this->orientation) {
@@ -75,9 +76,13 @@ class Exif extends BaseExif {
 		return isset($arr[$name]) ? $arr[$name] : '未知'; 
 	}
 	
-	public static function listData($field) {
+	public static function listData($field, $front = true) {
 		$result = array();
-		$sql = "select $field, count(*) as cnt from {{exif}} group by $field";
+		$sql = "select $field, count(*) as cnt from {{exif}} e, {{image}} i where e.id=i.id ";
+		if ($front) {
+			$sql .= 'and i.status=' . Image::STATUS_SHOW . ' ';
+		}
+		$sql .= "group by $field";
 		$connection = Yii::app()->db;
 		$command = $connection->createCommand($sql);
 		$rows = $command->queryAll();
@@ -98,8 +103,12 @@ class Exif extends BaseExif {
 		return $result;
 	}
 	
-	public function search() {
+	public function search($front = true) {
 		$criteria = new CDbCriteria();
+		if ($front) {
+			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
+			$criteria->addCondition('{{image}}.status=' . Image::STATUS_SHOW);
+		}
 		if (isset($this->ISOSpeedRatings)) {
 			$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);
 		}
