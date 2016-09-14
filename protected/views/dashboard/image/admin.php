@@ -12,17 +12,7 @@ $this->menu=array(
 	array('label'=>'Create ImageFile', 'url'=>array('create')),
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-	$('#image-list').yiiListView.update('image-list',
-		{
-		data: $(this).serialize(),
-		url: $(this).attr('action')
-		}	
-	);
-	return false;
-});
-");
+
 ?>
 
 <h1><?php echo Yii::t('itsc', 'Manage Images')?></h1>

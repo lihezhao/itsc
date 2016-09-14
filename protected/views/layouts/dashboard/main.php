@@ -35,7 +35,7 @@
 		</nav>
 		
 		<?php echo $content ?>
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>						
 	</body>
 </html>

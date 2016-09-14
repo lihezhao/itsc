@@ -29,15 +29,26 @@ $filterGroups = array(
 	'action' => Yii::app()->createUrl($this->route),
 	'method' => 'get',
 ));?>
-
+<input type="hidden" name="Exif[pathName]" id="folders" value="" />
 <div class="row">
 	<a class="btn-sm" data-toggle="collapse" href="#folder" aria-expanded="true" aria-controls="folder">
 		<?php echo Yii::t('itsc', 'Folder')?>
 	</a>
 </div>
 <div class="collapse in" id="folder">
-<?php $this->widget('CTreeView', array(
-	'url' => array('folder/loadFolder'),
+<?php $this->widget('JsTree', array(
+	'id' => 'folder-tree',
+	'core' => array(
+		'data' => array(
+			'url' => array('folder/loadFolder'),
+			'data' => new CJavaScriptExpression("function(node) {return {'id': node.id};}"),
+			'dataType' => 'json',
+		),
+	),
+	'plugins' => array(
+		'checkbox',
+	),
+
 ))?>
 </div>
 <?php foreach ($filterGroups as $group => $listDatas) {?>
@@ -70,5 +81,21 @@ $filterGroups = array(
 <?php echo CHtml::submitButton(Yii::t('itsc', 'OK'), array('class' => 'btn btn-outline-success btn-sm')); ?>
 </div>
 <?php $this->endWidget() ?>
+<?php 
+Yii::app()->clientScript->registerScript('search', "
+$('.search-form form').submit(function(){
+	var folders = $('#folder-tree').jstree().get_checked();
+	$('#folders').val(folders);
+	var data = $(this).serialize();
+	$('#image-list').yiiListView.update('image-list',
+		{
+		data: $(this).serialize(),
+		url: $(this).attr('action')
+		}
+	);
+	return false;
+});
+");
+?>
 </div>
 </div>

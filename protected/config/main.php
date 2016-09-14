@@ -90,6 +90,13 @@ return array(
 			'scriptMap' => array(
 					'jquery.js' => false,
 			),
+			'packages' => array(
+				'jstree' => array(
+					'baseUrl' => '//cdn.bootcss.com/jstree/3.3.2',
+					'js' => array('jstree.min.js'),
+					'css' => array('themes/default/style.min.css'),
+				),
+			),
 		),
 	),
 		

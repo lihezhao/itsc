@@ -3,17 +3,7 @@
 
 $this->pageTitle=Yii::app()->name;
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-	$('#image-list').yiiListView.update('image-list',
-		{
-		data: $(this).serialize(),
-		url: $(this).attr('action')
-		}
-	);
-	return false;
-});
-");
+
 
 ?>
 <div class="search-form">
