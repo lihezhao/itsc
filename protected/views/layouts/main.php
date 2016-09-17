@@ -24,26 +24,9 @@
 	<nav class="navbar navbar-fixed-top navbar-dark bg-faded" style="background-color: #5774c2;">
 		<div class="container">
 			<a class="navbar-brand" href="#">ITSC</a>
-				<?php $this->widget('zii.widgets.CMenu',array(
-					'htmlOptions' => array('class' => 'nav navbar-nav', 'id' => 'mainmenu'),
-					'items'=>array(
-						array('label'=>Yii::t('itsc', 'Home'), 'url'=>array('/site/index'), 'linkOptions' => array('class' => 'nav-link')),
-						array('label'=>Yii::t('itsc', 'About'), 'url'=>array('/site/page', 'view'=>'about'), 'linkOptions' => array('class' => 'nav-link')),
-						array('label'=>'Contact', 'url'=>array('/site/contact'), 'linkOptions' => array('class' => 'nav-link')),
-					),
-					'itemCssClass' => 'nav-item',
-				)); ?>
-				<?php $this->widget('zii.widgets.CMenu',array(
-					'htmlOptions' => array('class' => 'nav navbar-nav pull-xs-right', 'id' => 'rightmenu'),
-					'items'=>array(
-						array('label'=> Yii::t('itsc', 'Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest, 'linkOptions' => array('class' => 'nav-link')),
-						array('label'=> Yii::t('itsc', 'Sign up'), 'url'=>array('/site/signup'), 'visible'=>Yii::app()->user->isGuest, 'linkOptions' => array('class' => 'nav-link')),
-						array('label'=> Yii::t('itsc', 'Dashboard'), 'url'=>array('/dashboard/index'), 'visible'=>!Yii::app()->user->isGuest, 'linkOptions' => array('class' => 'nav-link')),
-						array('label'=> Yii::t('itsc', 'Logout') . ' (' . Yii::app()->user->name . ')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest, 'linkOptions' => array('class' => 'nav-link'))
-					),
-					'itemCssClass' => 'nav-item',
-				)); ?>
-				
+			<?php $menus = require_once(Yii::app()->getBasePath() . '/config/menu.php') ?>
+			<?php $this->widget('zii.widgets.CMenu', $menus['mainmenu']); ?>
+			<?php $this->widget('zii.widgets.CMenu', $menus['accountmenu']); ?>	
 		</div>
 	</nav>
 <div class="container" id="page">

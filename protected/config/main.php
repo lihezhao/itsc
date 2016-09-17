@@ -109,4 +109,6 @@ return array(
 		'thumbPath' => __DIR__ . '/../../thumbs',
 		'thumbUrl'	=> 'thumbs',
 	),
+		
+	
 );
