@@ -1,7 +1,7 @@
 <?php
 
-class IndexController extends Controller {
-	public $layout='//layouts/dashboard/index';
+class SiteController extends Controller {
+	public $layout='//layouts/site';
 	
 	public function actionIndex()
 	{

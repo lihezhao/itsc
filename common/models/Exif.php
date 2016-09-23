@@ -13,7 +13,7 @@ class Exif extends BaseExif {
 		$file = pathinfo($this->pathName, PATHINFO_BASENAME);
 		$baseThumbPath  = str_replace(Yii::app()->params['imagePath'],
 				Yii::app()->params['thumbPath'], $dir);
-		$thumbPath = $baseThumbPath . "//{$width}x{$height}";
+		$thumbPath = $baseThumbPath . "/{$width}x{$height}";
 		$fileName = $thumbPath . '/' . $file;
 		if (file_exists($fileName)) {
 		} else {
@@ -36,7 +36,7 @@ class Exif extends BaseExif {
 			}
 			$image->save($fileName);
 		}
-		return str_replace(Yii::app()->params['thumbPath'],
+		return Yii::app()->baseUrl . str_replace(Yii::app()->params['thumbPath'],
 				Yii::app()->params['thumbUrl'], $fileName);
 	}
 	
@@ -103,11 +103,14 @@ class Exif extends BaseExif {
 		return $result;
 	}
 	
-	public function search($front = true) {
+	public function search($type = 'front') {
 		$criteria = new CDbCriteria();
-		if ($front) {
+		if ($type == 'front') {
 			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
-			$criteria->addCondition('{{image}}.status=' . Image::STATUS_SHOW);
+			$criteria->addCondition('{{image}}.status>=' . Image::STATUS_SHOW);
+		} else if ($type == 'home') {
+			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
+			$criteria->addCondition('{{image}}.status=' . Image::STATUS_HOMEPAGE);
 		}
 		if (isset($this->ISOSpeedRatings)) {
 			$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);

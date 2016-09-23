@@ -4,13 +4,12 @@ $(function() {
 
 function loadImages(id, data) {
 	var images = $('.img-thumbnail');
-	var url = $('#imageUrl').val();
 	var count = 0;
 	$.each(images, function() {
 		var image = this;
 		var jqXhr = $.ajax({
 			type: 'GET',
-			url: url  + "&id=" + image.id + "&width=256&height=256",
+			url: '/itsc/image/thumb/' + image.id + '/256/256',
 			dataType:"text",
 			success: function(data) {
 				$(image).attr("src", data);

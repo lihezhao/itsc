@@ -29,12 +29,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile(Yii::app()->baseUrl . '/assets/js/images.js', CClientScript::POS_END);
-		$cs->registerCoreScript('masonry');
-		$model = new Exif('search');
-				
-		$this->render('index', array('model' => $model));
+		$this->render('index');
 	}
 
 	/**
@@ -110,21 +105,5 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
-	}
-	
-	public function actionSignup() {
-		$model = new SignupForm;
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'signup-form') {
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-		if (isset($_POST['SignupForm'])) {
-			$model->attributes = $_POST['SignupForm'];
-			if ($model->validate() && $model->signup()) {
-				$_POST['LoginForm'] = $_POST['SignupForm'];
-				$this->actionLogin();
-			}
-		}
-		$this->render('signup', array('model' => $model));
 	}
 }

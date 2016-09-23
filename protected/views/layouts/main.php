@@ -14,7 +14,6 @@
 	<![endif]-->
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
-	<link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/itsc.css">
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -58,10 +57,6 @@
 		</div>
 	</div>
 </footer>
-
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/masonry/4.1.0/masonry.pkgd.min.js"></script>
 
 </body>
 </html>

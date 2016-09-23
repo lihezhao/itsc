@@ -8,6 +8,7 @@
  * @property string $path
  * @property string $created_at
  * @property string $tags
+ * @property integer $status
  *
  * The followings are the available model relations:
  * @property Exif $exif
@@ -30,13 +31,14 @@ class BaseImage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('path', 'required'),
+			array('path, status', 'required'),
+			array('status', 'numerical', 'integerOnly'=>true),
 			array('id', 'length', 'max'=>32),
 			array('path', 'length', 'max'=>512),
 			array('created_at, tags', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, path, created_at, tags', 'safe', 'on'=>'search'),
+			array('id, path, created_at, tags, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +64,7 @@ class BaseImage extends CActiveRecord
 			'path' => 'Path',
 			'created_at' => 'Created At',
 			'tags' => 'Tags',
+			'status' => 'Status',
 		);
 	}
 
@@ -87,6 +90,7 @@ class BaseImage extends CActiveRecord
 		$criteria->compare('path',$this->path,true);
 		$criteria->compare('created_at',$this->created_at,true);
 		$criteria->compare('tags',$this->tags,true);
+		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

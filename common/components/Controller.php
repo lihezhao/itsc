@@ -24,5 +24,6 @@ class Controller extends CController
 	public function init() {
 		parent::init();
 		Yii::app()->setLanguage(Yii::app()->getRequest()->getPreferredLanguage());
+		Yii::app()->clientScript->registerCoreScript('bootstrap');
 	}
 }

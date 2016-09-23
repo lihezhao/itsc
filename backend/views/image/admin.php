@@ -1,17 +1,11 @@
 <?php
-/* @var $this BaseImageController */
-/* @var $model ImageFile */
+/* @var $this ImageController */
+/* @var $model Exif */
 
 $this->breadcrumbs=array(
 	'Image'=>array('index'),
 	'Manage',
 );
-
-$this->menu=array(
-	array('label'=>'List ImageFile', 'url'=>array('index')),
-	array('label'=>'Create ImageFile', 'url'=>array('create')),
-);
-
 
 ?>
 
@@ -19,22 +13,21 @@ $this->menu=array(
 
 
 <div class="search-form">
-<?php $this->renderPartial('/image/_search',array(
+<?php $this->renderPartial('common.views.image._search',array(
 	'model'=>$model,
 	'front' => false,
 )); ?>
 </div><!-- search-form -->
-<input type="hidden" id="imageUrl" value="<?php echo $this->createUrl('image/thumb') ?>">
 <?php $this->widget('zii.widgets.CListView', array(
 	'cssFile' => false,
 	'id'=>'image-list',
 	'itemsTagName' => 'ul',
 	'itemsCssClass' => 'media-list',
-	'dataProvider'=>$model->search(false),
+	'dataProvider'=>$model->search('backend'),
 	'itemView' => '_view',
 	'pager' => array(
 		'class' => 'LinkPager',
 	),
 	'pagerCssClass' => 'Page navigation',
-	'afterAjaxUpdate' => 'loadImages',
+	'afterAjaxUpdate' => 'adminLoadImages',
 )); ?>

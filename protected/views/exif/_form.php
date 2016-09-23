@@ -195,7 +195,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'apertureFNumber'); ?>
-		<?php echo $form->textField($model,'apertureFNumber'); ?>
+		<?php echo $form->textField($model,'apertureFNumber',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'apertureFNumber'); ?>
 	</div>
 
@@ -207,7 +207,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'exposureTime'); ?>
-		<?php echo $form->textField($model,'exposureTime'); ?>
+		<?php echo $form->textField($model,'exposureTime',array('size'=>8,'maxlength'=>8)); ?>
 		<?php echo $form->error($model,'exposureTime'); ?>
 	</div>
 
@@ -303,7 +303,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'userComment'); ?>
-		<?php echo $form->textField($model,'userComment'); ?>
+		<?php echo $form->textField($model,'userComment',array('size'=>60,'maxlength'=>512)); ?>
 		<?php echo $form->error($model,'userComment'); ?>
 	</div>
 

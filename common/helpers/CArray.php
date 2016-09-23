@@ -219,7 +219,7 @@ class CArray {
 					if (is_array($val))
 					{
 						// Arrays are merged recursively
-						$result[$key] = arr::merge($result[$key], $val);
+						$result[$key] = self::merge($result[$key], $val);
 					}
 					elseif (is_int($key))
 					{

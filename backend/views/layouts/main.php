@@ -7,7 +7,6 @@
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/dashboard.css">
 	</head>
 	<body>
@@ -23,11 +22,11 @@
 			<?php $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav navbar-nav pull-xs-left', 'id' => 'mainmenu'),
 				'items' => array(
-					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/dashboard/index/index'), 'linkOptions' => array('class' => 'nav-link')),
-					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/dashboard/image/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Blog'), 'url' => array('/dashboard/post/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Settings'), 'url' => array('/dashboard/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/dashboard/help'), 'linkOptions' => array('class' => 'nav-link')),
+					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/site/index'), 'linkOptions' => array('class' => 'nav-link')),
+					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/image/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('itsc', 'Blog'), 'url' => array('/post/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('itsc', 'Settings'), 'url' => array('/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/help'), 'linkOptions' => array('class' => 'nav-link')),
 				),
 				'itemCssClass' => 'nav-item',
 			))?>
@@ -35,7 +34,5 @@
 		</nav>
 		
 		<?php echo $content ?>
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>						
 	</body>
 </html>

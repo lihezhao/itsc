@@ -1,6 +1,6 @@
 <?php
 class PostController extends BasePostController {
-	public $layout='//layouts/dashboard/post';
+	public $layout='//layouts/post';
 	
 	public function actionIndex() {
 		parent::actionAdmin();

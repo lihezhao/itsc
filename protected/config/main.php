@@ -46,19 +46,17 @@ return array(
 		),
 
 		// uncomment the following to enable URLs in path-format
-		/*
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'showScriptName' => false,
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				'image/thumb/<id:\w+>/<width:\d+>/<height:\d+>' => 'image/thumb',
 			),
 		),
-		*/
-
-		// database settings are configured in database.php
-		'db'=>require(dirname(__FILE__).'/database.php'),
+		
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -85,30 +83,9 @@ return array(
 			'class' => 'application.extensions.image.CImageComponent',
 			'driver' => 'GD',
 		),*/
-		'clientScript' => array(
-			'coreScriptPosition' => CClientScript::POS_END,
-			'scriptMap' => array(
-					'jquery.js' => false,
-			),
-			'packages' => array(
-				'jstree' => array(
-					'baseUrl' => '//cdn.bootcss.com/jstree/3.3.2',
-					'js' => array('jstree.min.js'),
-					'css' => array('themes/default/style.min.css'),
-				),
-			),
-		),
 	),
 		
-	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-		'imagePath' => __DIR__ . '/../files',
-		'thumbPath' => __DIR__ . '/../../thumbs',
-		'thumbUrl'	=> 'thumbs',
-	),
+	
 		
 	
 );

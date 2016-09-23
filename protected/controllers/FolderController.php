@@ -26,7 +26,7 @@ class FolderController extends Controller {
 							$text = substr($text, 0, strpos($text, '/'));
 							$grandson[$text] = true;
 							break;
-					}				
+					}
 				}
 			}
 			foreach ($children as $child) {

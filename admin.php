@@ -1,4 +1,5 @@
 <?php
+
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../yii-master/framework/yii.php';
 
@@ -11,7 +12,7 @@ require_once($yii);
 require_once(__DIR__ . '/common/helpers/CArray.php');
 $config = CArray::merge(
 	require(__DIR__ . '/common/config/main.php'),
-	require(__DIR__ . '/protected/config/main.php')
+	require(__DIR__ . '/backend/config/main.php')
 );
 
 Yii::createWebApplication($config)->run();

@@ -68,4 +68,9 @@ return array(
 		'Hide' => '隐藏',
 		'Show' => '显示',
 		'Manage Images' => '图片管理',
+		'Gallery' => '画廊',
+		'Contact' => '联系',
+		'Show and Home' => '显示/首页',
+		'More' => '更多',
+		'Selected' => '选定',
 );

@@ -1,38 +1,12 @@
 <?php
 
-class ImageController extends BaseExifController {
-	public $layout='//layouts/dashboard/image';
-	
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(
-				array('allow',  // allow all users to perform 'index' and 'view' actions
-						'actions'=>array('index','view'),
-						'users'=>array('*'),
-				),
-				array('allow', // allow authenticated user to perform 'create' and 'update' actions
-						'actions'=>array('create','update'),
-						'users'=>array('@'),
-				),
-				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('admin','delete', 'show'),
-						'users'=>array('admin'),
-				),
-				array('deny',  // deny all users
-						'users'=>array('*'),
-				),
-		);
-	}
+class ImageController extends ExifController {
+	public $layout='/layouts/image';
 	
 	public function actionIndex() {
 		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
 		Yii::app()->clientScript->registerScriptFile('assets/js/imageAdmin.js', CClientScript::POS_END);
-		parent::actionAdmin();	
+		parent::actionAdmin();
 	}
 	
 	public function actionIndex1($path = '') {
@@ -67,19 +41,46 @@ class ImageController extends BaseExifController {
 		$this->render('index');
 	}
 	
-	public function actionShow($id) {
+	public function actionStatus($id, $status) {
 		if (Yii::app()->request->isPostRequest) {
 			$image = Image::model()->findByPk($id);
-			if ($image->status == Image::STATUS_HIDE) {
-				$image->status = Image::STATUS_SHOW;
-				$result = Yii::t('itsc', 'Hide');
-			} else {
-				$image->status = Image::STATUS_HIDE;
-				$result = Yii::t('itsc', 'Show');
-			}
+			$image->status = $status;				
 			$image->save();
-			echo $result;
+			
+			switch ($status) {
+				case Image::STATUS_HIDE:
+					$result = array('status' => Yii::t('itsc', 'Hide'));
+					break;
+				case Image::STATUS_SHOW:
+					$result = array('status' => Yii::t('itsc', 'Show'));
+					break;
+				case Image::STATUS_HOMEPAGE:
+					$result = array('status' => Yii::t('itsc', 'Show and Home'));
+					break;
+			}
+			echo CJavaScript::jsonEncode($result);
 		}
+	}
+	
+	public function accessRules()
+	{
+		return array(
+				array('allow',  // allow all users to perform 'index' and 'view' actions
+						'actions'=>array('index','view', 'status'),
+						'users'=>array('*'),
+				),
+				array('allow', // allow authenticated user to perform 'create' and 'update' actions
+						'actions'=>array('create','update'),
+						'users'=>array('@'),
+				),
+				array('allow', // allow admin user to perform 'admin' and 'delete' actions
+						'actions'=>array('admin','delete', 'status'),
+						'users'=>array('admin'),
+				),
+				array('deny',  // deny all users
+						'users'=>array('*'),
+				),
+		);
 	}
 
 	// Uncomment the following methods and override them if needed

@@ -3,7 +3,6 @@
 class ImageController extends BaseImageController
 {
 
-
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -34,4 +33,5 @@ class ImageController extends BaseImageController
 		$exif = Exif::model('Exif')->findByPk($id);
 		echo $exif->getThumb($width, $height);
 	}
+	
 }

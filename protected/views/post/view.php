@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	Yii::t('itsc', 'Blog') => array('post/'),
+	'Blog',
 	$model->title,
 );
 $this->pageTitle=$model->title;
