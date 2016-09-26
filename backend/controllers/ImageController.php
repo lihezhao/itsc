@@ -3,9 +3,18 @@
 class ImageController extends ExifController {
 	public $layout='/layouts/image';
 	
+	public function actions() {
+		return array(
+			'page' => array(
+				'class' => 'CViewAction',
+			),
+		);
+	}
+	
 	public function actionIndex() {
 		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
 		Yii::app()->clientScript->registerScriptFile('assets/js/imageAdmin.js', CClientScript::POS_END);
+		Yii::app()->clientScript->registerCoreScript('lazyload');
 		parent::actionAdmin();
 	}
 	

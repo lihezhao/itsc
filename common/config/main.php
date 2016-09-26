@@ -35,10 +35,19 @@ return array(
 					'css' => array('themes/default/style.min.css'),
 					'depends' => array('jquery'),
 				),
+				'lazyload' => array(
+					'baseUrl' => '//cdn.bootcss.com/jquery_lazyload/1.9.7',
+					'js' => array('jquery.lazyload.min.js'),
+				),
 				'masonry' => array(
 					'baseUrl' => '//cdn.bootcss.com/masonry/4.1.0',
 					'js' => array('masonry.pkgd.min.js'),
 					'depends' => array('jquery'),
+				),
+				'photoswipe' => array(
+					'baseUrl' => '//cdn.bootcss.com/photoswipe/4.1.1',
+					'js' => array('photoswipe.min.js', 'photoswipe-ui-default.min.js',),
+					'css' => array('photoswipe.min.css', 'default-skin/default-skin.min.css'),
 				),
 			),
 		),		

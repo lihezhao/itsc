@@ -25,15 +25,17 @@ $this->breadcrumbs = array(
 	'itemCssClass' => 'nav-item',
 ));
 ?>
-
+<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 <?php $this->widget('zii.widgets.CListView', array(
 	'id'=>'image-list',
 	'dataProvider'=>$model->search(),
   	'itemView' => '_view',
-  	'itemsCssClass' => 'grid',
+  	'itemsCssClass' => 'gallery',
 	'pager' => array(
 			'class' => 'LinkPager',	
 	),
 	'pagerCssClass' => 'Page navigation',
 	'afterAjaxUpdate' => 'loadImages',
 ));?>
+</div>
+<?php $this->renderPartial('common.views.image.photoswipe')?>

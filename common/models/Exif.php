@@ -6,14 +6,34 @@ class Exif extends BaseExif {
 	public function getFileType() {
 		return $this->imgtype[$this->fileType];
 	}
-		
-	public function getThumb($width, $height) {
 	
+	public function getDataSize($size) {
+		if ($this->height > $this->width) {
+			$result = ($size * $this->width / $this->height) . 'x' . $size;
+		} else {
+			$result = $size . 'x' . ($size * $this->height / $this->width);
+		}
+		return $result;
+	}
+	
+	public function getThumbPath($width, $height) {
 		$dir = pathinfo($this->pathName, PATHINFO_DIRNAME);
-		$file = pathinfo($this->pathName, PATHINFO_BASENAME);
 		$baseThumbPath  = str_replace(Yii::app()->params['imagePath'],
 				Yii::app()->params['thumbPath'], $dir);
-		$thumbPath = $baseThumbPath . "/{$width}x{$height}";
+		return $baseThumbPath . "/{$width}x{$height}";
+	}
+	
+	public function thumbFile($width, $height) {
+		$thumbPath = $this->getThumbPath($width, $height);
+		$file = pathinfo($this->pathName, PATHINFO_BASENAME);
+		$fileName = $thumbPath . '/' . $file;
+		return file_exists($fileName) ? Yii::app()->baseUrl . str_replace(Yii::app()->params['thumbPath'],
+				Yii::app()->params['thumbUrl'], $fileName) : false;
+	}
+
+	public function getThumb($width, $height) {
+		$thumbPath = $this->getThumbPath($width, $height);
+		$file = pathinfo($this->pathName, PATHINFO_BASENAME);
 		$fileName = $thumbPath . '/' . $file;
 		if (file_exists($fileName)) {
 		} else {

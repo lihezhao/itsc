@@ -41,10 +41,8 @@
 	<?php endif?>
 
 	<?php echo $content; ?>
-
-
 </div>
-<footer class="footer">
+<!-- <footer class="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
@@ -57,6 +55,6 @@
 		</div>
 	</div>
 </footer>
-
+ -->
 </body>
 </html>

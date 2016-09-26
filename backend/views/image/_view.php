@@ -3,7 +3,8 @@
 <li class="media">
 	<div class="media-left">
 		<a href="#">
-			<img class="media-object img-thumbnail" src="images/loading.jpg" alt="<?php echo $data['pathName'] ?>" id="<?php echo $data['id'] ?>">
+		<?php $thumbFile = $data->thumbFile(256, 256);?>
+			<img class="media-object img-thumbnail" data-original="<?php echo $thumbFile == false ? 'images/loading.jpg' : $thumbFile ?>" alt="<?php echo $data['pathName'] ?>" id="<?php echo $data['id'] ?>">
 		</a>
 	</div>
 	<div class="media-body">

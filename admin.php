@@ -9,7 +9,7 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 require_once($yii);
-require_once(__DIR__ . '/common/helpers/CArray.php');
+require_once(__DIR__ . '/protected/helpers/CArray.php');
 $config = CArray::merge(
 	require(__DIR__ . '/common/config/main.php'),
 	require(__DIR__ . '/backend/config/main.php')

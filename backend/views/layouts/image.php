@@ -5,7 +5,8 @@
 			<?php $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav nav-sidebar', 'id' => 'sidebar-menu'),
 				'items' => array(
-					array('label' => Yii::t('itsc', 'Image Manager'), 'url' => array('/dashboard/image/index')),
+					array('label' => Yii::t('itsc', 'Image manager'), 'url' => array('/image/index')),
+					array('label' => Yii::t('itsc', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
 				),
 			))?>
 			</div>
