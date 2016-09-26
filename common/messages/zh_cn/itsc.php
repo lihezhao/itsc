@@ -74,4 +74,7 @@ return array(
 		'Show and Home' => '显示/首页',
 		'More' => '更多',
 		'Selected' => '选定',
+		'Use the ftp tool to upload images please, compared with http upload, ftp upload faster and more stable.' => '请使用ftp工具上传图片,与http上传比较,ftp上传更快速、更稳定。',
+		'Scan images uploaded previously.' => '扫描之前上传的图片。',
+		'Image scan' => '图片扫描',
 );

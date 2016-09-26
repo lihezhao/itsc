@@ -3,8 +3,7 @@
 /* @var $model Exif */
 
 $this->breadcrumbs=array(
-	'Image'=>array('index'),
-	'Manage',
+	Yii::t('itsc', 'Image manager'),
 );
 
 ?>

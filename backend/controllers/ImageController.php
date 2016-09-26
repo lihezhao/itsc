@@ -3,6 +3,7 @@
 class ImageController extends ExifController {
 	public $layout='/layouts/image';
 	
+	
 	public function actions() {
 		return array(
 			'page' => array(
@@ -18,26 +19,29 @@ class ImageController extends ExifController {
 		parent::actionAdmin();
 	}
 	
-	public function actionIndex1($path = '') {
+	public function actionScan($path = '') {
 		$imagePath = Yii::app()->params['imagePath'];
 		if ('' != $path) $imagePath .= '/' . $path;
-		$di = new DirectoryIterator($imagePath);
-		$folders = array();
-		foreach ($di as $file) {
-			if ($file->isDir() && !$file->isDot()) {
-				$folder = Folder::model()->find('path=:path', array(':path' => $file->getPathname()));
-				if ($folder) {
-				} else {
-					$folder = new Folder();
-					$folder->path = $file->getPathname();
-					if (!$folder->save()) {
-						print_r($folder->getErrors());exit;
+		
+		$find = Folder::findFiles($imagePath, array('level' => 0));
+
+		if ($find != false) {
+			$folders = array();
+			foreach ($find['dirs'][''] as $dir) {
+				$folder = Folder::model()->find('path=:path', array(':path' => $dir));
+					if ($folder) {
+					} else {
+						$folder = new Folder();
+						$folder->path = $dir;
+						if (!$folder->save()) {
+							print_r($folder->getErrors());exit;
+						}
 					}
-				}
-				$folders[str_replace(Yii::app()->params['imagePath'] . '\\', '', $folder->path)] = $folder;
+					$folders[str_replace(Yii::app()->params['imagePath'] . '\\', '', $folder->path)] = $folder;
 			}
 		}
-		$this->render('index', array('folders' => $folders));
+		
+		$this->render('scan', array('folders' => $folders));
 	}
 	
 	public function actionBuild($path) {
@@ -75,7 +79,7 @@ class ImageController extends ExifController {
 	{
 		return array(
 				array('allow',  // allow all users to perform 'index' and 'view' actions
-						'actions'=>array('index','view', 'status'),
+						'actions'=>array('index','view', 'status', 'page', 'scan'),
 						'users'=>array('*'),
 				),
 				array('allow', // allow authenticated user to perform 'create' and 'update' actions

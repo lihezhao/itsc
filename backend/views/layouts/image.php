@@ -7,13 +7,14 @@
 				'items' => array(
 					array('label' => Yii::t('itsc', 'Image manager'), 'url' => array('/image/index')),
 					array('label' => Yii::t('itsc', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
+					array('label' => Yii::t('itsc', 'Image scan'), 'url' => array('/image/scan')),
 				),
 			))?>
 			</div>
 			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
 				<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
+			'links' => $this->breadcrumbs,
 			'tagName' => 'ol',
 			'htmlOptions' => array('class' => 'breadcrumb'),
 			'activeLinkTemplate' => '<li class="breadcrumb-item"><a href="{url}">{label}</a></li>',
