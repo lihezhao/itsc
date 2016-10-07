@@ -19,8 +19,9 @@ class Folder extends BaseFolder {
 			$level = -1;
 			extract($options);
 			$dirs[] = array('level' => 0, 'path' => '');
-			$dirs2 = array();
+			$subdirs = array();
 			$files = array();
+			$subdirfiles = array();
 			while (list($k, $path) = each($dirs)) {
 				if ($level != -1 && $path['level'] > $level)
 					break;
@@ -29,18 +30,21 @@ class Folder extends BaseFolder {
 				$handle = opendir($absDirPath);
 				readdir($handle);readdir($handle);
 				while (false !== $item = readdir($handle)) {
-					$relPath = "$curPath/$item";
+					$relPath = "$curPath$item";
 					$absPath = "$dir/$relPath";
 					if (is_dir($absPath)) {
 						$dirs[] = array('level' => $path['level'] + 1, 'path' => $relPath);
-						$dirs2[$curPath][] = $absPath;
+						$subdirs[$curPath][] = $absPath;
+					} else {
+						if ($path['level'] == 0)
+							$files[] = $relPath;
+						else
+							$subdirfiles[$curPath][] = $relPath;
 					}
-					else
-						$files[$curPath][] = $relPath;
 				}
 				closedir($handle);
 			}
-			$result = array('dirs' => $dirs2, 'files' => $files);
+			$result = array('subdirs' => $subdirs, 'subdirfiles' => $subdirfiles, 'files' => $files);
 		} else {
 			$result = false;
 		}

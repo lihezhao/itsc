@@ -7,7 +7,7 @@
 				'items' => array(
 					array('label' => Yii::t('itsc', 'Image manager'), 'url' => array('/image/index')),
 					array('label' => Yii::t('itsc', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
-					array('label' => Yii::t('itsc', 'Image scan'), 'url' => array('/image/scan')),
+					array('label' => Yii::t('itsc', 'Image storage'), 'url' => array('/image/storage')),
 				),
 			))?>
 			</div>

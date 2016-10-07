@@ -19,29 +19,44 @@ class ImageController extends ExifController {
 		parent::actionAdmin();
 	}
 	
-	public function actionScan($path = '') {
+	public function actionStorage($path = '') {
 		$imagePath = Yii::app()->params['imagePath'];
-		if ('' != $path) $imagePath .= '/' . $path;
-		
-		$find = Folder::findFiles($imagePath, array('level' => 0));
-
+		if ('' != $path) {
+			$imagePath .= '/' . $path;
+			$find = Folder::findFiles($imagePath);
+		} else {
+			$find = Folder::findFiles($imagePath);
+		}
+//print_r($find);exit;
+		$folders = array();
+		$folder = new Folder;
+		$folder->path = $path;
+		$folders[$path] = $folder; 
 		if ($find != false) {
-			$folders = array();
-			foreach ($find['dirs'][''] as $dir) {
-				$folder = Folder::model()->find('path=:path', array(':path' => $dir));
-					if ($folder) {
-					} else {
-						$folder = new Folder();
-						$folder->path = $dir;
-						if (!$folder->save()) {
-							print_r($folder->getErrors());exit;
+			if (isset($find['subdirs'][''])) {
+				foreach ($find['subdirs'][''] as $dir) {
+					$folder = Folder::model()->find('path=:path', array(':path' => $dir));
+						if ($folder) {
+						} else {
+							$folder = new Folder();
+							$folder->path = $dir;
+							if (!$folder->save()) {
+								print_r($folder->getErrors());exit;
+							}
 						}
-					}
-					$folders[str_replace(Yii::app()->params['imagePath'] . '\\', '', $folder->path)] = $folder;
+						$folders[str_replace(Yii::app()->params['imagePath'] . '\\', '', $folder->path)] = $folder;
+				}
 			}
 		}
-		
-		$this->render('scan', array('folders' => $folders));
+		if (Yii::app()->request->isAjaxRequest) {
+			$subdirCount = isset($find['subdirs']) ? count($find['subdirs'], COUNT_RECURSIVE) - count($find['subdirs']) : 0;
+			$subdirfileCount = isset($find['subdirfiles']) ? count($find['subdirfiles'], COUNT_RECURSIVE) - count($find['subdirfiles']) : 0;
+			$fileCount = isset($find['files']) ? count($find['files'], COUNT_RECURSIVE) : 0;
+			echo CJavaScript::jsonEncode(array('subdirCount' => $subdirCount, 'subdirfileCount' => $subdirfileCount, 'fileCount' => $fileCount));	
+		} else {
+			Yii::app()->clientScript->registerScriptFile('assets/js/imageScan.js', CClientScript::POS_END);
+			$this->render('storage', array('folders' => $folders));
+		}
 	}
 	
 	public function actionBuild($path) {
@@ -79,7 +94,7 @@ class ImageController extends ExifController {
 	{
 		return array(
 				array('allow',  // allow all users to perform 'index' and 'view' actions
-						'actions'=>array('index','view', 'status', 'page', 'scan'),
+						'actions'=>array('index','view', 'status', 'page', 'storage'),
 						'users'=>array('*'),
 				),
 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
