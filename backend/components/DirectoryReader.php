@@ -1,8 +1,22 @@
 <?php
 class DirectoryReader {
-	public function read($path) {
-		$di = new DirectoryIterator($path);
-		$exifReader = new ExifReader();
+	public function read($path, $index) {
+		$find = Folder::findFiles($path);
+		if ($find != false) {
+			$pos = 0;
+			$count = 0;
+			$exifReader = new ExifReader();
+			foreach ($find['files'] as $file) {
+				if ($pos < $index) {
+					$pos++;
+					continue;
+				}
+				
+				$count++;
+			}
+		}
+		
+		
 		foreach ($di as $file) {
 			if ($file->isFile()) {
 				$fileName = $file->getPathname();

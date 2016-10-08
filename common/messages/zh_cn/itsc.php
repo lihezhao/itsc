@@ -80,4 +80,5 @@ return array(
 		'The current folder' => '当前文件夹',
 		'Subfolders' => '子文件夹',
 		'Storage' => '入库',
+		'Initialize the image storage process...' => '初始化图片入库进程...',
 );

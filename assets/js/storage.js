@@ -1,7 +1,0 @@
-$(function() {
-	storage();
-});
-
-function storage() {
-	
-}

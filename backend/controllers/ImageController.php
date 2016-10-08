@@ -27,7 +27,7 @@ class ImageController extends ExifController {
 		} else {
 			$find = Folder::findFiles($imagePath);
 		}
-//print_r($find);exit;
+print_r($find);exit;
 		$folders = array();
 		$curFolder = new Folder;
 		$curFolder->path = $path;
@@ -54,18 +54,23 @@ class ImageController extends ExifController {
 			$fileCount = isset($find['files']) ? count($find['files'], COUNT_RECURSIVE) : 0;
 			echo CJavaScript::jsonEncode(array('subfoldersCount' => $subfoldersCount, 'subfoldersfileCount' => $subfoldersfileCount, 'fileCount' => $fileCount));	
 		} else {
-			Yii::app()->clientScript->registerScriptFile('assets/js/imageScan.js', CClientScript::POS_END);
+			Yii::app()->clientScript->registerScriptFile('assets/js/imageStorage.js', CClientScript::POS_END);
 			$this->render('storage', array('curFolder' => $curFolder, 'folders' => $folders));
 		}
 	}
 	
-	public function actionDoStorage($path) {
-		$imagePath = Yii::app()->params['imagePath'];
-		$imagePath .= '/' . $path;
-		
-		$dr = new DirectoryReader();
-		$dr->read($imagePath);
-		$this->render('doStorage');
+	public function actionDoStorage($path, $index = 0) {
+		if (yii::app()->request->isAjaxRequest) {
+			$imagePath = Yii::app()->params['imagePath'];
+			$imagePath .= '/' . $path;
+			
+			$dr = new DirectoryReader();
+			$dr->read($imagePath);
+				
+		} else {
+			Yii::app()->clientScript->registerScriptFile('assets/js/imageDoStorage.js', CClientScript::POS_END);
+			$this->render('doStorage', array('path' => $path));
+		}
 	}
 	
 	public function actionStatus($id, $status) {
