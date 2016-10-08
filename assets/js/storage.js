@@ -1,0 +1,7 @@
+$(function() {
+	storage();
+});
+
+function storage() {
+	
+}

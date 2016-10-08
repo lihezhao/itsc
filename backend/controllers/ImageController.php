@@ -29,12 +29,12 @@ class ImageController extends ExifController {
 		}
 //print_r($find);exit;
 		$folders = array();
-		$folder = new Folder;
-		$folder->path = $path;
-		$folders[$path] = $folder; 
+		$curFolder = new Folder;
+		$curFolder->path = $path;
+		 
 		if ($find != false) {
-			if (isset($find['subdirs'][''])) {
-				foreach ($find['subdirs'][''] as $dir) {
+			if (isset($find['subfolders'][''])) {
+				foreach ($find['subfolders'][''] as $dir) {
 					$folder = Folder::model()->find('path=:path', array(':path' => $dir));
 						if ($folder) {
 						} else {
@@ -49,24 +49,23 @@ class ImageController extends ExifController {
 			}
 		}
 		if (Yii::app()->request->isAjaxRequest) {
-			$subdirCount = isset($find['subdirs']) ? count($find['subdirs'], COUNT_RECURSIVE) - count($find['subdirs']) : 0;
-			$subdirfileCount = isset($find['subdirfiles']) ? count($find['subdirfiles'], COUNT_RECURSIVE) - count($find['subdirfiles']) : 0;
+			$subfoldersCount = isset($find['subfolders']) ? count($find['subfolders'], COUNT_RECURSIVE) - count($find['subfolders']) : 0;
+			$subfoldersfileCount = isset($find['subfoldersfiles']) ? count($find['subfoldersfiles'], COUNT_RECURSIVE) - count($find['subfoldersfiles']) : 0;
 			$fileCount = isset($find['files']) ? count($find['files'], COUNT_RECURSIVE) : 0;
-			echo CJavaScript::jsonEncode(array('subdirCount' => $subdirCount, 'subdirfileCount' => $subdirfileCount, 'fileCount' => $fileCount));	
+			echo CJavaScript::jsonEncode(array('subfoldersCount' => $subfoldersCount, 'subfoldersfileCount' => $subfoldersfileCount, 'fileCount' => $fileCount));	
 		} else {
 			Yii::app()->clientScript->registerScriptFile('assets/js/imageScan.js', CClientScript::POS_END);
-			$this->render('storage', array('folders' => $folders));
+			$this->render('storage', array('curFolder' => $curFolder, 'folders' => $folders));
 		}
 	}
 	
-	public function actionBuild($path) {
-		error_reporting(E_ALL^E_NOTICE^E_WARNING);
+	public function actionDoStorage($path) {
 		$imagePath = Yii::app()->params['imagePath'];
 		$imagePath .= '/' . $path;
 		
 		$dr = new DirectoryReader();
 		$dr->read($imagePath);
-		$this->render('index');
+		$this->render('doStorage');
 	}
 	
 	public function actionStatus($id, $status) {
@@ -94,7 +93,7 @@ class ImageController extends ExifController {
 	{
 		return array(
 				array('allow',  // allow all users to perform 'index' and 'view' actions
-						'actions'=>array('index','view', 'status', 'page', 'storage'),
+						'actions'=>array('index','view', 'status', 'page', 'storage', 'doStorage'),
 						'users'=>array('*'),
 				),
 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
