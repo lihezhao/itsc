@@ -12,6 +12,7 @@ $this->pageTitle=Yii::app()->name;
 				<span class="pull-xs-right"><?php echo CHtml::link(Yii::t('itsc', 'More'), array('gallery/index'))?></span>
 			</div>
 			<div class="card-block">
+			<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 				<?php $this->widget('zii.widgets.CListView', array(
 					'id' => 'image-list',
 					'dataProvider' => $model->search('home'),
@@ -19,6 +20,7 @@ $this->pageTitle=Yii::app()->name;
 					'itemsCssClass' => 'grid',
 					'afterAjaxUpdate' => 'loadImages',
 				))?>
+			</div>
 			</div>
 		</div>
 		<div class="card">
@@ -32,3 +34,4 @@ $this->pageTitle=Yii::app()->name;
 	<div class="col-lg-3 col-md-3">
 	</div>
 </div>
+<?php $this->renderPartial('common.views.image.photoswipe')?>

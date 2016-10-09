@@ -20,7 +20,7 @@ function loadImages() {
 						count = 0;
 						images.lazyload({
 							effect: 'fadeIn',
-							threshold : -100,
+							threshold : 30,
 							load: doMasonry,
 						});
 						
@@ -41,7 +41,7 @@ function loadImages() {
 				count = 0;
 				images.lazyload({
 					effect: 'fadeIn',
-					threshold : -100,
+					threshold : 30,
 					load: doMasonry,
 				});
 			}

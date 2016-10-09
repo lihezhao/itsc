@@ -13,6 +13,9 @@ return array(
 	),
 	'components' => array(
 		'db' => require(dirname(__FILE__) . '/database.php'),
+		'cache' => array(
+			'class' => 'system.caching.CFileCache',
+		),
 		'messages' => array(
 			'class' => 'CPhpMessageSource',
 			'basePath' => __DIR__ . '/../messages',

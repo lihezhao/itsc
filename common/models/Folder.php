@@ -30,16 +30,16 @@ class Folder extends BaseFolder {
 				$handle = opendir($absDirPath);
 				readdir($handle);readdir($handle);
 				while (false !== $item = readdir($handle)) {
-					$relPath = "$curPath$item";
+					$relPath = "$curPath/$item";
 					$absPath = "$dir/$relPath";
 					if (is_dir($absPath)) {
 						$dirs[] = array('level' => $path['level'] + 1, 'path' => $relPath);
 						$subfolders[$curPath][] = $absPath;
 					} else {
 						if ($path['level'] == 0)
-							$files[] = $relPath;
+							$files[] = $absPath;
 						else
-							$subfoldersfiles[$curPath][] = $relPath;
+							$subfoldersfiles[$curPath][] = $absPath;
 					}
 				}
 				closedir($handle);

@@ -30,3 +30,10 @@ $this->breadcrumbs=array(
 	'pagerCssClass' => 'Page navigation',
 	'afterAjaxUpdate' => 'adminLoadImages',
 )); ?>
+<?php
+	echo CHtml::tag('label', array('class' => 'custom-control custom-checkbox'),
+			CHtml::checkBox('selectAll', false, array('class' => 'custom-control-input')) .
+			CHtml::tag('span', array('class' => 'custom-control-indicator'), '') .
+			CHtml::tag('span', array('class' => 'custom-control-description'), Yii::t('itsc', 'Select all')));
+	
+?>

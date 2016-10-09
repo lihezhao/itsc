@@ -27,7 +27,7 @@ class ImageController extends ExifController {
 		} else {
 			$find = Folder::findFiles($imagePath);
 		}
-print_r($find);exit;
+//print_r($find);exit;
 		$folders = array();
 		$curFolder = new Folder;
 		$curFolder->path = $path;
@@ -65,8 +65,11 @@ print_r($find);exit;
 			$imagePath .= '/' . $path;
 			
 			$dr = new DirectoryReader();
-			$dr->read($imagePath);
-				
+			$count = $dr->read($imagePath, $index, 10);
+			echo CJavaScript::jsonEncode(array(
+					'message' => Yii::t('itsc', 'Storage the images, please wait...'),
+					'pos' => ($index + $count) * 100 / $dr->getFileCount($imagePath),
+					'nextIndex' => $index + $count));
 		} else {
 			Yii::app()->clientScript->registerScriptFile('assets/js/imageDoStorage.js', CClientScript::POS_END);
 			$this->render('doStorage', array('path' => $path));

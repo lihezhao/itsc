@@ -19,7 +19,7 @@ class ExifReader {
 		return $InfoVal;
 	}
 	
-	function read($fileName) {
+	public static function read($fileName) {
 		$Orientation		= array("", "top left side", "top right side", "bottom right side", "bottom left side", "left side top", "right side top", "right side bottom", "left side bottom");
 		$ResolutionUnit		= array("", "", "英寸", "厘米");
 		$YCbCrPositioning	= array("", "the center of pixel array", "the datum point");
@@ -54,9 +54,11 @@ class ExifReader {
 				"5"		=> "flash fired but strobe return light not detected",
 				"7"		=> "flash fired and strobe return light detected",
 		);
-		 
-		$exifData = exif_read_data($fileName, "IFD0");
-		$exif = Exif::model()->find('pathName=:pathName', array(':pathName'=> $filename));
+		
+		
+		@$exifData = exif_read_data($fileName, "IFD0");
+		
+		$exif = Exif::model()->find('pathName=:pathName', array(':pathName'=> $fileName));
 		if ($exif) {
 		} else {
 			$exif = new Exif();

@@ -9,11 +9,19 @@ class Exif extends BaseExif {
 	
 	public function getDataSize($size) {
 		if ($this->height > $this->width) {
-			$result = ($size * $this->width / $this->height) . 'x' . $size;
+			$width = $size * $this->width / $this->height;
+			$height = $size;
 		} else {
-			$result = $size . 'x' . ($size * $this->height / $this->width);
+			$width = $size;
+			$height = $size * $this->height / $this->width;
 		}
-		return $result;
+		if ($this->orientation == 6 || $this->orientation == 8) {
+			$oldWidth = $width;
+			$width = $height;
+			$height = $oldWidth;
+		}
+		
+		return $width . 'x' . $height;
 	}
 	
 	public function getThumbPath($width, $height) {
