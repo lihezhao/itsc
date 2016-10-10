@@ -35,7 +35,7 @@ class ImageController extends ExifController {
 		if ($find != false) {
 			if (isset($find['subfolders'][''])) {
 				foreach ($find['subfolders'][''] as $dir) {
-					$folder = Folder::model()->find('path=:path', array(':path' => $dir));
+					$folder = Folder::model('Folder')->find('path=:path', array(':path' => $dir));
 						if ($folder) {
 						} else {
 							$folder = new Folder();
