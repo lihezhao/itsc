@@ -5,7 +5,7 @@ Yii::setPathOfAlias('common', __DIR__ . '/..');
 
 return array(
 	'import' => array(
-//		'system.cli.views.webapp.protected.controllers.SiteController',
+		'system.cli.views.webapp.protected.controllers.SiteController',
 		'system.cli.views.webapp.protected.models.LoginForm',	
 		'common.components.*',
 		'common.controllers.*',
@@ -59,7 +59,7 @@ return array(
 	),
 	'controllerMap' => array(
 		'site' => array(
-			'class' => 'system.cli.views.webapp.protected.controllers.SiteController',
+			'class' => 'HomeController',
 		),
 	),
 	// application-level parameters that can be accessed

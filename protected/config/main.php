@@ -18,7 +18,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.helpers.*',
-		'application.controllers.base.*',
+		'application.controllers.*',
 		'blog.components.UserIdentity',
 		'blog.models.User',
 		'blog.models.Tag',

@@ -17,6 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.controllers.*',
 		'application.helpers.*',
 		'blog.components.UserIdentity',
 		'blog.models.User',

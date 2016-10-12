@@ -1,7 +1,7 @@
 <?php
 
 class HomeController extends SiteController {
-	public $layout='//layouts/index';
+	public $layout='column2';
 	
 	public function actionIndex()
 	{
