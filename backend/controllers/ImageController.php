@@ -101,7 +101,7 @@ class ImageController extends ExifController {
 	{
 		return array(
 				array('allow',  // allow all users to perform 'index' and 'view' actions
-						'actions'=>array('index','view', 'status', 'page', 'storage', 'doStorage'),
+						'actions'=>array('view', 'status', ),
 						'users'=>array('*'),
 				),
 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -109,7 +109,7 @@ class ImageController extends ExifController {
 						'users'=>array('@'),
 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('admin','delete', 'status'),
+						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage'),
 						'users'=>array('admin'),
 				),
 				array('deny',  // deny all users

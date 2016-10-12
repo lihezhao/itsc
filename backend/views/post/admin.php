@@ -3,6 +3,11 @@ $this->breadcrumbs=array(
 	'Blog',
 	'Manage Posts',
 );
+
+$this->menu = array(
+	array('label' => Yii::t('itsc', 'Post Manager'), 'url' => array('/dashboard/post/admin')),
+	array('label' => Yii::t('itsc', 'Create Post'), 'url' => array('/dashboard/post/create')),
+);
 ?>
 <h1><?php echo Yii::t('itsc', 'Manage Posts')?></h1>
 
