@@ -6,12 +6,6 @@ $this->breadcrumbs=array(
 	Yii::t('itsc', 'Image manager'),
 );
 
-$this->menu = array(
-	array('label' => Yii::t('itsc', 'Image manager'), 'url' => array('/image/index')),
-	array('label' => Yii::t('itsc', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
-	array('label' => Yii::t('itsc', 'Image storage'), 'url' => array('/image/storage')),
-);
-
 ?>
 
 <h1><?php echo Yii::t('itsc', 'Manage Images')?></h1>

@@ -18,21 +18,6 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#">ITSC</a>
-			<?php if ($this->action->id != 'login') {?>
-			<div id="navbar">
-			<?php $this->widget('zii.widgets.CMenu', array(
-				'htmlOptions' => array('class' => 'nav navbar-nav pull-xs-left', 'id' => 'mainmenu'),
-				'items' => array(
-					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/site/index'), 'linkOptions' => array('class' => 'nav-link')),
-					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/image/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Blog'), 'url' => array('/post/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Settings'), 'url' => array('/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/help'), 'linkOptions' => array('class' => 'nav-link')),
-				),
-				'itemCssClass' => 'nav-item',
-			))?>
-			</div>
-			<?php } ?>
 		</nav>
 		
 		<?php echo $content ?>

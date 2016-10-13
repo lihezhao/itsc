@@ -1,8 +1,16 @@
 <?php
 
 class ImageController extends ExifController {
-	public $layout='/layouts/image';
 	
+	public function init() {
+		parent::init();
+		$this->menu = array(
+			array('label' => Yii::t('itsc', 'Image manager'), 'url' => array('/image/index')),
+			array('label' => Yii::t('itsc', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
+			array('label' => Yii::t('itsc', 'Image storage'), 'url' => array('/image/storage')),
+			array('label' => Yii::t('itsc', 'Image thumbnail'), 'url' => array('image/thumbnail')),
+		);
+	}
 	
 	public function actions() {
 		return array(
@@ -76,6 +84,14 @@ class ImageController extends ExifController {
 		}
 	}
 	
+	public function actionThumbnail() {
+		$thumbPath = Yii::app()->params['thumbPath'];
+		$thumb = Folder::findFiles($thumbPath, array('level' => 0));
+		$imagePath = Yii::app()->params['imagePath'];
+		$image = Folder::findFiles($imagePath, array('level' => 0));
+		$this->render('thumbnail', array('imageFolder' => $image, 'thumbnailFolder' => $thumb));
+	}
+	
 	public function actionStatus($id, $status) {
 		if (Yii::app()->request->isPostRequest) {
 			$image = Image::model()->findByPk($id);
@@ -109,7 +125,7 @@ class ImageController extends ExifController {
 						'users'=>array('@'),
 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage'),
+						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumbnail'),
 						'users'=>array('admin'),
 				),
 				array('deny',  // deny all users
