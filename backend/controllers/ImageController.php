@@ -92,6 +92,15 @@ class ImageController extends ExifController {
 		$this->render('thumbnail', array('imageFolder' => $image, 'thumbnailFolder' => $thumb));
 	}
 	
+	public function actionScanThumb($path = '') {
+		$thumbPath = Yii::app()->params['thumbPath'] . '/' . $path;
+		$find = Folder::findFiles($thumbPath);
+		
+		
+	}
+	
+	
+	
 	public function actionStatus($id, $status) {
 		if (Yii::app()->request->isPostRequest) {
 			$image = Image::model()->findByPk($id);
