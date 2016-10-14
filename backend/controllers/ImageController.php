@@ -8,7 +8,7 @@ class ImageController extends ExifController {
 			array('label' => Yii::t('itsc', 'Image manager'), 'url' => array('/image/index')),
 			array('label' => Yii::t('itsc', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
 			array('label' => Yii::t('itsc', 'Image storage'), 'url' => array('/image/storage')),
-			array('label' => Yii::t('itsc', 'Image thumbnail'), 'url' => array('image/thumbnail')),
+			array('label' => Yii::t('itsc', 'Image thumbnail'), 'url' => array('image/thumb')),
 		);
 	}
 	
@@ -31,9 +31,9 @@ class ImageController extends ExifController {
 		$imagePath = Yii::app()->params['imagePath'];
 		if ('' != $path) {
 			$imagePath .= '/' . $path;
-			$find = Folder::findFiles($imagePath);
+			$find = FileHelper::findFiles($imagePath);
 		} else {
-			$find = Folder::findFiles($imagePath);
+			$find = FileHelper::findFiles($imagePath);
 		}
 //print_r($find);exit;
 		$folders = array();
@@ -84,21 +84,36 @@ class ImageController extends ExifController {
 		}
 	}
 	
-	public function actionThumbnail() {
+	public function actionThumb() {
+		Yii::app()->clientScript->registerScriptFile('assets/js/imageThumb.js', CClientScript::POS_END);
 		$thumbPath = Yii::app()->params['thumbPath'];
-		$thumb = Folder::findFiles($thumbPath, array('level' => 0));
+		$thumb = FileHelper::findFiles($thumbPath, array('level' => 0));
 		$imagePath = Yii::app()->params['imagePath'];
-		$image = Folder::findFiles($imagePath, array('level' => 0));
-		$this->render('thumbnail', array('imageFolder' => $image, 'thumbnailFolder' => $thumb));
+		$image = FileHelper::findFiles($imagePath, array('level' => 0));
+		
+		$this->render('thumb', array('imageFolder' => $image, 'thumbnailFolder' => $thumb));
+	}
+	
+	public function actionBuildThumb($index = 0) {
+		
+	}
+	
+	private function scan($type, $path) {
+		$absPath = Yii::app()->params[$type] . '/' . $path;
+		$find = FileHelper::findFiles($absPath);
+		$fileCount = count($find['files'], COUNT_RECURSIVE);
+		$folderCount = count($find['folders'], COUNT_RECURSIVE) - count($find['folders']);
+		$folderFileCount = count($find['folderFiles'], COUNT_RECURSIVE) - count($find['folderFiles']);
+		echo CJavaScript::jsonEncode(array('fileCount' => $fileCount, 'folderCount' => $folderCount, 'folderFileCount' => $folderFileCount));
+	}
+	
+	public function actionScanImage($path = '') {
+		$this->scan('imagePath', $path);
 	}
 	
 	public function actionScanThumb($path = '') {
-		$thumbPath = Yii::app()->params['thumbPath'] . '/' . $path;
-		$find = Folder::findFiles($thumbPath);
-		
-		
+		$this->scan('thumbPath', $path);
 	}
-	
 	
 	
 	public function actionStatus($id, $status) {
@@ -134,7 +149,7 @@ class ImageController extends ExifController {
 						'users'=>array('@'),
 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumbnail'),
+						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumb', 'scanImage', 'scanThumb'),
 						'users'=>array('admin'),
 				),
 				array('deny',  // deny all users

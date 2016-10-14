@@ -24,7 +24,7 @@ class DirectoryReader {
 	public function getFileCount($path) {
 		$find = Yii::app()->cache->get($path);
 		if ($find === false) {
-			$find = Folder::findFiles($path);
+			$find = FileHelper::findFiles($path);
 			Yii::app()->cache->set($path, $find);
 		}
 		return count($find['files']) + count($find['subfoldersfiles'], COUNT_RECURSIVE) - count($find['subfoldersfiles']); 
@@ -36,7 +36,7 @@ class DirectoryReader {
 		}
 		$find = yii::app()->cache->get($path);
 		if ($find === false) {
-			$find = Folder::findFiles($path);
+			$find = FileHelper::findFiles($path);
 			Yii::app()->cache->set($path, $find);
 		}
 		if ($find != false) {
