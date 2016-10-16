@@ -34,24 +34,24 @@ $(function() {
 	});
 	
 	$('#image-thumb-form').submit(function() {
-		buildThumb(0);
+		var size = $('#ImageThumbForm_size');
+		buildThumb(size.val(), 0);
 		return false;
 	})
 });
 
-function buildThumb(index) {
+function buildThumb(size, index) {
 	var url = $('#buildThumbUrl');
-	var size = $('#ImageThumbForm_size');
-	$.ajax({
+	var jqXhr = $.ajax({
 		type: 'GET',
 		url: url.val(),
 		dataType: 'json',
-		data: {'index': index},
+		data: {'size': size, 'index': index},
 		success: function(data) {
 			$('#progressMessage').html(data.message);
 			$('progress').val(data.pos);
 			$('.progress-bar').width(data.pos + '%');
-			buildThumb(data.nextIndex);
+			buildThumb(size, data.nextIndex);
 		}
 	});	
 }

@@ -5,7 +5,7 @@ class FileHelper {
 			$level = -1;
 			extract($options);
 			$dirs[] = array('level' => 0, 'path' => '');
-			$folders = array();
+			$folders = array('' => array());
 			$files = array();
 			$folderfiles = array();
 			while (list($k, $path) = each($dirs)) {
@@ -17,7 +17,7 @@ class FileHelper {
 					readdir($handle);readdir($handle);
 					while (false !== $item = readdir($handle)) {
 						$relPath = "$curPath/$item";
-						$absPath = "$dir/$relPath";
+						$absPath = "$dir$relPath";
 						if (is_dir($absPath)) {
 							$dirs[] = array('level' => $path['level'] + 1, 'path' => $relPath);
 							$folders[$curPath][] = $absPath;

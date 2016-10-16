@@ -25,7 +25,7 @@ If you have business inquiries or other questions, please fill out the following
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('ActiveForm', array(
 	'id'=>'contact-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(

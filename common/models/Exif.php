@@ -24,6 +24,10 @@ class Exif extends BaseExif {
 		return $width . 'x' . $height;
 	}
 	
+	public function getRelativePath() {
+		return str_replace(Yii::app()->params['imagePath'], '', $this->pathName);
+	}
+	
 	public function getThumbPath($width, $height) {
 		$dir = pathinfo($this->pathName, PATHINFO_DIRNAME);
 		$baseThumbPath  = str_replace(Yii::app()->params['imagePath'],

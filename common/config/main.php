@@ -6,6 +6,7 @@ Yii::setPathOfAlias('common', __DIR__ . '/..');
 return array(
 	'import' => array(
 		'system.cli.views.webapp.protected.controllers.SiteController',
+		'system.cli.views.webapp.protected.models.ContactForm',
 		'system.cli.views.webapp.protected.models.LoginForm',	
 		'common.components.*',
 		'common.controllers.*',

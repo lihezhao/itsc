@@ -83,6 +83,9 @@ return array(
 		'Initialize the image storage process...' => '初始化图片入库进程...',
 		'Storage the images, please wait...' => '正在入库图片，请稍候...',
 		'Select all' => '全选',
+		'Image thumbnail' => '图片缩略图',
 		'Build the thumbnails' => '创建缩略图',
 		'Rebuild the thumbnails' => '重建缩略图',
+		'Subject' => '主题',
+		'Body' => '内容',
 );

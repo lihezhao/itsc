@@ -94,8 +94,12 @@ class ImageController extends ExifController {
 		$this->render('thumb', array('imageFolder' => $image, 'thumbnailFolder' => $thumb));
 	}
 	
-	public function actionBuildThumb($index = 0) {
-		
+	public function actionBuildThumb($size, $index = 0) {
+		$count = ImageHelper::batchThumb($size, $index, 1);
+		echo CJavaScript::jsonEncode(array(
+				'message' => Yii::t('itsc', 'Build thumbnails, please wait...'),
+				'pos' => ($index + $count) * 100 / ImageHelper::getFileCount(),
+				'nextIndex' => $index + $count));
 	}
 	
 	private function scan($type, $path) {
@@ -149,7 +153,7 @@ class ImageController extends ExifController {
 						'users'=>array('@'),
 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumb', 'scanImage', 'scanThumb'),
+						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumb', 'scanImage', 'scanThumb', 'buildThumb'),
 						'users'=>array('admin'),
 				),
 				array('deny',  // deny all users
