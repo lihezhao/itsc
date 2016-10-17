@@ -68,7 +68,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-		'imagePath' => str_replace('common', 'protected', __DIR__) . '/../files',
+		'imagePath' => str_replace('common', 'protected', __DIR__) . '/../../../images',
 		'thumbPath' => str_replace('common', 'protected', __DIR__) . '/../../thumbs',
 		'thumbUrl'	=> '/thumbs',
 	),		

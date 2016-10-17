@@ -34,6 +34,8 @@ $(function() {
 	});
 	
 	$('#image-thumb-form').submit(function() {
+		var button = $("input[name='buildThumb']");
+		button.button('loading');
 		var size = $('#ImageThumbForm_size');
 		buildThumb(size.val(), 0);
 		return false;

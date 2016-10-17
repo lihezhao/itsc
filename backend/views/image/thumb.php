@@ -52,7 +52,12 @@ $this->breadcrumbs = array(
 					<?php echo $form->textField($model, 'size', array('class' => 'form-control', 'placeholder' => Yii::t('itsc', 'Size'))); ?>
 				</div>
 				<div class="form-group">
-					<?php echo CHtml::submitButton(Yii::t('itsc', 'Build the thumbnails'), array('class' => 'btn btn-primary'))?>
+					<?php echo CHtml::submitButton(Yii::t('itsc', 'Build the thumbnails'),
+							array(
+									'class' => 'btn btn-primary',
+									'data-loading-text' => Yii::t('itsc', 'Please wait for Building...'),
+									'name' => 'buildThumb',
+					))?>
 				</div>
 				<?php $this->endWidget()?>
 			</div>
