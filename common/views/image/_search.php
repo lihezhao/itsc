@@ -40,7 +40,7 @@ $filterGroups = array(
 	'id' => 'folder-tree',
 	'core' => array(
 		'data' => array(
-			'url' => '/itsc/folder/loadFolder',
+			'url' => '/folder/loadFolder',
 			'data' => new CJavaScriptExpression("function(node) {return {'id': node.id};}"),
 			'dataType' => 'json',
 		),

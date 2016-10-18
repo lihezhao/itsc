@@ -30,7 +30,7 @@ return array(
 			),
 			'packages' => array(
 				'bootstrap' => array(
-					'baseUrl' => '//cdn.bootcss.com/bootstrap/4.0.0-alpha.3',
+					'baseUrl' => '//cdn.bootcss.com/bootstrap/4.0.0-alpha.4',
 					'js' => array('js/bootstrap.min.js'),
 					'css' => array('css/bootstrap.min.css'),
 					'depends' => array('jquery'),

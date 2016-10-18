@@ -27,7 +27,7 @@ class DirectoryReader {
 			$find = FileHelper::findFiles($path);
 			Yii::app()->cache->set($path, $find);
 		}
-		return count($find['files']) + count($find['subfoldersfiles'], COUNT_RECURSIVE) - count($find['subfoldersfiles']); 
+		return count($find['files']) + count($find['folderFiles'], COUNT_RECURSIVE) - count($find['folderFiles']); 
 	}
 	
 	public function read($path, $index, $count) {
@@ -53,7 +53,7 @@ class DirectoryReader {
 				if ($i == $count) return $i;
 			}
 			
-			foreach ($find['subfoldersfiles'] as $folder => $files) {
+			foreach ($find['folderFiles'] as $folder => $files) {
 				foreach ($files as $file) {
 					if ($pos < $index) {
 						$pos++;

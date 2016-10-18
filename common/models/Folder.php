@@ -16,6 +16,6 @@ class Folder extends BaseFolder {
 	
 	
 	public function getRelativePath() {
-		return str_replace(Yii::app()->params['imagePath'], '', $this->path);
+		return str_replace(Yii::app()->params['imagePath'] . '/', '', $this->path);
 	}
 }

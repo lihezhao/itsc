@@ -5,8 +5,8 @@ $(function() {
 		var path = $(this);
 		var p = path.parent();
 		var fc = p.find('.fileCount');
-		var sdc = p.find('.subfoldersCount');
-		var sdfc = p.find('.subfoldersfileCount');
+		var dc = p.find('.folderCount');
+		var dfc = p.find('.folderFileCount');
 		var jqXhr = $.ajax({
 			type: 'GET',
 			url: url.val(),
@@ -14,8 +14,8 @@ $(function() {
 			data: {'path': path.val()},
 			success: function(data) {
 				fc.text(data.fileCount);
-				sdc.text(data.subfoldersCount);
-				sdfc.text(data.subfoldersfileCount);
+				dc.text(data.folderCount);
+				dfc.text(data.folderFileCount);
 			}
 		});
 	});

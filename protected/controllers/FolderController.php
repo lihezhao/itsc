@@ -11,7 +11,7 @@ class FolderController extends Controller {
 			}
 			 
 			$criteria = new CDbCriteria();
-			$criteria->addCondition('path like "' . str_replace('\\', '\\\\\\\\', $parent) . '%"');
+			$criteria->addCondition('path like "' . $parent . '%"');
 			$folders = Folder::model()->findAll($criteria);
 			$children = array();
 			$grandson = array();
@@ -29,7 +29,7 @@ class FolderController extends Controller {
 					}
 				}
 			}
-			foreach ($children as $child) {
+			foreach ($children as &$child) {
 				$child['hasChildren'] = array_key_exists($child['text'], $grandson);
 			}
 			echo CTreeView::saveDataAsJson($children);

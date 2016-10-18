@@ -41,8 +41,8 @@ foreach ($subpaths as $subpath) {
 						<?php echo CHtml::hiddenField('path', $curFolder->getRelativePath(), array('class' => 'path'))?>
 						<h4 class="card-title"><?php echo Yii::t('itsc', 'Folder') . ' ' . basename($curFolder->path) ; ?></h4>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'File count:')?> <span class="fileCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders count:')?> <span class="subfoldersCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders file count:')?> <span class="subfoldersfileCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders file count:')?> <span class="folderFileCount"></span></small></p>
 						<p>
 							<a href="<?php echo $this->createUrl('image/doStorage', array('path' => $curFolder->path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Storage');?></a>
 						</p>
@@ -60,8 +60,8 @@ foreach ($subpaths as $subpath) {
 						<?php echo CHtml::hiddenField('path', $folder->getRelativePath(), array('class' => 'path'))?>
 						<h4 class="card-title"><?php echo Yii::t('itsc', 'Folder') . ' ' . basename($folder->path) ; ?></h4>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'File count:')?> <span class="fileCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders count:')?> <span class="subfoldersCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders file count:')?> <span class="subfoldersfileCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders file count:')?> <span class="folderFileCount"></span></small></p>
 						<p>
 							<a href="<?php echo $this->createUrl('image/doStorage', array('path' => $path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Storage');?></a>
 							<a href="<?php echo $this->createUrl('image/storage', array('path' => $folder->getRelativePath())); ?>" class="btn btn-success" role="button"><?php echo Yii::t('itsc', 'Open');?></a>

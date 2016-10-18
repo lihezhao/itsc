@@ -16,8 +16,12 @@ class FileHelper {
 					$handle = opendir($absDirPath);
 					readdir($handle);readdir($handle);
 					while (false !== $item = readdir($handle)) {
-						$relPath = "$curPath/$item";
-						$absPath = "$dir$relPath";
+						if ($curPath == '')
+							$relPath = $item;
+						else
+							$relPath = "$curPath/$item";
+						
+						$absPath = "$dir/$relPath";
 						if (is_dir($absPath)) {
 							$dirs[] = array('level' => $path['level'] + 1, 'path' => $relPath);
 							$folders[$curPath][] = $absPath;

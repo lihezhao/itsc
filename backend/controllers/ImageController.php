@@ -41,8 +41,8 @@ class ImageController extends ExifController {
 		$curFolder->path = $path;
 		 
 		if ($find != false) {
-			if (isset($find['subfolders'][''])) {
-				foreach ($find['subfolders'][''] as $dir) {
+			if (isset($find['folders'][''])) {
+				foreach ($find['folders'][''] as $dir) {
 					$folder = Folder::model('Folder')->find('path=:path', array(':path' => $dir));
 						if ($folder) {
 						} else {
@@ -57,10 +57,10 @@ class ImageController extends ExifController {
 			}
 		}
 		if (Yii::app()->request->isAjaxRequest) {
-			$subfoldersCount = isset($find['subfolders']) ? count($find['subfolders'], COUNT_RECURSIVE) - count($find['subfolders']) : 0;
-			$subfoldersfileCount = isset($find['subfoldersfiles']) ? count($find['subfoldersfiles'], COUNT_RECURSIVE) - count($find['subfoldersfiles']) : 0;
+			$folderCount = isset($find['folders']) ? count($find['folders'], COUNT_RECURSIVE) - count($find['folders']) : 0;
+			$folderFileCount = isset($find['folderFiles']) ? count($find['folderFiles'], COUNT_RECURSIVE) - count($find['folderFiles']) : 0;
 			$fileCount = isset($find['files']) ? count($find['files'], COUNT_RECURSIVE) : 0;
-			echo CJavaScript::jsonEncode(array('subfoldersCount' => $subfoldersCount, 'subfoldersfileCount' => $subfoldersfileCount, 'fileCount' => $fileCount));	
+			echo CJavaScript::jsonEncode(array('folderCount' => $folderCount, 'folderFileCount' => $folderFileCount, 'fileCount' => $fileCount));	
 		} else {
 			Yii::app()->clientScript->registerScriptFile('assets/js/imageStorage.js', CClientScript::POS_END);
 			$this->render('storage', array('curFolder' => $curFolder, 'folders' => $folders));
