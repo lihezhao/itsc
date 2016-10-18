@@ -54,10 +54,15 @@ class ImageHelper {
 					$pos++;
 					continue;
 				}
-				ImageHelper::thumb(
-						$filename,
-						str_replace($imagePath, $thumbPath, $filename),
-						$size);
+				$thumbFilename = str_replace($imagePath, $thumbPath, $filename);
+				if (file_exists($thumbFilename)) {
+					
+				} else {
+					ImageHelper::thumb(
+							$filename,
+							$thumbFilename,
+							$size);
+				}
 				$i++;
 				if ($i == $count) return $i;
 			}
