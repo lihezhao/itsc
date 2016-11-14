@@ -191,7 +191,7 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 
     for(var i = 0, l = galleryElements.length; i < l; i++) {
         galleryElements[i].setAttribute('data-pswp-uid', i+1);
-        galleryElements[i].onclick = onThumbnailsClick;
+        galleryElements[i].children[0].onclick = onThumbnailsClick;
     }
 
     // Parse URL and open gallery if it contains #&pid=3&gid=1
@@ -202,4 +202,4 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 };
 
 // execute above function
-initPhotoSwipeFromDOM('.my-gallery');
+initPhotoSwipeFromDOM('.grid-item');

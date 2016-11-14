@@ -48,4 +48,11 @@ class Image extends BaseImage {
 		return $result;
 	}
 	
+	public function getTagLinks() {
+		$links = array();
+		foreach (Tag::string2array($this->tags) as $tag)
+			$links[] = CHtml::link(CHtml::encode($tag), array('gallery/index', 'tag' => $tag));
+		return $links;
+	}
+	
 }

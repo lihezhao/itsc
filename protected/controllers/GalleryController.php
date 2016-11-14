@@ -5,6 +5,11 @@ class GalleryController extends Controller {
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Exif']))
 			$model->attributes=$_GET['Exif'];
+		if (isset($_GET['tag'])) {
+			$model->id0 = new Image('search');
+			$model->id0->unsetAttributes();
+			$model->id0->attributes = array('tags' => $_GET['tag']);
+		}
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile(Yii::app()->baseUrl . '/assets/js/images.js', CClientScript::POS_END);
 		$cs->registerCoreScript('masonry');

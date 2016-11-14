@@ -14,7 +14,7 @@
 		?>
 	</div>
 	<div class="nav">
-		<?php echo '<span class="tag tag-info">' . implode('</span>, <span class="tag tag-info">', $data->tagLinks) . '</span>'; ?>
+		<span class="tag tag-info"><?php echo implode('</span>, <span class="tag tag-info">', $data->tagLinks); ?></span>
 		<?php echo $data->author->username ?>
 		<br/>
 		<?php echo CHtml::link(Yii::t('itsc', 'Permalink'), $data->url); ?> |

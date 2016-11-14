@@ -144,6 +144,9 @@ class Exif extends BaseExif {
 			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
 			$criteria->addCondition('{{image}}.status=' . Image::STATUS_HOMEPAGE);
 		}
+		if (isset($this->id0->tags)) {
+			$criteria->addSearchCondition('tags', $this->id0->tags);
+		}
 		if (isset($this->ISOSpeedRatings)) {
 			$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);
 		}

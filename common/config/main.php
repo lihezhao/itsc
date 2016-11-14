@@ -28,7 +28,7 @@ return array(
 		'clientScript' => array(
 			'coreScriptPosition' => CClientScript::POS_END,
 			'scriptMap' => array(
-				'jquery.js' => '//cdn.bootcss.com/jquery/3.1.0/jquery.min.js',
+				'jquery.js' => '//cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
 			),
 			'packages' => array(
 				'bootstrap' => array(
