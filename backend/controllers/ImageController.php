@@ -41,8 +41,8 @@ class ImageController extends ExifController {
 		$curFolder->path = $path;
 		 
 		if ($find != false) {
-			if (isset($find['folders'][''])) {
-				foreach ($find['folders'][''] as $dir) {
+			foreach ($find['folders'] as $parent => $dirs) {
+				foreach ($dirs as $dir) {
 					$folder = Folder::model('Folder')->find('path=:path', array(':path' => $dir));
 						if ($folder) {
 						} else {
@@ -52,7 +52,8 @@ class ImageController extends ExifController {
 								print_r($folder->getErrors());exit;
 							}
 						}
-						$folders[str_replace(Yii::app()->params['imagePath'] . '\\', '', $folder->path)] = $folder;
+						if ($parent == '')
+							$folders[str_replace(Yii::app()->params['imagePath'] . '\\', '', $folder->path)] = $folder;
 				}
 			}
 		}
@@ -70,7 +71,8 @@ class ImageController extends ExifController {
 	public function actionDoStorage($path, $index = 0) {
 		if (yii::app()->request->isAjaxRequest) {
 			$imagePath = Yii::app()->params['imagePath'];
-			$imagePath .= '/' . $path;
+			if ($path != '')
+				$imagePath .= '/' . $path;
 			
 			$dr = new DirectoryReader();
 			$count = $dr->read($imagePath, $index, 10);
@@ -90,16 +92,19 @@ class ImageController extends ExifController {
 		$thumb = FileHelper::findFiles($thumbPath, array('level' => 0));
 		$imagePath = Yii::app()->params['imagePath'];
 		$image = FileHelper::findFiles($imagePath, array('level' => 0));
-		
+//		ImageHelper::thumb('/home/content/r/i/c/rickhart/html/websites/oii.cc/gallery/protected/config/../../../images/2016/04/02/D69A0600.JPG', 
+//				'/home/content/r/i/c/rickhart/html/websites/oii.cc/gallery/protected/config/../../thumbs/256/2016/04/02/D69A0600.JPG', 256);
+		//print_r(ImageHelper::getFiles());
 		$this->render('thumb', array('imageFolder' => $image, 'thumbnailFolder' => $thumb));
 	}
 	
 	public function actionBuildThumb($size, $index = 0) {
 		$count = ImageHelper::batchThumb($size, $index, 1);
+		$fileCount = ImageHelper::getFileCount();
 		echo CJavaScript::jsonEncode(array(
-				'message' => Yii::t('itsc', 'Build thumbnails, please wait...'),
-				'pos' => ($index + $count) * 100 / ImageHelper::getFileCount(),
-				'nextIndex' => $index + $count));
+				'message' => Yii::t('itsc', 'Build thumbnails, please wait...') . $count . '/' . $fileCount,
+				'pos' => $count * 100 / $fileCount,
+				'nextIndex' => $count));
 	}
 	
 	private function scan($type, $path) {
@@ -141,6 +146,18 @@ class ImageController extends ExifController {
 		}
 	}
 	
+	public function actionSaveDescription($id, $description) {
+		$image = Image::model()->findByPk($id);
+		$image->description = $description;
+		$image->save();
+	}
+	
+	public function actionSaveTags($id, $tags) {
+		$image = Image::model()->findByPk($id);
+		$image->tags = $tags;
+		$image->save();
+	}
+	
 	public function accessRules()
 	{
 		return array(
@@ -153,7 +170,7 @@ class ImageController extends ExifController {
 						'users'=>array('@'),
 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumb', 'scanImage', 'scanThumb', 'buildThumb'),
+						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumb', 'scanImage', 'scanThumb', 'buildThumb', 'saveDescription', 'saveTags'),
 						'users'=>array('admin'),
 				),
 				array('deny',  // deny all users

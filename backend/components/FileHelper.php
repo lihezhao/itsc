@@ -7,7 +7,7 @@ class FileHelper {
 			$dirs[] = array('level' => 0, 'path' => '');
 			$folders = array('' => array());
 			$files = array();
-			$folderfiles = array();
+			$folderFiles = array();
 			while (list($k, $path) = each($dirs)) {
 				if ($level != -1 && $path['level'] > $level)
 					break;
@@ -29,12 +29,12 @@ class FileHelper {
 							if ($path['level'] == 0)
 								$files[] = $absPath;
 								else
-									$folderfiles[$curPath][] = $absPath;
+									$folderFiles[$curPath][] = $absPath;
 						}
 					}
 					closedir($handle);
 			}
-			$result = array('folders' => $folders, 'folderFiles' => $folderfiles, 'files' => $files);
+			$result = array('folders' => $folders, 'folderFiles' => $folderFiles, 'files' => $files);
 		} else {
 			$result = false;
 		}

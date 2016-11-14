@@ -13,6 +13,8 @@ return array(
 		'common.controllers.base.*',
 		'common.models.*',
 		'common.helpers.*',
+		'blog.models.Post',
+		'blog.controllers.PostController',
 	),
 	'components' => array(
 		'db' => require(dirname(__FILE__) . '/database.php'),
@@ -30,7 +32,7 @@ return array(
 			),
 			'packages' => array(
 				'bootstrap' => array(
-					'baseUrl' => '//cdn.bootcss.com/bootstrap/4.0.0-alpha.4',
+					'baseUrl' => '//cdn.bootcss.com/bootstrap/4.0.0-alpha.5',
 					'js' => array('js/bootstrap.min.js'),
 					'css' => array('css/bootstrap.min.css'),
 					'depends' => array('jquery'),
@@ -62,6 +64,9 @@ return array(
 		'site' => array(
 			'class' => 'HomeController',
 		),
+		'post' => array(
+			'class' => 'PostExController',
+		),			
 	),
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']

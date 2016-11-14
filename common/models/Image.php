@@ -35,5 +35,17 @@ class Image extends BaseImage {
 		return $result;
 	}
 	
+	public function getAverageRating() {
+		$result = 0;
+		$count = sizeof($this->ratings);
+		if ($count > 0) {
+			$sum = 0;
+			foreach ($this->ratings as $rating) {
+				$sum += $rating->value;
+			}
+			$result = $sum / $count;
+		}
+		return $result;
+	}
 	
 }

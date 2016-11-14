@@ -176,12 +176,9 @@ class Exif extends BaseExif {
 		}
 		if (isset($this->pathName)) {
 			$condition = array();
-			if (is_array($this->pathName)) {
-				foreach ($this->pathName as $pathName) {
-					$condition[] = 'pathName like "' . str_replace('\\', '\\\\\\\\', Yii::app()->params['imagePath'] . '/' . $pathName) . '%"';
-				}
-			} else {
-				$condition[] = 'pathName like "' . str_replace('\\', '\\\\\\\\', Yii::app()->params['imagePath'] . '/' . $this->pathName) . '%"';
+			$paths = explode(',', $this->pathName);
+			foreach ($paths as $pathName) {
+				$condition[] = 'pathName like "' . Yii::app()->params['imagePath'] . '/' . $pathName . '%"';
 			}
 			$criteria->addCondition('(' . implode(') or (', $condition) . ')');
 		}

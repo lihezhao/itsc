@@ -3,10 +3,12 @@ class FolderController extends Controller {
 	public function actionLoadFolder() {
 		if (true or Yii::app()->request->isAjaxRequest) {
 			$parent = Yii::app()->params['imagePath'];
-			if (isset($_GET['node']) and $_GET['node'] != '#') {
-				$parent .= $_GET['node'];
+			if (isset($_GET['id']) and $_GET['id'] != '#') {
+				$parent .= '/' . $_GET['id'];
+				$parentId = $_GET['id'] . '/';
 				$type = '';
 			} else {
+				$parentId = '';
 				$type = 'root';
 			}
 			 
@@ -20,7 +22,7 @@ class FolderController extends Controller {
 				if (strlen($text) > 0) {
 					switch (substr_count($text, '/')) {
 						case 0:
-							$children[] = array('text' => $text, 'id' => $text, 'type' => $type);
+							$children[] = array('text' => $text, 'id' => $parentId . $text, 'type' => $type);
 							break;
 						case 1:
 							$text = substr($text, 0, strpos($text, '/'));
@@ -30,7 +32,7 @@ class FolderController extends Controller {
 				}
 			}
 			foreach ($children as &$child) {
-				$child['hasChildren'] = array_key_exists($child['text'], $grandson);
+				$child['children'] = array_key_exists($child['text'], $grandson);
 			}
 			echo CTreeView::saveDataAsJson($children);
 		}

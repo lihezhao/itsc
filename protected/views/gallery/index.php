@@ -1,5 +1,5 @@
 <?php
-/* @var $this SiteController */
+/* @var $this GalleryController */
 
 $this->pageTitle=Yii::app()->name;
 

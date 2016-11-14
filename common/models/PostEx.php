@@ -1,5 +1,7 @@
 <?php
-class Post extends BasePost {
+class PostEx extends Post {
+	private $_oldTags;
+	
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -8,6 +10,12 @@ class Post extends BasePost {
 	public function getAttributeLabel($attribute) {
 		return Yii::t('itsc', parent::getAttributeLabel($attribute));
 	}
+	
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->_oldTags=$this->tags;
+	}	
 
 	protected function beforeSave() {
 		if (parent::beforeSave()) {
@@ -20,7 +28,8 @@ class Post extends BasePost {
 	}
 	
 	protected function afterSave() {
-		parent::afterSave();
+		CActiveRecord::afterSave();
+		TagEx::model()->updateFrequency($this->_oldTags, $this->tags);
 		if ($this->isNewRecord) {
 			$post = self::model()->find('title=:title and create_time=:create_time and author_id=:author_id',
 					array(':title' => $this->title, ':create_time' => $this->create_time, ':author_id' => $this->author_id));

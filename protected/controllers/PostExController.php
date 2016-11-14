@@ -1,5 +1,5 @@
 <?php
-class PostController extends BasePostController {
+class PostExController extends PostController {
 	public function actions() {
 		return array(
 			'captcha' => array(

@@ -9,8 +9,25 @@ class HomeController extends SiteController {
 	}
 	
 	public function actionLogin() {
-	//	$this->layout = 'login';
-		parent::actionLogin();
+		$model = new LoginFormEx;
+		
+		// if it is ajax validation request
+		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+		
+		// collect user input data
+		if(isset($_POST['LoginFormEx']))
+		{
+			$model->attributes=$_POST['LoginFormEx'];
+			// validate user input and redirect to the previous page if valid
+			if($model->validate() && $model->login())
+				$this->redirect(Yii::app()->user->returnUrl);
+		}
+		// display the login form
+		$this->render('login',array('model'=>$model));
 	}
 	
 	/**
@@ -37,7 +54,7 @@ class HomeController extends SiteController {
 						'users'=>array('@'),
 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('index', 'admin','delete', 'status', 'page', 'storage', 'doStorage'),
+						'actions'=>array('index', 'admin','delete', 'status', 'page', 'storage', 'doStorage', 'logout'),
 						'users'=>array('admin'),
 				),
 				array('deny',  // deny all users

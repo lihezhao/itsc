@@ -12,7 +12,7 @@ return array(
 		'itemCssClass' => 'nav-item',
 	),
 	'accountmenu' => array(
-		'htmlOptions' => array('class' => 'nav navbar-nav pull-xs-right', 'id' => 'rightmenu'),
+		'htmlOptions' => array('class' => 'nav navbar-nav float-xs-right', 'id' => 'rightmenu'),
 		'items'=>array(
 			array('label'=> Yii::t('itsc', 'Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest, 'linkOptions' => array('class' => 'nav-link')),
 			array('label'=> Yii::t('itsc', 'Sign up'), 'url'=>array('/site/signup'), 'visible'=>Yii::app()->user->isGuest, 'linkOptions' => array('class' => 'nav-link')),

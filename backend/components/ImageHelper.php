@@ -27,74 +27,74 @@ class ImageHelper {
 			} else {
 				mkdir($dir, 0777, true);
 			}
-		
+			$er = error_reporting(0);
 			$image->save($thumbFilename);
+			error_reporting($er);
 		} catch (Exception $e) {
 		}
 	}
 	
-	public static function batchThumb($size, $index, $count) {
+	public static function batchThumb($size, $start, $count) {
+		
 		$imagePath = Yii::app()->params['imagePath'];
 		$thumbPath = Yii::app()->params['thumbPath'] . '/' . $size;
 	
-		if ($index == 0) {
-			Yii::app()->cache->delete($imagePath);
+		if ($start == 0) {
+			Yii::app()->cache->delete('batchThumb');
 		}
-		$find = Yii::app()->cache->get($imagePath);
-		if ($find === false) {
-			$find = FileHelper::findFiles($imagePath);
-			Yii::app()->cache->set($imagePath, $find);
-		}
-		if ($find != false) {
-			$pos = 0;
-			$i = 0;
+		$files = self::getFiles();
+		
+		if ($files != false) {
+			$fileCount = sizeof($files);
+			$count = $start + $count;
 				
-			foreach ($find['files'] as $filename) {
-				if ($pos < $index) {
-					$pos++;
-					continue;
-				}
-				$thumbFilename = str_replace($imagePath, $thumbPath, $filename);
+			for ($pos = $start, $i = 0; $i < $count - $start; $pos++) {
+				$thumbFilename = str_replace($imagePath, $thumbPath, $files[$pos]);
 				if (file_exists($thumbFilename)) {
 					
 				} else {
 					ImageHelper::thumb(
-							$filename,
+							$files[$pos],
 							$thumbFilename,
 							$size);
-				}
-				$i++;
-				if ($i == $count) return $i;
-			}
-				
-			foreach ($find['folderFiles'] as $folder => $files) {
-				foreach ($files as $filename) {
-					if ($pos < $index) {
-						$pos++;
-						continue;
-					}
-					ImageHelper::thumb(
-							$filename,
-							str_replace($imagePath, $thumbPath, $filename),
-							$size);
 					$i++;
-					if ($i == $count) return $i;
 				}
+				if ($pos >= $fileCount) break;
 			}
-			return $i;
+		
+			return $pos;
 		}
+		
 		return false;
 	}
 	
 	public static function getFileCount() {
-		$imagePath = Yii::app()->params['imagePath'];
-		$find = Yii::app()->cache->get($imagePath);
-		if ($find === false) {
-			$find = FileHelper::findFiles($imagePath);
-			Yii::app()->cache->set($imagePath, $find);
+		$count = Yii::app()->cache->get('batchThumbCount');
+		if ($count == false) {
+			self::getFiles();
+			$count = Yii::app()->cache->get('batchThumbCount');
 		}
-		return count($find['files']) + count($find['folderFiles'], COUNT_RECURSIVE) - count($find['folderFiles']);
+		return $count;
+	}
 	
+	public static function getFiles() {
+		$result = Yii::app()->cache->get('batchThumb');
+		if ($result === false) {
+			$imagePath = Yii::app()->params['imagePath'];
+			$find = FileHelper::findFiles($imagePath);
+			$result = array();
+			foreach ($find['files'] as $filename) {
+				$result[] = $filename;
+			}
+			foreach ($find['folderFiles'] as $folder => $files) {
+				foreach($files as $filename) {
+					$result[] = $filename;
+				}
+			}
+			Yii::app()->cache->set('batchThumb', $result);
+			Yii::app()->cache->set('batchThumbCount', sizeof($result));
+		}
+		return $result;
 	}
 	
 }

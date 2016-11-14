@@ -58,3 +58,16 @@ function doMasonry() {
 		isAnimated: true,
 	});
 }
+
+function starRating(value, link) {
+	var jId = $(this).parent().parent().find('#id');
+	var jMyStar = $(this).parent().parent().find('#mystar_voting');
+	var jqXhr = $.ajax({
+		type: 'POST',
+		url: '/gallery/rating?id=' + jId.val() + '&value=' + value,
+		success: function(data) {
+			jMyStar.html(data);
+		}
+	});
+}
+

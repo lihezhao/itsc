@@ -88,4 +88,6 @@ return array(
 		'Rebuild the thumbnails' => '重建缩略图',
 		'Subject' => '主题',
 		'Body' => '内容',
+		'Please login' => '请登录',
+		'You have already rated.' => '您已经评分了',
 );
