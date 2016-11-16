@@ -30,6 +30,9 @@ $filterGroups = array(
 	'method' => 'get',
 ));?>
 <input type="hidden" name="Exif[pathName]" id="folders" value="" />
+<?php if (isset($_GET['tag'])) { ?>
+	<input type="hidden" name="tag" id="tag" value="<?php echo $_GET['tag']?>"/>
+<?php } ?>
 <div class="row">
 	<a class="btn-sm" data-toggle="collapse" href="#folder" aria-expanded="true" aria-controls="folder">
 		<?php echo Yii::t('itsc', 'Folder')?>

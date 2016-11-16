@@ -41,4 +41,32 @@ class FileHelper {
 		return $result;
 	}
 	
+	public static function getFileCount($path) {
+		$count = Yii::app()->cache->get($path . 'Count');
+		if ($count == false) {
+			self::getFiles($path);
+			$count = Yii::app()->cache->get($path . 'Count');
+		}
+		return $count;
+	}
+	
+	public static function getFiles($path) {
+		$result = Yii::app()->cache->get($path);
+		if ($result === false) {
+			$find = FileHelper::findFiles($path);
+			$result = array();
+			foreach ($find['files'] as $filename) {
+				$result[] = $filename;
+			}
+			foreach ($find['folderFiles'] as $folder => $files) {
+				foreach($files as $filename) {
+					$result[] = $filename;
+				}
+			}
+			Yii::app()->cache->set($path, $result);
+			Yii::app()->cache->set($path . 'Count', sizeof($result));
+		}
+		return $result;
+	}
+		
 }

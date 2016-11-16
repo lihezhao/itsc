@@ -48,6 +48,8 @@ function loadImages() {
 		}
 		
 	});
+	
+	jQuery("span[id^='rating'] > input").rating({'callback':starRating});
 }
 
 function doMasonry() {

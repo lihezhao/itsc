@@ -76,10 +76,11 @@ class ImageController extends ExifController {
 			
 			$dr = new DirectoryReader();
 			$count = $dr->read($imagePath, $index, 10);
+			$fileCount = FileHelper::getFileCount($imagePath);
 			echo CJavaScript::jsonEncode(array(
-					'message' => Yii::t('itsc', 'Storage the images, please wait...'),
-					'pos' => ($index + $count) * 100 / $dr->getFileCount($imagePath),
-					'nextIndex' => $index + $count));
+					'message' => Yii::t('itsc', 'Storage the images, please wait...') . $count . '/' . $fileCount,
+					'pos' => $count * 100 / $fileCount,
+					'nextIndex' => $count));
 		} else {
 			Yii::app()->clientScript->registerScriptFile('assets/js/imageDoStorage.js', CClientScript::POS_END);
 			$this->render('doStorage', array('path' => $path));
@@ -100,7 +101,7 @@ class ImageController extends ExifController {
 	
 	public function actionBuildThumb($size, $index = 0) {
 		$count = ImageHelper::batchThumb($size, $index, 1);
-		$fileCount = ImageHelper::getFileCount();
+		$fileCount = FileHelper::getFileCount(Yii::app()->params['imagePath']);
 		echo CJavaScript::jsonEncode(array(
 				'message' => Yii::t('itsc', 'Build thumbnails, please wait...') . $count . '/' . $fileCount,
 				'pos' => $count * 100 / $fileCount,

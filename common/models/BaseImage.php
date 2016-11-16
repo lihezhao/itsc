@@ -33,11 +33,11 @@ class BaseImage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-				array('path, description, status', 'required'),
+				array('path, status', 'required'),
 				array('status', 'numerical', 'integerOnly'=>true),
 				array('id', 'length', 'max'=>32),
 				array('path', 'length', 'max'=>512),
-				array('created_at, tags', 'safe'),
+				array('created_at, description, tags', 'safe'),
 				// The following rule is used by search().
 				// @todo Please remove those attributes that should not be searched.
 				array('id, path, created_at, description, tags, status', 'safe', 'on'=>'search'),

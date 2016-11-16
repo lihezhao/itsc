@@ -16,7 +16,7 @@ $this->breadcrumbs = array(
 			<div class="col-md-4">
 				<div class="card card-outline-primary">
 					<div class="card-block" id="image">
-						<h4 class="card-title"><?php echo Yii::t('itsc', 'Folder')?></h4>
+						<h4 class="card-title"><?php echo Yii::t('itsc', 'The original image folder')?></h4>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Folder count:')?> <span id="folderCount"></span></small></p>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'File count:')?> <span id="folderFileCount"></span></small></p>
 					</div>
