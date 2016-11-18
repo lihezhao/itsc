@@ -111,6 +111,11 @@ class ImageController extends ExifController {
 				'nextIndex' => $count));
 	}
 	
+	public function actionDeleteThumb($size) {
+		CFileHelper::removeDirectory(Yii::app()->params['thumbPath'] . '/' . $size);
+		echo CJavaScript::jsonEncode(array('success' => true));
+	}
+	
 	private function scan($type, $path) {
 		$absPath = Yii::app()->params[$type] . '/' . $path;
 		$find = FileHelper::findFiles($absPath);
@@ -174,7 +179,7 @@ class ImageController extends ExifController {
 						'users'=>array('@'),
 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
-						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumb', 'scanImage', 'scanThumb', 'buildThumb', 'saveDescription', 'saveTags'),
+						'actions'=>array('admin','delete', 'status', 'index', 'page', 'storage', 'doStorage', 'thumb', 'scanImage', 'scanThumb', 'buildThumb', 'saveDescription', 'saveTags', 'deleteThumb'),
 						'users'=>array('admin'),
 				),
 				array('deny',  // deny all users

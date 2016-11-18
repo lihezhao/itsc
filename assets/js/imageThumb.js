@@ -41,7 +41,24 @@ $(function() {
 		var size = $('#ImageThumbForm_size');
 		buildThumb(size.val(), 0);
 		return false;
-	})
+	});
+	
+	$('.delete').click(function() {
+		var jThis = $(this);
+		if (confirm(jThis.attr('data-message'))) {
+			var jqXhr = $.ajax({
+				type: 'GET',
+				url: jThis.attr('href'),
+				dataType: 'json',
+				success: function(data) {
+					if (data.success) {
+						jThis.parent().parent().parent().parent().remove();
+					}
+				}
+			});
+		}
+		return false;
+	});
 });
 
 function buildThumb(size, index) {

@@ -33,7 +33,9 @@ $this->breadcrumbs = array(
 						<p class="card-text"><small class="text-muted"><span id="folderCount"></span><?php echo Yii::t('app', 'Folders')?></small></p>
 						<p class="card-text"><small class="text-muted"><span id="folderFileCount"></span><?php echo Yii::t('app', 'Files')?></small></p>
 						<p>
-							<a href="<?php echo $this->createUrl('image/doThumb', array('size' => basename($folder))); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('app', 'Rebuild the thumbnails');?></a>
+							<?php echo CHtml::link(Yii::t('app', 'Rebuild the thumbnails'), array('image/doThumb', 'size' => basename($folder)), array('class' => 'btn btn-primary', 'role' => 'button')); ?>
+							<?php echo CHtml::link(Yii::t('app', 'Delete'), array('image/deleteThumb', 'size' => basename($folder)),
+									array('class' => 'btn btn-primary delete', 'role' => 'button', 'data-message' => Yii::t('app', 'Are you sure you want to delete this thumbnail folder?'))); ?>
 						</p>
 					</div>
 				</div>
