@@ -17,19 +17,19 @@ class SignupForm extends CFormModel {
 	
 	public function attributeLabels() {
 		return array(
-			'username' => Yii::t('itsc', 'Username'),
-			'password' => Yii::t('itsc', 'Password'),
-			'passwordConfirm' => Yii::t('itsc', 'Password Confirm'),
-			'email' => Yii::t('itsc', 'Email'),
-			'profile' => Yii::t('itsc', 'Profile'),
-			'verifyCode' => Yii::t('itsc', 'Verification Code'),
+			'username' => Yii::t('app', 'Username'),
+			'password' => Yii::t('app', 'Password'),
+			'passwordConfirm' => Yii::t('app', 'Password Confirm'),
+			'email' => Yii::t('app', 'Email'),
+			'profile' => Yii::t('app', 'Profile'),
+			'verifyCode' => Yii::t('app', 'Verification Code'),
 		);
 	}
 	
 	public function authenticate($attributes, $params) {
 		if (!$this->hasErrors()) {
 			if ($this->password != $this->passwordConfirm) {
-				$this->addError('passwordConfirm', Yii::t('itsc', 'Password and Confirm not match.'));
+				$this->addError('passwordConfirm', Yii::t('app', 'Password and Confirm not match.'));
 			}
 		}
 	}

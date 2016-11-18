@@ -91,4 +91,10 @@ return array(
 		'Please login' => '请登录',
 		'You have already rated.' => '您已经评分了',
 		'The original image folder' => '原始图像文件夹',
+		'The thumbnail folder' => '缩略图文件夹',
+		'Size' => '大小',
+		'Files' => '个文件',
+		'Folders' => '个文件夹',
+		'Initialize the image thumbnail process...' => '初始化创建缩略图进程...',
+		'Build thumbnails, please wait...' => '正在创建缩略图，请稍候...',
 );

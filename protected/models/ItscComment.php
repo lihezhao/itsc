@@ -6,12 +6,12 @@ class ItscComment extends Comment {
 	public function attributeLabels() {
 		return array(
 				'id' => 'Id',
-				'content' => Yii::t('itsc', 'Comment'),
+				'content' => Yii::t('app', 'Comment'),
 				'status' => 'Status',
 				'create_time' => 'Create Time',
-				'author' => Yii::t('itsc', 'Name'),
-				'email' => Yii::t('itsc', 'Email'),
-				'url' => Yii::t('itsc', 'Website'),
+				'author' => Yii::t('app', 'Name'),
+				'email' => Yii::t('app', 'Email'),
+				'url' => Yii::t('app', 'Website'),
 				'post_id' => 'Post',
 		);
 		

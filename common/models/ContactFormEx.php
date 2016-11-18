@@ -3,11 +3,11 @@ class ContactFormEx extends ContactForm {
 	public function attributeLabels()
 	{
 		return array(
-				'name' => Yii::t('itsc', 'Name'),
-				'email' => Yii::t('itsc', 'Email'),
-				'subject' => Yii::t('itsc', 'Subject'),
-				'body' => Yii::t('itsc', 'Body'),
-				'verifyCode' => Yii::t('itsc', 'Verification Code'),
+				'name' => Yii::t('app', 'Name'),
+				'email' => Yii::t('app', 'Email'),
+				'subject' => Yii::t('app', 'Subject'),
+				'body' => Yii::t('app', 'Body'),
+				'verifyCode' => Yii::t('app', 'Verification Code'),
 		);
 	}
 }

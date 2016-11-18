@@ -1,8 +1,6 @@
 <?php
 class ImageHelper {
 	public static function thumb($filename, $thumbFilename, $size, $options = array()) {
-//		print_r($filename);
-//		print_r($thumbFilename);exit;
 		@$exifData = exif_read_data($filename, "IFD0");
 		$orientation = 0;
 		if ($exifData === false) {
@@ -66,6 +64,18 @@ class ImageHelper {
 		}
 		
 		return false;
+	}
+	
+	public static function getNotThumbFiles($size) {
+		$imagePath = Yii::app()->params['imagePath'];
+		$thumbPath = Yii::app()->params['thumbPath'] . '/' . $size;
+		
+		$files = FileHelper::getFiles($imagePath);
+		$thumbs = FileHelper::getFiles($thumbPath);
+		
+		foreach ($thumbs as $thumb) {
+			
+		}
 	}
 	
 	

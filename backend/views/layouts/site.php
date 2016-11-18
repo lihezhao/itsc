@@ -5,8 +5,8 @@
 			<?php $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav nav-sidebar', 'id' => 'sidebar-menu'),
 				'items' => array(
-					array('label' => Yii::t('itsc', 'Overview'), 'url' => array('/dashboard/site/index')),
-					array('label' => Yii::t('itsc', 'Reports'), 'url' => array('/dashboard/home/reports')),
+					array('label' => Yii::t('app', 'Overview'), 'url' => array('/dashboard/site/index')),
+					array('label' => Yii::t('app', 'Reports'), 'url' => array('/dashboard/home/reports')),
 				),
 			))?>
 				

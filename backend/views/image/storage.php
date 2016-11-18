@@ -2,15 +2,15 @@
 /* @var $this ImageController */
 
 $this->breadcrumbs=array(
-	Yii::t('itsc', 'Image manager') => array('image/index'),
+	Yii::t('app', 'Image manager') => array('image/index'),
 	
 );
 
 $relativePath = $curFolder->getRelativePath();
 if ($relativePath == '') {
-	$this->breadcrumbs[] = Yii::t('itsc', 'Image storage');
+	$this->breadcrumbs[] = Yii::t('app', 'Image storage');
 } else {
-	$this->breadcrumbs[Yii::t('itsc', 'Image storage')] = array('image/storage');
+	$this->breadcrumbs[Yii::t('app', 'Image storage')] = array('image/storage');
 }
 
 $subpaths = explode('/', $relativePath);
@@ -27,30 +27,30 @@ foreach ($subpaths as $subpath) {
 	}
 }
 ?>
-<h1><?php echo Yii::t('itsc', 'Image storage'); ?></h1>
-<p><?php echo Yii::t('itsc', 'Scan images uploaded previously.')?></p>
+<h1><?php echo Yii::t('app', 'Image storage'); ?></h1>
+<p><?php echo Yii::t('app', 'Scan images uploaded previously.')?></p>
 
 
 <div class="row">
 	<div class="col-md-8">
-		<h2><?php echo Yii::t('itsc', 'The current folder')?></h2>
+		<h2><?php echo Yii::t('app', 'The current folder')?></h2>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="card card-outline-primary">
 					<div class="card-block">
 						<?php echo CHtml::hiddenField('path', $curFolder->getRelativePath(), array('class' => 'path'))?>
-						<h4 class="card-title"><?php echo Yii::t('itsc', 'Folder') . ' ' . basename($curFolder->path) ; ?></h4>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'File count:')?> <span class="fileCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders file count:')?> <span class="folderFileCount"></span></small></p>
+						<h4 class="card-title"><?php echo Yii::t('app', 'Folder') . ' ' . basename($curFolder->path) ; ?></h4>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'File count:')?> <span class="fileCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'Subfolders file count:')?> <span class="folderFileCount"></span></small></p>
 						<p>
-							<a href="<?php echo $this->createUrl('image/doStorage', array('path' => $curFolder->path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Storage');?></a>
+							<a href="<?php echo $this->createUrl('image/doStorage', array('path' => $curFolder->path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('app', 'Storage');?></a>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<h2><?php echo Yii::t('itsc', 'Subfolders')?></h2>
+		<h2><?php echo Yii::t('app', 'Subfolders')?></h2>
 		<div class="row">
 			<?php echo CHtml::hiddenField('scanUrl', CHtml::normalizeUrl(array('image/storage')))?>
 			<?php foreach ($folders as $path => $folder) {?>
@@ -58,13 +58,13 @@ foreach ($subpaths as $subpath) {
 				<div class="card card-outline-info">
 					<div class="card-block">
 						<?php echo CHtml::hiddenField('path', $folder->getRelativePath(), array('class' => 'path'))?>
-						<h4 class="card-title"><?php echo Yii::t('itsc', 'Folder') . ' ' . basename($folder->path) ; ?></h4>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'File count:')?> <span class="fileCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
-						<p class="card-text"><small class="text-muted"><?php echo Yii::t('itsc', 'Subfolders file count:')?> <span class="folderFileCount"></span></small></p>
+						<h4 class="card-title"><?php echo Yii::t('app', 'Folder') . ' ' . basename($folder->path) ; ?></h4>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'File count:')?> <span class="fileCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
+						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'Subfolders file count:')?> <span class="folderFileCount"></span></small></p>
 						<p>
-							<a href="<?php echo $this->createUrl('image/doStorage', array('path' => $path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('itsc', 'Storage');?></a>
-							<a href="<?php echo $this->createUrl('image/storage', array('path' => $folder->getRelativePath())); ?>" class="btn btn-success" role="button"><?php echo Yii::t('itsc', 'Open');?></a>
+							<a href="<?php echo $this->createUrl('image/doStorage', array('path' => $path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('app', 'Storage');?></a>
+							<a href="<?php echo $this->createUrl('image/storage', array('path' => $folder->getRelativePath())); ?>" class="btn btn-success" role="button"><?php echo Yii::t('app', 'Open');?></a>
 						</p>
 					</div>
 				</div>

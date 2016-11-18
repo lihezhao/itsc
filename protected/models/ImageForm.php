@@ -12,16 +12,16 @@ class ImageForm extends CFormModel {
 	public $lightSource;
 	public function attributeLabels() {
 		return array(
-			'isoSpeedRatings' => Yii::t('itsc', 'ISOSpeedRatings'),
-			'make' => Yii::t('itsc', 'Make'),
-			'flash' => Yii::t('itsc', 'Flash'),
-			'focalLength' => Yii::t('itsc', 'Focal Length (mm)'),
-			'exposureTime' => Yii::t('itsc', 'Exposure Time (s)'),
-			'apertureFNumber' => Yii::t('itsc', 'Aperture FNumber'),
-			'model' => Yii::t('itsc', 'Model'),
-			'exposureBiasValue' => Yii::t('itsc', 'Exposure Bias Value'),
-			'meteringMode' => Yii::t('itsc', 'Metering Mode'),
-			'lightSource' => Yii::t('itsc', 'Light Source'),
+			'isoSpeedRatings' => Yii::t('app', 'ISOSpeedRatings'),
+			'make' => Yii::t('app', 'Make'),
+			'flash' => Yii::t('app', 'Flash'),
+			'focalLength' => Yii::t('app', 'Focal Length (mm)'),
+			'exposureTime' => Yii::t('app', 'Exposure Time (s)'),
+			'apertureFNumber' => Yii::t('app', 'Aperture FNumber'),
+			'model' => Yii::t('app', 'Model'),
+			'exposureBiasValue' => Yii::t('app', 'Exposure Bias Value'),
+			'meteringMode' => Yii::t('app', 'Metering Mode'),
+			'lightSource' => Yii::t('app', 'Light Source'),
 		);
 	}
 }

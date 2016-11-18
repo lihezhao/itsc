@@ -4,7 +4,7 @@
 $this->pageTitle=Yii::app()->name;
 
 $this->breadcrumbs = array(
-	Yii::t('itsc', 'Gallery'));
+	Yii::t('app', 'Gallery'));
 
 ?>
 <div class="search-form">
@@ -17,9 +17,9 @@ $this->breadcrumbs = array(
 <?php $this->widget('zii.widgets.CMenu', array(
 	'htmlOptions' => array('class' => 'nav nav-tabs'),
 	'items' => array(
-		array('label' => Yii::t('itsc', 'Latest'), 'url' => array('/site/index'), 
+		array('label' => Yii::t('app', 'Latest'), 'url' => array('/site/index'), 
 				'linkOptions' => $this->action->id == 'index' ? array('class' => 'nav-link active') : array('class' => 'nav-link')),
-		array('label' => Yii::t('itsc', 'Popular'), 'url' => array('/site/popular'),
+		array('label' => Yii::t('app', 'Popular'), 'url' => array('/site/popular'),
 				'linkOptions' => $this->action->id == 'popular' ? array('class' => 'nav-link active') : array('class' => 'nav-link')),
 	),
 	'itemCssClass' => 'nav-item',

@@ -1,11 +1,11 @@
 <?php
-$this->pageTitle = Yii::app()->name . ' - ' . Yii::t('itsc', 'Sign up');
+$this->pageTitle = Yii::app()->name . ' - ' . Yii::t('app', 'Sign up');
 $this->breadcrumbs = array(
-	Yii::t('itsc', 'Sign up'),
+	Yii::t('app', 'Sign up'),
 );
 ?>
 
-<h1><?php echo Yii::t('itsc', 'Sign up') ?></h1>
+<h1><?php echo Yii::t('app', 'Sign up') ?></h1>
 <?php CHtml::$errorCss = 'form-control-danger'?>
 <div class="row">
 <div class="form col-md-6">
@@ -35,7 +35,7 @@ $this->breadcrumbs = array(
 	))?>
 	<?php echo $form->passwordField($model, 'password', array(
 			'class' => 'form-control form-control-sm',
-			'placeholder' => Yii::t('itsc', 'Password'),
+			'placeholder' => Yii::t('app', 'Password'),
 	))?>
 	<?php echo $form->error($model, 'password')?>
 </div>
@@ -45,7 +45,7 @@ $this->breadcrumbs = array(
 	))?>
 	<?php echo $form->passwordField($model, 'passwordConfirm', array(
 			'class' => 'form-control form-control-sm',
-			'placeholder' => Yii::t('itsc', 'Password Confirm'),
+			'placeholder' => Yii::t('app', 'Password Confirm'),
 	))?>
 	<?php echo $form->error($model, 'passwordConfirm')?>
 </div>
@@ -55,7 +55,7 @@ $this->breadcrumbs = array(
 	))?>
 	<?php echo $form->emailField($model, 'email', array(
 			'class' => 'form-control form-control-sm',
-			'placeholder' => Yii::t('itsc', 'Email'),
+			'placeholder' => Yii::t('app', 'Email'),
 	))?>
 	<?php echo $form->error($model, 'email')?>
 </div>
@@ -66,13 +66,13 @@ $this->breadcrumbs = array(
 	))?>
 	<?php echo $form->textField($model, 'verifyCode', array(
 			'class' => 'form-control form-control-sm',
-			'placeholder' => Yii::t('itsc', 'Verification Code'),
+			'placeholder' => Yii::t('app', 'Verification Code'),
 	)); ?>
 	<?php $this->widget('CCaptcha'); ?>
 	<?php echo $form->error($model, 'verifyCode'); ?>
 </div>
 <?php endif; ?>
-<?php echo CHtml::submitButton(Yii::t('itsc', 'Sign up'), array('class' => 'btn btn-primary'))?>
+<?php echo CHtml::submitButton(Yii::t('app', 'Sign up'), array('class' => 'btn btn-primary'))?>
 
 <?php $this->endWidget()?>
 </div>

@@ -22,7 +22,7 @@ class GalleryController extends Controller {
 	
 	public function actionRating($id, $value) {
 		if (Yii::app()->user->isGuest) {
-			$result = Yii::t('itsc', 'Please login');
+			$result = Yii::t('app', 'Please login');
 		} else {
 			$rating = Rating::model()->find('uid=:uid and pid=:pid', array(
 					':uid' => Yii::app()->user->getId(),
@@ -33,9 +33,9 @@ class GalleryController extends Controller {
 				$rating->pid = $id;
 				$rating->value = $value;
 				$rating->save();
-				$result = Yii::t('itsc', 'Your rating is') . ' ' . $value;
+				$result = Yii::t('app', 'Your rating is') . ' ' . $value;
 			} else {
-				$result = Yii::t('itsc', 'You have already rated.');
+				$result = Yii::t('app', 'You have already rated.');
 			}
 		}
 		echo $result;

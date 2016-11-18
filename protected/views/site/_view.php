@@ -10,7 +10,7 @@
 	</a>
 	<figcaption itemprop="caption description">Image caption</figcaption>
 	<div class="caption">
-	<b><?php echo Yii::t('itsc', 'Date Time Original'); ?>:</b>
+	<b><?php echo Yii::t('app', 'Date Time Original'); ?>:</b>
 	<?php echo CHtml::encode($data['dateTimeOriginal']); ?>
 	<br />
 	</div>

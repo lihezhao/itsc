@@ -6,7 +6,7 @@
 	'enableClientValidation' => true,
 )); ?>
 
-	<p class="note"><?php echo Yii::t('itsc', 'Fields with <span class="required">*</span> are required.')?></p>
+	<p class="note"><?php echo Yii::t('app', 'Fields with <span class="required">*</span> are required.')?></p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'author'); ?>
@@ -55,7 +55,7 @@
 	</div>
 	<?php endif; ?>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(Yii::t('itsc', $model->isNewRecord ? 'Submit' : 'Save'), array('class' => 'btn btn-primary')); ?>
+		<?php echo CHtml::submitButton(Yii::t('app', $model->isNewRecord ? 'Submit' : 'Save'), array('class' => 'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

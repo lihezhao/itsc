@@ -8,8 +8,8 @@ $this->pageTitle=Yii::app()->name;
 	<div class="col-lg-9 col-md-9">
 		<div class="card">
 			<div class="card-header">
-				<?php echo Yii::t('itsc', 'Gallery')?>
-				<span class="pull-xs-right"><?php echo CHtml::link(Yii::t('itsc', 'More'), array('gallery/index'))?></span>
+				<?php echo Yii::t('app', 'Gallery')?>
+				<span class="pull-xs-right"><?php echo CHtml::link(Yii::t('app', 'More'), array('gallery/index'))?></span>
 			</div>
 			<div class="card-block">
 			<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
@@ -25,8 +25,8 @@ $this->pageTitle=Yii::app()->name;
 		</div>
 		<div class="card">
 			<div class="card-header">
-				<?php echo Yii::t('itsc', 'Blog')?>
-				<span class="pull-xs-right"><?php echo CHtml::link(Yii::t('itsc', 'More'), array('post/index'))?></span>
+				<?php echo Yii::t('app', 'Blog')?>
+				<span class="pull-xs-right"><?php echo CHtml::link(Yii::t('app', 'More'), array('post/index'))?></span>
 				</div>
 			<div class="card-block"></div>
 		</div>

@@ -5,13 +5,13 @@
 
 $this->pageTitle=Yii::app()->name . ' - Login';
 $this->breadcrumbs=array(
-	yii::t('itsc', 'Login'),
+	Yii::t('app', 'Login'),
 );
 ?>
 
-<h1><?php echo yii::t('itsc', 'Login'); ?></h1>
+<h1><?php echo Yii::t('app', 'Login'); ?></h1>
 
-<p><?php echo yii::t('itsc', 'Please fill out the following form with your login credentials:'); ?></p>
+<p><?php echo Yii::t('app', 'Please fill out the following form with your login credentials:'); ?></p>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -22,13 +22,13 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<p class="note"><?php echo Yii::t('itsc', 'Fields with <span class="required">*</span> are required.')?></p>
+	<p class="note"><?php echo Yii::t('app', 'Fields with <span class="required">*</span> are required.')?></p>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username', array(
 				'class' => 'form-control',
-				'placeholder' => yii::t('itsc', 'Username'),
+				'placeholder' => Yii::t('app', 'Username'),
 		)); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
@@ -37,7 +37,7 @@ $this->breadcrumbs=array(
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password', array(
 				'class' => 'form-control',
-				'placeholder' => Yii::t('itsc', 'Password'),
+				'placeholder' => Yii::t('app', 'Password'),
 		)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
@@ -48,7 +48,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(Yii::t('itsc', 'Login'), array('class' => 'btn btn-primary')); ?>
+		<?php echo CHtml::submitButton(Yii::t('app', 'Login'), array('class' => 'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

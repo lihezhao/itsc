@@ -5,10 +5,10 @@ class ImageController extends ExifController {
 	public function init() {
 		parent::init();
 		$this->menu = array(
-			array('label' => Yii::t('itsc', 'Image manager'), 'url' => array('/image/index')),
-			array('label' => Yii::t('itsc', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
-			array('label' => Yii::t('itsc', 'Image storage'), 'url' => array('/image/storage')),
-			array('label' => Yii::t('itsc', 'Image thumbnail'), 'url' => array('image/thumb')),
+			array('label' => Yii::t('app', 'Image manager'), 'url' => array('/image/index')),
+			array('label' => Yii::t('app', 'Image upload'), 'url' => array('/image/page', 'view'=>'upload')),
+			array('label' => Yii::t('app', 'Image storage'), 'url' => array('/image/storage')),
+			array('label' => Yii::t('app', 'Image thumbnail'), 'url' => array('image/thumb')),
 		);
 	}
 	
@@ -78,7 +78,7 @@ class ImageController extends ExifController {
 			$count = $dr->read($imagePath, $index, 10);
 			$fileCount = FileHelper::getFileCount($imagePath);
 			echo CJavaScript::jsonEncode(array(
-					'message' => Yii::t('itsc', 'Storage the images, please wait...') . $count . '/' . $fileCount,
+					'message' => Yii::t('app', 'Storage the images, please wait...') . $count . '/' . $fileCount,
 					'pos' => $count * 100 / $fileCount,
 					'nextIndex' => $count));
 		} else {
@@ -102,8 +102,11 @@ class ImageController extends ExifController {
 	public function actionBuildThumb($size, $index = 0) {
 		$count = ImageHelper::batchThumb($size, $index, 1);
 		$fileCount = FileHelper::getFileCount(Yii::app()->params['imagePath']);
+		if ($fileCount == $count) {
+			$files = ImageHelper::getNotThumbFiles($size);
+		}
 		echo CJavaScript::jsonEncode(array(
-				'message' => Yii::t('itsc', 'Build thumbnails, please wait...') . $count . '/' . $fileCount,
+				'message' => Yii::t('app', 'Build thumbnails, please wait...') . $count . '/' . $fileCount,
 				'pos' => $count * 100 / $fileCount,
 				'nextIndex' => $count));
 	}
@@ -134,13 +137,13 @@ class ImageController extends ExifController {
 			
 			switch ($status) {
 				case Image::STATUS_HIDE:
-					$result = array('status' => Yii::t('itsc', 'Hide'));
+					$result = array('status' => Yii::t('app', 'Hide'));
 					break;
 				case Image::STATUS_SHOW:
-					$result = array('status' => Yii::t('itsc', 'Show'));
+					$result = array('status' => Yii::t('app', 'Show'));
 					break;
 				case Image::STATUS_HOMEPAGE:
-					$result = array('status' => Yii::t('itsc', 'Show and Home'));
+					$result = array('status' => Yii::t('app', 'Show and Home'));
 					break;
 			}
 			echo CJavaScript::jsonEncode($result);

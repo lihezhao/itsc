@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	Yii::t('itsc', 'Blog') => array('post/'),
+	Yii::t('app', 'Blog') => array('post/'),
 	$model->title,
 );
 $this->pageTitle=$model->title;
@@ -13,7 +13,7 @@ $this->pageTitle=$model->title;
 <div id="comments">
 	<?php if($model->commentCount>=1): ?>
 		<h3>
-			<?php echo Yii::t('itsc', $model->commentCount>1 ? $model->commentCount . ' comments' : 'One comment'); ?>
+			<?php echo Yii::t('app', $model->commentCount>1 ? $model->commentCount . ' comments' : 'One comment'); ?>
 		</h3>
 
 		<?php $this->renderPartial('_comments',array(

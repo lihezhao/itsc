@@ -23,11 +23,11 @@
 			<?php $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'nav navbar-nav pull-xs-left', 'id' => 'mainmenu'),
 				'items' => array(
-					array('label' => Yii::t('itsc', 'Home'), 'url' => array('/site/index'), 'linkOptions' => array('class' => 'nav-link')),
-					array('label' => Yii::t('itsc', 'Image'), 'url' => array('/image/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Blog'), 'url' => array('/post/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Settings'), 'url' => array('/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
-					array('label' => Yii::t('itsc', 'Help'), 'url' => array('/help'), 'linkOptions' => array('class' => 'nav-link')),
+					array('label' => Yii::t('app', 'Home'), 'url' => array('/site/index'), 'linkOptions' => array('class' => 'nav-link')),
+					array('label' => Yii::t('app', 'Image'), 'url' => array('/image/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('app', 'Blog'), 'url' => array('/post/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('app', 'Settings'), 'url' => array('/settings/index'), 'linkOptions' => array('class' =>'nav-link')),
+					array('label' => Yii::t('app', 'Help'), 'url' => array('/help'), 'linkOptions' => array('class' => 'nav-link')),
 				),
 				'itemCssClass' => 'nav-item',
 			))?>

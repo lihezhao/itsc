@@ -7,4 +7,10 @@ class ImageThumbForm extends CFormModel {
 			array('size', 'numerical'),
 		);
 	}
+	
+	public function attributeLabels() {
+		return array(
+			'size' => Yii::t('app', 'Size'),
+		);
+	}
 }

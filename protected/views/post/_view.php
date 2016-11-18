@@ -17,8 +17,8 @@
 		<span class="tag tag-info"><?php echo implode('</span>, <span class="tag tag-info">', $data->tagLinks); ?></span>
 		<?php echo $data->author->username ?>
 		<br/>
-		<?php echo CHtml::link(Yii::t('itsc', 'Permalink'), $data->url); ?> |
-		<?php echo CHtml::link(Yii::t('itsc', 'Comments') . "({$data->commentCount})",$data->url.'#comments'); ?> |
-		<?php echo Yii::t('itsc', 'Last updated on') . date('Y-m-d h:i:s', $data->update_time); ?>
+		<?php echo CHtml::link(Yii::t('app', 'Permalink'), $data->url); ?> |
+		<?php echo CHtml::link(Yii::t('app', 'Comments') . "({$data->commentCount})",$data->url.'#comments'); ?> |
+		<?php echo Yii::t('app', 'Last updated on') . date('Y-m-d h:i:s', $data->update_time); ?>
 	</div>
 </div>

@@ -4,8 +4,8 @@ class PostExController extends PostController {
 	public function init() {
 		parent::init();
 		$this->menu = array(
-				array('label' => Yii::t('itsc', 'Post Manager'), 'url' => array('/post/admin')),
-				array('label' => Yii::t('itsc', 'Create Post'), 'url' => array('/post/create')),
+				array('label' => Yii::t('app', 'Post Manager'), 'url' => array('/post/admin')),
+				array('label' => Yii::t('app', 'Create Post'), 'url' => array('/post/create')),
 		);
 	}
 	

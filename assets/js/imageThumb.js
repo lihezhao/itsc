@@ -1,4 +1,5 @@
 $(function() {
+	$('.progress').hide();
 	var image = $('#image');
 	var url = $('#imageUrl');
 	var folderCount = image.find('#folderCount');
@@ -14,7 +15,7 @@ $(function() {
 		}
 	});
 	
-	var paths = $('#path');
+	var paths = $("input[name='path']");
 	url = $('#thumbUrl');
 	$.each(paths, function() {
 		var path = $(this);
@@ -34,6 +35,7 @@ $(function() {
 	});
 	
 	$('#image-thumb-form').submit(function() {
+		$('.progress').show();
 		var button = $("input[name='buildThumb']");
 		button.button('loading');
 		var size = $('#ImageThumbForm_size');

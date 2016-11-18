@@ -3,12 +3,12 @@
 /* @var $model Exif */
 
 $this->breadcrumbs=array(
-	Yii::t('itsc', 'Image manager'),
+	Yii::t('app', 'Image manager'),
 );
 
 ?>
 
-<h1><?php echo Yii::t('itsc', 'Manage Images')?></h1>
+<h1><?php echo Yii::t('app', 'Manage Images')?></h1>
 
 
 <div class="search-form">
@@ -34,6 +34,6 @@ $this->breadcrumbs=array(
 	echo CHtml::tag('label', array('class' => 'custom-control custom-checkbox'),
 			CHtml::checkBox('selectAll', false, array('class' => 'custom-control-input')) .
 			CHtml::tag('span', array('class' => 'custom-control-indicator'), '') .
-			CHtml::tag('span', array('class' => 'custom-control-description'), Yii::t('itsc', 'Select all')));
+			CHtml::tag('span', array('class' => 'custom-control-description'), Yii::t('app', 'Select all')));
 	
 ?>

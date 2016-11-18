@@ -8,7 +8,7 @@
 	),
 )); ?>
 
-	<p class="note"><?php echo Yii::t('itsc', 'Fields with <span class="required">*</span> are required.')?></p>
+	<p class="note"><?php echo Yii::t('app', 'Fields with <span class="required">*</span> are required.')?></p>
 
 	<?php echo CHtml::errorSummary($model); ?>
 
@@ -16,7 +16,7 @@
 		<?php echo Translator::translateSubString('Title', $form->labelEx($model,'title')); ?>
 		<?php echo $form->textField($model,'title', array(
 				'class' => 'form-control',
-				'placeholder' => Yii::t('itsc', 'Title'),
+				'placeholder' => Yii::t('app', 'Title'),
 		)); ?>
 		<?php echo Translator::translateSubString('Title', $form->error($model,'title')); ?>
 	</div>
@@ -25,7 +25,7 @@
 		<?php echo Translator::translateSubString('Content', $form->labelEx($model,'content')); ?>
 		<?php echo CHtml::activeTextArea($model,'content',array(
 				'class' => 'form-control',
-				'placeholder' => Yii::t('itsc', 'Content'),
+				'placeholder' => Yii::t('app', 'Content'),
 				'rows'=>10, 'cols'=>70)); ?>
 		<p class="hint">You may use <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a>.</p>
 		<?php echo $form->error($model,'content'); ?>
@@ -40,7 +40,7 @@
 			'multiple'=>true,
 			'htmlOptions'=>array('class' => 'form-control', 'size'=>50),
 		)); ?>
-		<p class="hint"><?php echo Yii::t('itsc', 'Please separate different tags with commas.')?></p>
+		<p class="hint"><?php echo Yii::t('app', 'Please separate different tags with commas.')?></p>
 		<?php echo $form->error($model,'tags'); ?>
 	</div>
 
@@ -51,7 +51,7 @@
 	</div>
 
 	<div class="form-group buttons">
-		<?php echo CHtml::submitButton(Yii::t('itsc', $model->isNewRecord ? 'Create' : 'Save'), array('class' => 'btn btn-primary')); ?>
+		<?php echo CHtml::submitButton(Yii::t('app', $model->isNewRecord ? 'Create' : 'Save'), array('class' => 'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

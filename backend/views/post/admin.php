@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 );
 
 ?>
-<h1><?php echo Yii::t('itsc', 'Manage Posts')?></h1>
+<h1><?php echo Yii::t('app', 'Manage Posts')?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'cssFile' => false,

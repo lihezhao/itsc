@@ -1,13 +1,13 @@
 <?php if(!empty($_GET['tag'])): ?>
-<h1><?php echo Yii::t('itsc', 'Posts Tagged with')?> <i><?php echo CHtml::encode($_GET['tag']); ?></i></h1>
+<h1><?php echo Yii::t('app', 'Posts Tagged with')?> <i><?php echo CHtml::encode($_GET['tag']); ?></i></h1>
 <?php $this->breadcrumbs = array(
-		Yii::t('itsc', 'Blog') => array('post/'),
+		Yii::t('app', 'Blog') => array('post/'),
 		CHtml::encode($_GET['tag']),
 );
 ?>
 <?php else: ?>
 <?php $this->breadcrumbs = array(
-		Yii::t('itsc', 'Blog'));
+		Yii::t('app', 'Blog'));
 ?>
 
 <?php endif; ?>

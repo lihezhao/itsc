@@ -8,7 +8,7 @@ class PostEx extends Post {
 	}
 	
 	public function getAttributeLabel($attribute) {
-		return Yii::t('itsc', parent::getAttributeLabel($attribute));
+		return Yii::t('app', parent::getAttributeLabel($attribute));
 	}
 	
 	protected function afterFind()

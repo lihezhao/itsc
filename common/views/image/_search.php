@@ -35,7 +35,7 @@ $filterGroups = array(
 <?php } ?>
 <div class="row">
 	<a class="btn-sm" data-toggle="collapse" href="#folder" aria-expanded="true" aria-controls="folder">
-		<?php echo Yii::t('itsc', 'Folder')?>
+		<?php echo Yii::t('app', 'Folder')?>
 	</a>
 </div>
 <div class="collapse in" id="folder">
@@ -57,7 +57,7 @@ $filterGroups = array(
 <?php foreach ($filterGroups as $group => $listDatas) {?>
 <div class="row">
 	<a class="btn-sm" data-toggle="collapse" href="#<?php echo $group ?>" aria-expanded=<?php echo $group == 'Basic' ? '"true"' : '"false"' ?> aria-controls="<?php echo $group ?>">
-   		<?php echo Yii::t('itsc', $group) ?>
+   		<?php echo Yii::t('app', $group) ?>
 	</a>
 </div>
 <div class="collapse<?php echo $group == 'Basic' ? ' in' : ''?>" id="<?php echo $group ?>">
@@ -81,7 +81,7 @@ $filterGroups = array(
 </div>
 <?php }?>
 <div class="row">
-<?php echo CHtml::submitButton(Yii::t('itsc', 'OK'), array('class' => 'btn btn-outline-success btn-sm')); ?>
+<?php echo CHtml::submitButton(Yii::t('app', 'OK'), array('class' => 'btn btn-outline-success btn-sm')); ?>
 </div>
 <?php $this->endWidget() ?>
 <?php 
