@@ -97,4 +97,10 @@ return array(
 		'Folders' => '个文件夹',
 		'Initialize the image thumbnail process...' => '初始化创建缩略图进程...',
 		'Build thumbnails, please wait...' => '正在创建缩略图，请稍候...',
+		'Contact Us' => '联系我们',
+		'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.' => '如果您有业务咨询或其他问题，请填写以下表单与我们联系。 谢谢。',
+		'Please enter the letters as they are shown in the image above.
+		<br/>Letters are not case-sensitive.' => '请输入上图中显示的字母。
+<br/>字母不区分大小写。',
+		'Fields with <span class="required">*</span> are required.' => '带<span class="required">*</span>字段为必填项',
 );

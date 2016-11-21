@@ -22,7 +22,7 @@
 <body>
 	<nav class="navbar navbar-fixed-top navbar-dark bg-faded" style="background-color: #5774c2;">
 		<div class="container">
-			<a class="navbar-brand" href="#">ITSC</a>
+			<a class="navbar-brand" href="/">ITSC</a>
 			<?php $menus = require_once(Yii::app()->getBasePath() . '/config/menu.php') ?>
 			<?php $this->widget('zii.widgets.CMenu', $menus['mainmenu']); ?>
 			<?php $this->widget('zii.widgets.CMenu', $menus['accountmenu']); ?>	

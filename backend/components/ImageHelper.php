@@ -67,15 +67,21 @@ class ImageHelper {
 	}
 	
 	public static function getNotThumbFiles($size) {
+		$result = array();
 		$imagePath = Yii::app()->params['imagePath'];
 		$thumbPath = Yii::app()->params['thumbPath'] . '/' . $size;
 		
 		$files = FileHelper::getFiles($imagePath);
-		$thumbs = FileHelper::getFiles($thumbPath);
 		
-		foreach ($thumbs as $thumb) {
-			
+		foreach ($files as $file) {
+			$thumbFilename = str_replace($imagePath, $thumbPath, $file);
+			if (file_exists($thumbFilename)) {
+				
+			} else {
+				$result[] = $file;
+			}
 		}
+		return $result;
 	}
 	
 	

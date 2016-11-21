@@ -104,11 +104,16 @@ class ImageController extends ExifController {
 		$fileCount = FileHelper::getFileCount(Yii::app()->params['imagePath']);
 		if ($fileCount == $count) {
 			$files = ImageHelper::getNotThumbFiles($size);
-		}
-		echo CJavaScript::jsonEncode(array(
+			echo CJavaScript::jsonEncode(array(
+				'message' => implode(',', $files),
+				'pos' => 100,
+				'nextIndex' => $count));
+		} else {
+			echo CJavaScript::jsonEncode(array(
 				'message' => Yii::t('app', 'Build thumbnails, please wait...') . $count . '/' . $fileCount,
 				'pos' => $count * 100 / $fileCount,
 				'nextIndex' => $count));
+		}
 	}
 	
 	public function actionDeleteThumb($size) {
