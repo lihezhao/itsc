@@ -1,21 +1,7 @@
 $(function() {
 	init();
 	
-	$('.sticky .input-group').each(function(){
-		var value;
-		$(this).children('textarea').each(function() {
-			value = $(this).html();
-		});
-		$(this).children('input').each(function() {
-			value = $(this).val();
-		});
-		if(this.tagName=='SELECT')
-			value=this.options[this.selectedIndex].text;
-		
-		if(value=='')
-			value='[empty]';
-		$(this).before('<div class="value">'+value+'</div>').hide();
-	});
+	
 
 	$(document).on('click', '.sticky .value', function(){
 		$(this).hide();
@@ -67,10 +53,27 @@ function init() {
 		});
 		$(this).dropdown('toggle');
 		return false;
-	})
+	});
+	
+	$('.sticky .input-group').each(function(){
+		var value;
+		$(this).children('textarea').each(function() {
+			value = $(this).html();
+		});
+		$(this).children('input').each(function() {
+			value = $(this).val();
+		});
+		if(this.tagName=='SELECT')
+			value=this.options[this.selectedIndex].text;
+		
+		if(value=='')
+			value='[empty]';
+		$(this).before('<div class="value">'+value+'</div>').hide();
+	});	
 }
 
 function adminLoadImages() {
-	loadImages();
 	init();
+	loadImages();
+
 }
