@@ -3,7 +3,7 @@
 <li class="media">
 	<div class="media-left">
 		<a href="#">
-			<img class="media-object img-thumbnail" data-original="<?php echo '/thumbs/256/' . $data->getRelativePath() ?>" alt="<?php echo $data['fileName'] ?>" id="<?php echo $data['id'] ?>">
+			<img class="media-object img-thumbnail" data-original="<?php echo '/thumbs/256' . $data->getRelativePath() ?>" alt="<?php echo $data['fileName'] ?>" id="<?php echo $data['id'] ?>">
 		</a>
 	</div>
 	<div class="media-body">
