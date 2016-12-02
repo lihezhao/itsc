@@ -83,6 +83,36 @@ class Exif extends BaseExif {
 		"255" =>  "其他"
     );
 	
+	private static $flashArr = array(
+		0x0	 => "No Flash",
+		0x1  => "Fired",
+		0x5  => "Fired, Return not detected",
+		0x7  => "Fired, Return detected",
+		0x8	 => 'On, Did not fire',
+		0x9  => 'On, Fired',
+		0xd  => 'On, Return not detected',
+		0xf  => 'On, Return detected',
+		0x10 => 'Off, Did not fire',
+		0x14 => 'Off, Did not fire, Return not detected',
+		0x18 => 'Auto, Did not fire',
+		0x19 => 'Auto, Fired',
+		0x1d => 'Auto, Fired, Return not detected',
+		0x1f => 'Auto, Fired, Return detected',
+		0x20 => 'No flash function',
+		0x30 => 'Off, No flash function',
+		0x41 => 'Fired, Red-eye reduction',
+		0x45 => 'Fired, Red-eye reduction, Return not detected',
+		0x47 => 'Fired, Red-eye reduction, Return detected',
+		0x49 => 'On, Red-eye reduction',
+		0x4d => 'On, Red-eye reduction, Return not detected',
+		0x4f => 'On, Red-eye reduction, Return detected',
+		0x50 => 'Off, Red-eye reduction',
+		0x58 => 'Auto, Did not fire, Red-eye reduction',
+		0x59 => 'Auto, Fired, Red-eye reduction',
+		0x5d => 'Auto, Fired, Red-eye reduction, Return not detected',
+		0x5f => 'Auto, Fired, Red-eye reduction, Return detected',
+	);
+	
 	private static $lightSourceArr = array(
 		"0"    =>  "未知",
 		"1"    =>  "日光",
@@ -105,7 +135,7 @@ class Exif extends BaseExif {
 		"厘米");
 	
 	private static function getVal($name, $arr) {
-		return isset($arr[$name]) ? $arr[$name] : '未知'; 
+		return Yii::t('app', isset($arr[$name]) ? $arr[$name] : '未知'); 
 	}
 	
 	public static function listData($field, $front = true) {
@@ -125,6 +155,9 @@ class Exif extends BaseExif {
 					break;
 				case 'lightSource':
 					$val = self::getVal($row[$field], self::$lightSourceArr);
+					break;
+				case 'flash':
+					$val = self::getVal($row[$field], self::$flashArr);
 					break;
 				default:
 					$val = $row[$field] == '' ? '未知' : $row[$field];
@@ -185,6 +218,8 @@ class Exif extends BaseExif {
 			}
 			$criteria->addCondition('(' . implode(') or (', $condition) . ')');
 		}
+		
+		$criteria->order = 'pathName';
 		
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

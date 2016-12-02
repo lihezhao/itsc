@@ -1,3 +1,4 @@
+<?php if (!Yii::app()->request->isAjaxRequest) { ?>
 <?php
 /* @var $this ImageController */
 /* @var $model Exif */
@@ -10,13 +11,13 @@ $this->breadcrumbs=array(
 
 <h1><?php echo Yii::t('app', 'Manage Images')?></h1>
 
-
 <div class="search-form">
 <?php $this->renderPartial('common.views.image._search',array(
 	'model'=>$model,
 	'front' => false,
 )); ?>
 </div><!-- search-form -->
+<?php }?>
 <?php $this->widget('zii.widgets.CListView', array(
 	'cssFile' => false,
 	'id'=>'image-list',

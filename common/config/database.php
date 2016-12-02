@@ -13,5 +13,6 @@ return array(
 	'password' => 'lhzAAlfh0609',
 	//'password' => 'lhzAAlfh0609@',
 	'charset' => 'utf8',
-	'tablePrefix' => 't_'
+	'tablePrefix' => 't_',
+	'enableParamLogging' => true,
 );

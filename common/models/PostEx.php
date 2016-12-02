@@ -1,6 +1,14 @@
 <?php
 class PostEx extends Post {
 	private $_oldTags;
+
+	public function behaviors() {
+		return array(
+			'MTRandIDBehavior' => array(
+				'class' => 'common.behaviors.MTRandIDBehavior',
+			),
+		);
+	}
 	
 	public static function model($className=__CLASS__)
 	{
@@ -17,16 +25,6 @@ class PostEx extends Post {
 		$this->_oldTags=$this->tags;
 	}	
 
-	protected function beforeSave() {
-		if (parent::beforeSave()) {
-			if ($this->isNewRecord) {
-				$this->id = new CDbExpression("replace(uuid(), '-', '')");
-			}
-			return true;
-		} else
-			return false;
-	}
-	
 	protected function afterSave() {
 		CActiveRecord::afterSave();
 		TagEx::model()->updateFrequency($this->_oldTags, $this->tags);

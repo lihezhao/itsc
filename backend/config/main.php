@@ -69,8 +69,9 @@ return array(
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					//'levels'=>'error, warning',
 				),
+				array('class' => 'CProfileLogRoute',),
 				// uncomment the following to show log messages on web pages
 				/*
 				array(

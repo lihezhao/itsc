@@ -85,6 +85,7 @@ $filterGroups = array(
 </div>
 <?php $this->endWidget() ?>
 <?php 
+$url = CHtml::normalizeUrl(array('image/filter'));
 Yii::app()->clientScript->registerScript('search', "
 $('.search-form form').submit(function(){
 	var folders = $('#folder-tree').jstree().get_checked();
@@ -98,7 +99,14 @@ $('.search-form form').submit(function(){
 	);
 	return false;
 });
+$(.search-form form').searchForm({
+	url: '$url'
+});
 ");
 ?>
+<?php 
+Yii::app()->clientScript->registerScriptFile('assets/js/search.js', CClientScript::POS_END);
+?>
+
 </div>
 </div>

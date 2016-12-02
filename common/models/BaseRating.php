@@ -2,16 +2,16 @@
 
 /**
  * This is the model class for table "{{rating}}".
-*
-* The followings are the available columns in table '{{rating}}':
-* @property string $pid
-* @property integer $value
-* @property string $uid
-*
-* The followings are the available model relations:
-* @property Image $p
-* @property User $u
-*/
+ *
+ * The followings are the available columns in table '{{rating}}':
+ * @property integer $pid
+ * @property integer $value
+ * @property integer $uid
+ *
+ * The followings are the available model relations:
+ * @property Image $p
+ * @property User $u
+ */
 class BaseRating extends CActiveRecord
 {
 	/**
@@ -30,12 +30,11 @@ class BaseRating extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-				array('pid, value, uid', 'required'),
-				array('value', 'numerical', 'integerOnly'=>true),
-				array('pid, uid', 'length', 'max'=>32),
-				// The following rule is used by search().
-				// @todo Please remove those attributes that should not be searched.
-				array('pid, value, uid', 'safe', 'on'=>'search'),
+			array('pid, value, uid', 'required'),
+			array('pid, value, uid', 'numerical', 'integerOnly'=>true),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('pid, value, uid', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +46,8 @@ class BaseRating extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-				'p' => array(self::BELONGS_TO, 'Image', 'pid'),
-				'u' => array(self::BELONGS_TO, 'User', 'uid'),
+			'p' => array(self::BELONGS_TO, 'Image', 'pid'),
+			'u' => array(self::BELONGS_TO, 'User', 'uid'),
 		);
 	}
 
@@ -58,9 +57,9 @@ class BaseRating extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-				'pid' => 'Pid',
-				'value' => 'Value',
-				'uid' => 'Uid',
+			'pid' => 'Pid',
+			'value' => 'Value',
+			'uid' => 'Uid',
 		);
 	}
 
@@ -82,12 +81,12 @@ class BaseRating extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('pid',$this->pid,true);
+		$criteria->compare('pid',$this->pid);
 		$criteria->compare('value',$this->value);
-		$criteria->compare('uid',$this->uid,true);
+		$criteria->compare('uid',$this->uid);
 
 		return new CActiveDataProvider($this, array(
-				'criteria'=>$criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
