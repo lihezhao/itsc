@@ -15,7 +15,7 @@ $this->pageTitle=Yii::app()->name;
 			<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 				<?php $this->widget('zii.widgets.CListView', array(
 					'id' => 'image-list',
-					'dataProvider' => $model->search('home'),
+					'dataProvider' => ImageService::search($model, 'home'),
 					'itemView' => '_view',
 					'itemsCssClass' => 'grid',
 					'afterAjaxUpdate' => 'loadImages',

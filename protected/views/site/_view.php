@@ -4,8 +4,8 @@
 ?>
 
 <figure class="grid-item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-	<a href="<?php echo CHtml::normalizeUrl(array('thumbs/1200/' . $data['fileName'])) ?>" itemprop="contentUrl" data-size="<?php echo $data->getDataSize(1200)?>">
-		<?php $thumbFile = $data->thumbFile(256, 256);?>
+	<a href="<?php echo CHtml::normalizeUrl(array('thumbs/1200/' . $data['fileName'])) ?>" itemprop="contentUrl" data-size="<?php echo ImageService::getDataSize($data, 1200)?>">
+		<?php $thumbFile = ImageService::thumbFile($data, 256, 256);?>
 		<img class="img-thumbnail" data-original="<?php echo $thumbFile == false ? 'images/loading.jpg' : $thumbFile ?>" itemprop="thumbnail" alt="<?php echo $data['fileName'] ?>" id="<?php echo $data['id'] ?>">
 	</a>
 	<figcaption itemprop="caption description">Image caption</figcaption>

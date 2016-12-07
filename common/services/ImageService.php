@@ -95,15 +95,15 @@ class ImageService {
 		return $this->imgtype[$this->fileType];
 	}
 	
-	public function getDataSize($size) {
-		if ($this->height > $this->width) {
-			$width = $size * $this->width / $this->height;
+	public function getDataSize($image, $size) {
+		if ($image->height > $image->width) {
+			$width = $size * $image->width / $image->height;
 			$height = $size;
 		} else {
 			$width = $size;
-			$height = $size * $this->height / $this->width;
+			$height = $size * $image->height / $image->width;
 		}
-		if ($this->orientation == 6 || $this->orientation == 8) {
+		if ($image->orientation == 6 || $image->orientation == 8) {
 			$oldWidth = $width;
 			$width = $height;
 			$height = $oldWidth;
@@ -116,22 +116,22 @@ class ImageService {
 		return str_replace(Yii::app()->params['imagePath'], '', $image->pathName);
 	}
 	
-	public function getThumbPath($width, $height) {
-		$dir = pathinfo($this->pathName, PATHINFO_DIRNAME);
+	public function getThumbPath($image, $width, $height) {
+		$dir = pathinfo($image->pathName, PATHINFO_DIRNAME);
 		$baseThumbPath  = str_replace(Yii::app()->params['imagePath'],
 				Yii::app()->params['thumbPath'], $dir);
 		return $baseThumbPath . "/{$width}x{$height}";
 	}
 	
-	public function thumbFile($width, $height) {
-		$thumbPath = $this->getThumbPath($width, $height);
-		$file = pathinfo($this->pathName, PATHINFO_BASENAME);
+	public function thumbFile($image, $width, $height) {
+		$thumbPath = ImageService::getThumbPath($image, $width, $height);
+		$file = pathinfo($image->pathName, PATHINFO_BASENAME);
 		$fileName = $thumbPath . '/' . $file;
 		return file_exists($fileName) ? Yii::app()->baseUrl . str_replace(Yii::app()->params['thumbPath'],
 				Yii::app()->params['thumbUrl'], $fileName) : false;
 	}
 	
-	public function search($type = 'front') {
+	public function search($image, $type = 'front') {
 		$criteria = new CDbCriteria();
 		if ($type == 'front') {
 			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
@@ -140,42 +140,42 @@ class ImageService {
 			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
 			$criteria->addCondition('{{image}}.status=' . Image::STATUS_HOMEPAGE);
 		}
-		if (isset($this->id0->tags)) {
-			$criteria->addSearchCondition('tags', $this->id0->tags);
+		if (isset($image->id0->tags)) {
+			$criteria->addSearchCondition('tags', $image->id0->tags);
 		}
-		if (isset($this->ISOSpeedRatings)) {
-			$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);
+		if (isset($image->ISOSpeedRatings)) {
+			$criteria->addInCondition('isoSpeedRatings', $image->ISOSpeedRatings);
 		}
-		if (isset($this->make)) {
-			$criteria->addInCondition('make', $this->make);
+		if (isset($image->make)) {
+			$criteria->addInCondition('make', $image->make);
 		}
-		if (isset($this->flash)) {
-			$criteria->addInCondition('flash', $this->flash);
+		if (isset($image->flash)) {
+			$criteria->addInCondition('flash', $image->flash);
 		}
-		if (isset($this->focalLength)) {
-			$criteria->addInCondition('focalLength', $this->focalLength);
+		if (isset($image->focalLength)) {
+			$criteria->addInCondition('focalLength', $image->focalLength);
 		}
-		if (isset($this->exposureTime)) {
-			$criteria->addInCondition('exposureTime', $this->exposureTime);
+		if (isset($image->exposureTime)) {
+			$criteria->addInCondition('exposureTime', $image->exposureTime);
 		}
-		if (isset($this->apertureFNumber)) {
-			$criteria->addInCondition('apertureFNumber', $this->apertureFNumber);
+		if (isset($image->apertureFNumber)) {
+			$criteria->addInCondition('apertureFNumber', $image->apertureFNumber);
 		}
-		if (isset($this->model)) {
-			$criteria->addInCondition('model', $this->model);
+		if (isset($image->model)) {
+			$criteria->addInCondition('model', $image->model);
 		}
-		if (isset($this->exposureBiasValue)) {
-			$criteria->addInCondition('exposureBiasValue', $this->exposureBiasValue);
+		if (isset($image->exposureBiasValue)) {
+			$criteria->addInCondition('exposureBiasValue', $image->exposureBiasValue);
 		}
-		if (isset($this->meteringMode)) {
-			$criteria->addInCondition('meteringMode', $this->meteringMode);
+		if (isset($image->meteringMode)) {
+			$criteria->addInCondition('meteringMode', $image->meteringMode);
 		}
-		if (isset($this->lightSource)) {
-			$criteria->addInCondition('lightSource', $this->lightSource);
+		if (isset($image->lightSource)) {
+			$criteria->addInCondition('lightSource', $image->lightSource);
 		}
-		if (isset($this->pathName)) {
+		if (isset($image->pathName)) {
 			$condition = array();
-			$paths = explode(',', $this->pathName);
+			$paths = explode(',', $image->pathName);
 			foreach ($paths as $pathName) {
 				$condition[] = 'pathName like "' . Yii::app()->params['imagePath'] . '/' . $pathName . '%"';
 			}
@@ -184,7 +184,7 @@ class ImageService {
 	
 		$criteria->order = 'pathName';
 	
-		return new CActiveDataProvider($this, array(
+		return new CActiveDataProvider($image, array(
 				'criteria' => $criteria,
 		));
 	}

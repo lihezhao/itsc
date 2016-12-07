@@ -28,7 +28,7 @@ $this->breadcrumbs = array(
 <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 <?php $this->widget('zii.widgets.CListView', array(
 	'id'=>'image-list',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>ImageService::search($model),
   	'itemView' => '_view',
   	'itemsCssClass' => 'gallery',
 	'pager' => array(
