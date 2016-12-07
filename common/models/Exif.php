@@ -1,229 +1,264 @@
 <?php
 
-class Exif extends BaseExif {
-	private $imgtype = array("", "GIF", "JPG", "PNG", "SWF", "PSD", "BMP", "TIFF(intel byte order)", "TIFF(motorola byte order)", "JPC", "JP2", "JPX", "JB2", "SWC", "IFF", "WBMP", "XBM");
-	
-	public function getFileType() {
-		return $this->imgtype[$this->fileType];
-	}
-	
-	public function getDataSize($size) {
-		if ($this->height > $this->width) {
-			$width = $size * $this->width / $this->height;
-			$height = $size;
-		} else {
-			$width = $size;
-			$height = $size * $this->height / $this->width;
-		}
-		if ($this->orientation == 6 || $this->orientation == 8) {
-			$oldWidth = $width;
-			$width = $height;
-			$height = $oldWidth;
-		}
-		
-		return $width . 'x' . $height;
-	}
-	
-	public function getRelativePath() {
-		return str_replace(Yii::app()->params['imagePath'], '', $this->pathName);
-	}
-	
-	public function getThumbPath($width, $height) {
-		$dir = pathinfo($this->pathName, PATHINFO_DIRNAME);
-		$baseThumbPath  = str_replace(Yii::app()->params['imagePath'],
-				Yii::app()->params['thumbPath'], $dir);
-		return $baseThumbPath . "/{$width}x{$height}";
-	}
-	
-	public function thumbFile($width, $height) {
-		$thumbPath = $this->getThumbPath($width, $height);
-		$file = pathinfo($this->pathName, PATHINFO_BASENAME);
-		$fileName = $thumbPath . '/' . $file;
-		return file_exists($fileName) ? Yii::app()->baseUrl . str_replace(Yii::app()->params['thumbPath'],
-				Yii::app()->params['thumbUrl'], $fileName) : false;
+/**
+ * This is the model class for table "{{exif}}".
+ *
+ * The followings are the available columns in table '{{exif}}':
+ * @property integer $id
+ * @property string $pathName
+ * @property string $fileName
+ * @property integer $fileType
+ * @property string $mimeType
+ * @property integer $fileSize
+ * @property string $fileDateTime
+ * @property string $imageDescription
+ * @property string $make
+ * @property string $model
+ * @property integer $orientation
+ * @property string $xResolution
+ * @property string $yResolution
+ * @property integer $resolutionUnit
+ * @property string $software
+ * @property string $dateTime
+ * @property string $artist
+ * @property integer $ycbCrPositioning
+ * @property string $copyright
+ * @property string $copyrightPhotographer
+ * @property string $copyrightEditor
+ * @property string $exifVersion
+ * @property integer $flashPixVersion
+ * @property string $dateTimeOriginal
+ * @property string $dateTimeDigitized
+ * @property integer $height
+ * @property integer $width
+ * @property integer $apertureValue
+ * @property integer $shutterSpeedValue
+ * @property string $apertureFNumber
+ * @property integer $maxApertureValue
+ * @property string $exposureTime
+ * @property integer $fNumber
+ * @property integer $meteringMode
+ * @property integer $lightSource
+ * @property integer $flash
+ * @property integer $exposureMode
+ * @property integer $whiteBalance
+ * @property integer $exposureProgram
+ * @property integer $exposureBiasValue
+ * @property integer $ISOSpeedRatings
+ * @property integer $componentsConfiguration
+ * @property integer $compressedBitsPerPixel
+ * @property integer $focusDistance
+ * @property integer $focalLength
+ * @property integer $focalLengthIn35mmFilm
+ * @property integer $userCommentEncoding
+ * @property string $userComment
+ * @property integer $colorSpace
+ * @property integer $exifImageLength
+ * @property integer $exifImageWidth
+ * @property integer $fileSource
+ * @property integer $sceneType
+ * @property integer $thumbnailFileType
+ * @property integer $thumbnailMimeType
+ *
+ * The followings are the available model relations:
+ * @property Image $id0
+ */
+class Exif extends CActiveRecord
+{
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return '{{exif}}';
 	}
 
-	public function getThumb($width, $height) {
-		$thumbPath = $this->getThumbPath($width, $height);
-		$file = pathinfo($this->pathName, PATHINFO_BASENAME);
-		$fileName = $thumbPath . '/' . $file;
-		if (file_exists($fileName)) {
-		} else {
-			Yii::import('application.extensions.image.Image');
-			$image = new Image($this->pathName);
-	
-			$image->resize($width, $height);
-			switch ($this->orientation) {
-				case 6:
-					$image->rotate(90);
-					break;
-				case 8:
-					$image->rotate(270);
-					break;
-			}
-	
-			if (is_dir($thumbPath)) {
-			} else {
-				mkdir($thumbPath,0777,true);
-			}
-			$image->save($fileName);
-		}
-		return Yii::app()->baseUrl . str_replace(Yii::app()->params['thumbPath'],
-				Yii::app()->params['thumbUrl'], $fileName);
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('id, pathName, fileName, fileType, mimeType, fileSize, fileDateTime, imageDescription, make, model, orientation, xResolution, yResolution, resolutionUnit, software, dateTime, artist, ycbCrPositioning, copyright, copyrightPhotographer, copyrightEditor, exifVersion, flashPixVersion, dateTimeOriginal, dateTimeDigitized, height, width, apertureValue, shutterSpeedValue, apertureFNumber, maxApertureValue, exposureTime, fNumber, meteringMode, lightSource, flash, exposureMode, whiteBalance, exposureProgram, exposureBiasValue, ISOSpeedRatings, componentsConfiguration, compressedBitsPerPixel, focusDistance, focalLength, focalLengthIn35mmFilm, userCommentEncoding, userComment, colorSpace, exifImageLength, exifImageWidth, fileSource, sceneType, thumbnailFileType, thumbnailMimeType', 'required'),
+			array('id, fileType, fileSize, orientation, resolutionUnit, ycbCrPositioning, flashPixVersion, height, width, apertureValue, shutterSpeedValue, maxApertureValue, fNumber, meteringMode, lightSource, flash, exposureMode, whiteBalance, exposureProgram, exposureBiasValue, ISOSpeedRatings, componentsConfiguration, compressedBitsPerPixel, focusDistance, focalLength, focalLengthIn35mmFilm, userCommentEncoding, colorSpace, exifImageLength, exifImageWidth, fileSource, sceneType, thumbnailFileType, thumbnailMimeType', 'numerical', 'integerOnly'=>true),
+			array('pathName, userComment', 'length', 'max'=>512),
+			array('fileName', 'length', 'max'=>256),
+			array('mimeType, apertureFNumber', 'length', 'max'=>16),
+			array('imageDescription', 'length', 'max'=>1024),
+			array('make, model, software, artist, copyright, copyrightPhotographer, copyrightEditor', 'length', 'max'=>128),
+			array('xResolution, yResolution, exifVersion', 'length', 'max'=>10),
+			array('exposureTime', 'length', 'max'=>8),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, pathName, fileName, fileType, mimeType, fileSize, fileDateTime, imageDescription, make, model, orientation, xResolution, yResolution, resolutionUnit, software, dateTime, artist, ycbCrPositioning, copyright, copyrightPhotographer, copyrightEditor, exifVersion, flashPixVersion, dateTimeOriginal, dateTimeDigitized, height, width, apertureValue, shutterSpeedValue, apertureFNumber, maxApertureValue, exposureTime, fNumber, meteringMode, lightSource, flash, exposureMode, whiteBalance, exposureProgram, exposureBiasValue, ISOSpeedRatings, componentsConfiguration, compressedBitsPerPixel, focusDistance, focalLength, focalLengthIn35mmFilm, userCommentEncoding, userComment, colorSpace, exifImageLength, exifImageWidth, fileSource, sceneType, thumbnailFileType, thumbnailMimeType', 'safe', 'on'=>'search'),
+		);
 	}
-	
-	private static $meteringModeArr = array(
-		"0"   =>  "未知",
-		"1"   =>  "平均",
-		"2"   =>  "中央重点平均测光",
-		"3"   =>  "点",
-		"4"   =>  "分区",
-		"5"   =>  "评估",
-		"6"   =>  "局部",
-		"255" =>  "其他"
-    );
-	
-	private static $flashArr = array(
-		0x0	 => "No Flash",
-		0x1  => "Fired",
-		0x5  => "Fired, Return not detected",
-		0x7  => "Fired, Return detected",
-		0x8	 => 'On, Did not fire',
-		0x9  => 'On, Fired',
-		0xd  => 'On, Return not detected',
-		0xf  => 'On, Return detected',
-		0x10 => 'Off, Did not fire',
-		0x14 => 'Off, Did not fire, Return not detected',
-		0x18 => 'Auto, Did not fire',
-		0x19 => 'Auto, Fired',
-		0x1d => 'Auto, Fired, Return not detected',
-		0x1f => 'Auto, Fired, Return detected',
-		0x20 => 'No flash function',
-		0x30 => 'Off, No flash function',
-		0x41 => 'Fired, Red-eye reduction',
-		0x45 => 'Fired, Red-eye reduction, Return not detected',
-		0x47 => 'Fired, Red-eye reduction, Return detected',
-		0x49 => 'On, Red-eye reduction',
-		0x4d => 'On, Red-eye reduction, Return not detected',
-		0x4f => 'On, Red-eye reduction, Return detected',
-		0x50 => 'Off, Red-eye reduction',
-		0x58 => 'Auto, Did not fire, Red-eye reduction',
-		0x59 => 'Auto, Fired, Red-eye reduction',
-		0x5d => 'Auto, Fired, Red-eye reduction, Return not detected',
-		0x5f => 'Auto, Fired, Red-eye reduction, Return detected',
-	);
-	
-	private static $lightSourceArr = array(
-		"0"    =>  "未知",
-		"1"    =>  "日光",
-		"2"    =>  "荧光灯",
-		"3"    =>  "钨丝灯",
-		"10"  =>  "闪光灯",
-		"17"  =>  "标准灯光A",
-		"18"  =>  "标准灯光B",
-		"19"  =>  "标准灯光C",
-		"20"  =>  "D55",
-		"21"  =>  "D65",
-		"22"  =>  "D75",
-		"255"  =>  "其他"
-    );
-	
-	private static $resolutionUnitArr = array(
-		"",
-		"",
-		"英寸",
-		"厘米");
-	
-	private static function getVal($name, $arr) {
-		return Yii::t('app', isset($arr[$name]) ? $arr[$name] : '未知'); 
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'id0' => array(self::BELONGS_TO, 'Image', 'id'),
+		);
 	}
-	
-	public static function listData($field, $front = true) {
-		$result = array();
-		$sql = "select $field, count(*) as cnt from {{exif}} e, {{image}} i where e.id=i.id ";
-		if ($front) {
-			$sql .= 'and i.status=' . Image::STATUS_SHOW . ' ';
-		}
-		$sql .= "group by $field";
-		$connection = Yii::app()->db;
-		$command = $connection->createCommand($sql);
-		$rows = $command->queryAll();
-		foreach ($rows as $row) {
-			switch ($field) {
-				case 'meteringMode':
-					$val = self::getVal($row[$field], self::$meteringModeArr);
-					break;
-				case 'lightSource':
-					$val = self::getVal($row[$field], self::$lightSourceArr);
-					break;
-				case 'flash':
-					$val = self::getVal($row[$field], self::$flashArr);
-					break;
-				default:
-					$val = $row[$field] == '' ? '未知' : $row[$field];
-			}
-			$key = $row[$field] == '' ? 'unknown' : $row[$field];
-			$result[$key] = $val . '(' . $row['cnt'] . ')';
-		}
-		return $result;
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'pathName' => 'Path Name',
+			'fileName' => '文件名',
+			'fileType' => '文件类型',
+			'mimeType' => '文件格式',
+			'fileSize' => '文件大小',
+			'fileDateTime' => '时间戳',
+			'imageDescription' => '图片说明',
+			'make' => '制造商',
+			'model' => '型号',
+			'orientation' => '方向',
+			'xResolution' => '水平分辨率',
+			'yResolution' => '垂直分辨率',
+			'resolutionUnit' => 'Resolution Unit',
+			'software' => '创建软件',
+			'dateTime' => '修改时间',
+			'artist' => '作者',
+			'ycbCrPositioning' => 'YCbCr位置控制',
+			'copyright' => '版权',
+			'copyrightPhotographer' => '摄影版权',
+			'copyrightEditor' => '编辑版权',
+			'exifVersion' => 'Exif版本',
+			'flashPixVersion' => 'FlashPix版本',
+			'dateTimeOriginal' => '拍摄时间',
+			'dateTimeDigitized' => '数字化时间',
+			'height' => '拍摄分辨率高',
+			'width' => '拍摄分辨率宽',
+			'apertureValue' => '光圈',
+			'shutterSpeedValue' => '快门速度',
+			'apertureFNumber' => '快门光圈',
+			'maxApertureValue' => '最大光圈值',
+			'exposureTime' => '曝光时间',
+			'fNumber' => 'F-Number',
+			'meteringMode' => '测光模式',
+			'lightSource' => '光源',
+			'flash' => '闪光灯',
+			'exposureMode' => '曝光模式',
+			'whiteBalance' => '白平衡',
+			'exposureProgram' => '曝光程序',
+			'exposureBiasValue' => '曝光补偿',
+			'ISOSpeedRatings' => 'ISO感光度',
+			'componentsConfiguration' => '分量配置',
+			'compressedBitsPerPixel' => '图像压缩率',
+			'focusDistance' => '对焦距离',
+			'focalLength' => '焦距',
+			'focalLengthIn35mmFilm' => '等价35mm焦距',
+			'userCommentEncoding' => '用户注释编码',
+			'userComment' => '用户注释',
+			'colorSpace' => '色彩空间',
+			'exifImageLength' => 'Exif图像宽度',
+			'exifImageWidth' => 'Exif图像高度',
+			'fileSource' => '文件来源',
+			'sceneType' => '场景类型',
+			'thumbnailFileType' => '缩略图文件格式',
+			'thumbnailMimeType' => '缩略图Mime格式',
+		);
 	}
-	
-	public function search($type = 'front') {
-		$criteria = new CDbCriteria();
-		if ($type == 'front') {
-			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
-			$criteria->addCondition('{{image}}.status>=' . Image::STATUS_SHOW);
-		} else if ($type == 'home') {
-			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
-			$criteria->addCondition('{{image}}.status=' . Image::STATUS_HOMEPAGE);
-		}
-		if (isset($this->id0->tags)) {
-			$criteria->addSearchCondition('tags', $this->id0->tags);
-		}
-		if (isset($this->ISOSpeedRatings)) {
-			$criteria->addInCondition('isoSpeedRatings', $this->ISOSpeedRatings);
-		}
-		if (isset($this->make)) {
-			$criteria->addInCondition('make', $this->make);
-		}
-		if (isset($this->flash)) {
-			$criteria->addInCondition('flash', $this->flash);
-		}
-		if (isset($this->focalLength)) {
-			$criteria->addInCondition('focalLength', $this->focalLength);
-		}
-		if (isset($this->exposureTime)) {
-			$criteria->addInCondition('exposureTime', $this->exposureTime);
-		}
-		if (isset($this->apertureFNumber)) {
-			$criteria->addInCondition('apertureFNumber', $this->apertureFNumber);
-		}
-		if (isset($this->model)) {
-			$criteria->addInCondition('model', $this->model);
-		}
-		if (isset($this->exposureBiasValue)) {
-			$criteria->addInCondition('exposureBiasValue', $this->exposureBiasValue);
-		}
-		if (isset($this->meteringMode)) {
-			$criteria->addInCondition('meteringMode', $this->meteringMode);
-		}
-		if (isset($this->lightSource)) {
-			$criteria->addInCondition('lightSource', $this->lightSource);
-		}
-		if (isset($this->pathName)) {
-			$condition = array();
-			$paths = explode(',', $this->pathName);
-			foreach ($paths as $pathName) {
-				$condition[] = 'pathName like "' . Yii::app()->params['imagePath'] . '/' . $pathName . '%"';
-			}
-			$criteria->addCondition('(' . implode(') or (', $condition) . ')');
-		}
-		
-		$criteria->order = 'pathName';
-		
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('pathName',$this->pathName,true);
+		$criteria->compare('fileName',$this->fileName,true);
+		$criteria->compare('fileType',$this->fileType);
+		$criteria->compare('mimeType',$this->mimeType,true);
+		$criteria->compare('fileSize',$this->fileSize);
+		$criteria->compare('fileDateTime',$this->fileDateTime,true);
+		$criteria->compare('imageDescription',$this->imageDescription,true);
+		$criteria->compare('make',$this->make,true);
+		$criteria->compare('model',$this->model,true);
+		$criteria->compare('orientation',$this->orientation);
+		$criteria->compare('xResolution',$this->xResolution,true);
+		$criteria->compare('yResolution',$this->yResolution,true);
+		$criteria->compare('resolutionUnit',$this->resolutionUnit);
+		$criteria->compare('software',$this->software,true);
+		$criteria->compare('dateTime',$this->dateTime,true);
+		$criteria->compare('artist',$this->artist,true);
+		$criteria->compare('ycbCrPositioning',$this->ycbCrPositioning);
+		$criteria->compare('copyright',$this->copyright,true);
+		$criteria->compare('copyrightPhotographer',$this->copyrightPhotographer,true);
+		$criteria->compare('copyrightEditor',$this->copyrightEditor,true);
+		$criteria->compare('exifVersion',$this->exifVersion,true);
+		$criteria->compare('flashPixVersion',$this->flashPixVersion);
+		$criteria->compare('dateTimeOriginal',$this->dateTimeOriginal,true);
+		$criteria->compare('dateTimeDigitized',$this->dateTimeDigitized,true);
+		$criteria->compare('height',$this->height);
+		$criteria->compare('width',$this->width);
+		$criteria->compare('apertureValue',$this->apertureValue);
+		$criteria->compare('shutterSpeedValue',$this->shutterSpeedValue);
+		$criteria->compare('apertureFNumber',$this->apertureFNumber,true);
+		$criteria->compare('maxApertureValue',$this->maxApertureValue);
+		$criteria->compare('exposureTime',$this->exposureTime,true);
+		$criteria->compare('fNumber',$this->fNumber);
+		$criteria->compare('meteringMode',$this->meteringMode);
+		$criteria->compare('lightSource',$this->lightSource);
+		$criteria->compare('flash',$this->flash);
+		$criteria->compare('exposureMode',$this->exposureMode);
+		$criteria->compare('whiteBalance',$this->whiteBalance);
+		$criteria->compare('exposureProgram',$this->exposureProgram);
+		$criteria->compare('exposureBiasValue',$this->exposureBiasValue);
+		$criteria->compare('ISOSpeedRatings',$this->ISOSpeedRatings);
+		$criteria->compare('componentsConfiguration',$this->componentsConfiguration);
+		$criteria->compare('compressedBitsPerPixel',$this->compressedBitsPerPixel);
+		$criteria->compare('focusDistance',$this->focusDistance);
+		$criteria->compare('focalLength',$this->focalLength);
+		$criteria->compare('focalLengthIn35mmFilm',$this->focalLengthIn35mmFilm);
+		$criteria->compare('userCommentEncoding',$this->userCommentEncoding);
+		$criteria->compare('userComment',$this->userComment,true);
+		$criteria->compare('colorSpace',$this->colorSpace);
+		$criteria->compare('exifImageLength',$this->exifImageLength);
+		$criteria->compare('exifImageWidth',$this->exifImageWidth);
+		$criteria->compare('fileSource',$this->fileSource);
+		$criteria->compare('sceneType',$this->sceneType);
+		$criteria->compare('thumbnailFileType',$this->thumbnailFileType);
+		$criteria->compare('thumbnailMimeType',$this->thumbnailMimeType);
+
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
-	
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return Exif the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 }

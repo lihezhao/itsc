@@ -13,6 +13,7 @@ return array(
 		'common.controllers.base.*',
 		'common.models.*',
 		'common.helpers.*',
+		'common.services.*',
 		'blog.models.Post',
 		'blog.controllers.PostController',
 	),

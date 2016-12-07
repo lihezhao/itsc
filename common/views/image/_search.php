@@ -6,18 +6,18 @@
 <?php
 $filterGroups = array(
 	'Basic' => array(
-		'make' => Exif::listData('make', $front),
-		'model' => Exif::listData('model', $front),
+		'make' => array(),
+		'model' => array(),
 	),
 	'Advanced' => array(
-		'flash' => Exif::listData('flash', $front),
-		'focalLength' => Exif::listData('focalLength', $front),
-		'exposureTime' => Exif::listData('exposureTime', $front),
-		'ISOSpeedRatings' => Exif::listData('ISOSpeedRatings', $front),
-		'apertureFNumber' => Exif::listData('apertureFNumber', $front),
-		'exposureBiasValue' => Exif::listData('exposureBiasValue', $front),
-		'meteringMode' => Exif::listData('meteringMode', $front),
-		'lightSource' => Exif::listData('lightSource', $front),
+		'flash' => array('a' => 'aa'),
+		'focalLength' => array(),
+		'exposureTime' => array(),
+		'ISOSpeedRatings' => array(),
+		'apertureFNumber' => array(),
+		'exposureBiasValue' => array(),
+		'meteringMode' => array(),
+		'lightSource' => array(),
 	),
 );
 ?>
@@ -84,8 +84,7 @@ $filterGroups = array(
 <?php echo CHtml::submitButton(Yii::t('app', 'OK'), array('class' => 'btn btn-outline-success btn-sm')); ?>
 </div>
 <?php $this->endWidget() ?>
-<?php 
-$url = CHtml::normalizeUrl(array('image/filter'));
+<?php
 Yii::app()->clientScript->registerScript('search', "
 $('.search-form form').submit(function(){
 	var folders = $('#folder-tree').jstree().get_checked();
@@ -99,8 +98,9 @@ $('.search-form form').submit(function(){
 	);
 	return false;
 });
-$(.search-form form').searchForm({
-	url: '$url'
+$('.search-form form').searchForm({
+	url: '/service.php/image/countGroupBy',
+	front: '$front'
 });
 ");
 ?>
