@@ -10,7 +10,7 @@ $filterGroups = array(
 		'model' => array(),
 	),
 	'Advanced' => array(
-		'flash' => array('a' => 'aa'),
+		'flash' => array(),
 		'focalLength' => array(),
 		'exposureTime' => array(),
 		'ISOSpeedRatings' => array(),
@@ -105,7 +105,7 @@ $('.search-form form').searchForm({
 ");
 ?>
 <?php 
-Yii::app()->clientScript->registerScriptFile('assets/js/search.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/assets/js/search.js', CClientScript::POS_END);
 ?>
 
 </div>

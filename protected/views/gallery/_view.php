@@ -9,12 +9,12 @@
 	</a>
 	<figcaption itemprop="caption description"><?php echo $data->id0->description?></figcaption>
 	<div class="nav">
-		<span class="tag tag-info"><?php echo implode('</span>, <span class="tag tag-info">', $data->id0->tagLinks) ?></span>
+		<span class="tag tag-info"><?php echo implode('</span>, <span class="tag tag-info">', ImageService::getTagLinks($data->id0)) ?></span>
 	</div>
 	<?php echo CHtml::hiddenField('id', $data->id)?>
 	<?php $this->widget('CStarRating', array(
 		'name'=>'rating' . $index,
-		'value' => $data->id0->getAverageRating(),
+		'value' => ImageService::getAverageRating($data->id0),
 		'callback' => 'starRating',
 	))?>
 	<br>

@@ -21,9 +21,12 @@ class ImageController extends ExifController {
 	}
 	
 	public function actionIndex() {
-		Yii::app()->clientScript->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
-		Yii::app()->clientScript->registerScriptFile('assets/js/imageAdmin.js', CClientScript::POS_END);
-		Yii::app()->clientScript->registerCoreScript('lazyload');
+		$cs = Yii::app()->clientScript;
+		$cs->registerScriptFile('assets/js/images.js', CClientScript::POS_END);
+		$cs->registerScriptFile('assets/js/imageAdmin.js', CClientScript::POS_END);
+		$cs->registerCoreScript('lazyload');
+		$cs->registerCoreScript('photoswipe');
+		$cs->registerScriptFile(Yii::app()->baseUrl . '/assets/js/photoswipe.js', CClientScript::POS_END);
 		parent::actionAdmin();
 	}
 	
@@ -146,13 +149,13 @@ class ImageController extends ExifController {
 			$image->save();
 			
 			switch ($status) {
-				case Image::STATUS_HIDE:
+				case ImageService::STATUS_HIDE:
 					$result = array('status' => Yii::t('app', 'Hide'));
 					break;
-				case Image::STATUS_SHOW:
+				case ImageService::STATUS_SHOW:
 					$result = array('status' => Yii::t('app', 'Show'));
 					break;
-				case Image::STATUS_HOMEPAGE:
+				case ImageService::STATUS_HOMEPAGE:
 					$result = array('status' => Yii::t('app', 'Show and Home'));
 					break;
 			}

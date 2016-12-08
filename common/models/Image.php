@@ -1,55 +1,123 @@
 <?php
 
-class Image extends BaseImage {
-	const STATUS_HIDE = 0;
-	const STATUS_SHOW = 1;
-	const STATUS_HOMEPAGE = 2;
-	
-	public function behaviors() {
+/**
+ * This is the model class for table "{{image}}".
+ *
+ * The followings are the available columns in table '{{image}}':
+ * @property integer $id
+ * @property string $path
+ * @property string $created_at
+ * @property string $description
+ * @property string $tags
+ * @property integer $status
+ *
+ * The followings are the available model relations:
+ * @property Exif $exif
+ * @property Rating[] $ratings
+ */
+class Image extends CActiveRecord
+{
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return '{{image}}';
+	}
+
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
 		return array(
-			'MTRandIDBehavior' => array(
-				'class' => 'common.behaviors.MTRandIDBehavior',
-			),
+			array('path, status', 'required'),
+			array('id, status', 'numerical', 'integerOnly'=>true),
+			array('path', 'length', 'max'=>512),
+			array('created_at, description, tags', 'safe'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, path, created_at, description, tags, status', 'safe', 'on'=>'search'),
 		);
 	}
-	
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'exif' => array(self::HAS_ONE, 'Exif', 'id'),
+			'ratings' => array(self::HAS_MANY, 'Rating', 'pid'),
+		);
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'path' => 'Path',
+			'created_at' => 'Created At',
+			'description' => 'Description',
+			'tags' => 'Tags',
+			'status' => 'Status',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('path',$this->path,true);
+		$criteria->compare('created_at',$this->created_at,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('tags',$this->tags,true);
+		$criteria->compare('status',$this->status);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return Image the static model class
+	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 	
-	public function getStatus() {
-		switch ($this->status) {
-			case self::STATUS_HIDE:
-				$result = 'Hide';
-				break;
-			case self::STATUS_SHOW:
-				$result = 'Show';
-				break;
-			case self::STATUS_HOMEPAGE:
-				$result = 'Show and Home';
-		}
-		return $result;
-	}
-	
-	public function getAverageRating() {
-		$result = 0;
-		$count = sizeof($this->ratings);
-		if ($count > 0) {
-			$sum = 0;
-			foreach ($this->ratings as $rating) {
-				$sum += $rating->value;
-			}
-			$result = $sum / $count;
-		}
-		return $result;
-	}
-	
-	public function getTagLinks() {
-		$links = array();
-		foreach (Tag::string2array($this->tags) as $tag)
-			$links[] = CHtml::link(CHtml::encode($tag), array('gallery/index', 'tag' => $tag));
-		return $links;
+	public function behaviors() {
+		return array(
+				'MTRandIDBehavior' => array(
+						'class' => 'common.behaviors.MTRandIDBehavior',
+				),
+		);
 	}
 	
 }

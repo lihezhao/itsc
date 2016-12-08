@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 	
 );
 
-$relativePath = $curFolder->getRelativePath();
+$relativePath = FolderService::getRelativePath($curFolder);
 if ($relativePath == '') {
 	$this->breadcrumbs[] = Yii::t('app', 'Image storage');
 } else {
@@ -38,7 +38,7 @@ foreach ($subpaths as $subpath) {
 			<div class="col-md-4">
 				<div class="card card-outline-primary">
 					<div class="card-block">
-						<?php echo CHtml::hiddenField('path', $curFolder->getRelativePath(), array('class' => 'path'))?>
+						<?php echo CHtml::hiddenField('path', FolderService::getRelativePath($curFolder), array('class' => 'path'))?>
 						<h4 class="card-title"><?php echo Yii::t('app', 'Folder') . ' ' . basename($curFolder->path) ; ?></h4>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'File count:')?> <span class="fileCount"></span></small></p>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
@@ -57,14 +57,14 @@ foreach ($subpaths as $subpath) {
 			<div class="col-md-4">
 				<div class="card card-outline-info">
 					<div class="card-block">
-						<?php echo CHtml::hiddenField('path', $folder->getRelativePath(), array('class' => 'path'))?>
+						<?php echo CHtml::hiddenField('path', FolderService::getRelativePath($folder), array('class' => 'path'))?>
 						<h4 class="card-title"><?php echo Yii::t('app', 'Folder') . ' ' . basename($folder->path) ; ?></h4>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'File count:')?> <span class="fileCount"></span></small></p>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'Subfolders count:')?> <span class="folderCount"></span></small></p>
 						<p class="card-text"><small class="text-muted"><?php echo Yii::t('app', 'Subfolders file count:')?> <span class="folderFileCount"></span></small></p>
 						<p>
 							<a href="<?php echo $this->createUrl('image/doStorage', array('path' => $path)); ?>" class="btn btn-primary" role="button"><?php echo Yii::t('app', 'Storage');?></a>
-							<a href="<?php echo $this->createUrl('image/storage', array('path' => $folder->getRelativePath())); ?>" class="btn btn-success" role="button"><?php echo Yii::t('app', 'Open');?></a>
+							<a href="<?php echo $this->createUrl('image/storage', array('path' => FolderService::getRelativePath($folder))); ?>" class="btn btn-success" role="button"><?php echo Yii::t('app', 'Open');?></a>
 						</p>
 					</div>
 				</div>
@@ -76,4 +76,3 @@ foreach ($subpaths as $subpath) {
 	</div>
 	
 </div>
-

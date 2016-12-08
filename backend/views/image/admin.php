@@ -18,12 +18,13 @@ $this->breadcrumbs=array(
 )); ?>
 </div><!-- search-form -->
 <?php }?>
+<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 <?php $this->widget('zii.widgets.CListView', array(
 	'cssFile' => false,
 	'id'=>'image-list',
 	'itemsTagName' => 'ul',
 	'itemsCssClass' => 'media-list',
-	'dataProvider'=>$model->search('backend'),
+	'dataProvider' => ImageService::search($model, 'backend'),
 	'itemView' => '_view',
 	'pager' => array(
 		'class' => 'LinkPager',
@@ -31,6 +32,7 @@ $this->breadcrumbs=array(
 	'pagerCssClass' => 'Page navigation',
 	'afterAjaxUpdate' => 'adminLoadImages',
 )); ?>
+</div>
 <?php
 	echo CHtml::tag('label', array('class' => 'custom-control custom-checkbox'),
 			CHtml::checkBox('selectAll', false, array('class' => 'custom-control-input')) .
@@ -38,3 +40,4 @@ $this->breadcrumbs=array(
 			CHtml::tag('span', array('class' => 'custom-control-description'), Yii::t('app', 'Select all')));
 	
 ?>
+<?php $this->renderPartial('common.views.image.photoswipe')?>

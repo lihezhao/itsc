@@ -2,9 +2,11 @@
 ?>
 <li class="media">
 	<div class="media-left">
-		<a href="#">
+	<figure class="grid-item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+		<a href="<?php echo '/thumbs/1200' . ImageService::getRelativePath($data) ?>" itemprop="contentUrl" data-size="<?php echo ImageService::getDataSize($data, 1200)?>">
 			<img class="media-object img-thumbnail" data-original="<?php echo '/thumbs/256' . ImageService::getRelativePath($data) ?>" alt="<?php echo $data['fileName'] ?>" id="<?php echo $data['id'] ?>">
 		</a>
+	</figure>
 	</div>
 	<div class="media-body">
 		<?php
@@ -15,7 +17,7 @@
 		?>
 		
 		<div class="dropdown">
-			<?php echo CHtml::htmlButton(Yii::t('app', $data->id0->getStatus()),
+			<?php echo CHtml::htmlButton(Yii::t('app', ImageService::getStatus($data->id0)),
 					array('class' => 'btn btn-info dropdown-toggle',
 						  'id' => 'status',
 						  'data-toggle' => 'dropdown',

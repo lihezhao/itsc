@@ -1,5 +1,9 @@
 <?php
 class ImageService {
+	const STATUS_HIDE = 0;
+	const STATUS_SHOW = 1;
+	const STATUS_HOMEPAGE = 2;
+	
 	private static $flashArr = array(
 			0x0	 => "No Flash",
 			0x1  => "Fired",
@@ -54,8 +58,43 @@ class ImageService {
 			"255" =>  "其他"
 	);
 	
+	public static function getStatus($image) {
+		switch ($image->status) {
+			case self::STATUS_HIDE:
+				$result = 'Hide';
+				break;
+			case self::STATUS_SHOW:
+				$result = 'Show';
+				break;
+			case self::STATUS_HOMEPAGE:
+				$result = 'Show and Home';
+		}
+		return $result;
+	}
 	
-	public function countGroupBy($field, $front = true) {
+	public static function getAverageRating($image) {
+		$result = 0;
+		$count = sizeof($image->ratings);
+		if ($count > 0) {
+			$sum = 0;
+			foreach ($image->ratings as $rating) {
+				$sum += $rating->value;
+			}
+			$result = $sum / $count;
+		}
+		return $result;
+	}
+	
+	public static function getTagLinks($image) {
+		$links = array();
+		foreach (Tag::string2array($image->tags) as $tag)
+			$links[] = CHtml::link(CHtml::encode($tag), array('gallery/index', 'tag' => $tag));
+			return $links;
+	}
+	
+	
+	
+	public static function countGroupBy($field, $front = true) {
 		$result = array();
 		$sql = "select $field, count(*) as cnt from {{exif}} e, {{image}} i where e.id=i.id ";
 		if ($front) {
@@ -89,13 +128,13 @@ class ImageService {
 		return Yii::t('app', isset($arr[$name]) ? $arr[$name] : '未知');
 	}
 	
-	private $imgtype = array("", "GIF", "JPG", "PNG", "SWF", "PSD", "BMP", "TIFF(intel byte order)", "TIFF(motorola byte order)", "JPC", "JP2", "JPX", "JB2", "SWC", "IFF", "WBMP", "XBM");
+	private static $imgtype = array("", "GIF", "JPG", "PNG", "SWF", "PSD", "BMP", "TIFF(intel byte order)", "TIFF(motorola byte order)", "JPC", "JP2", "JPX", "JB2", "SWC", "IFF", "WBMP", "XBM");
 	
-	public function getFileType() {
-		return $this->imgtype[$this->fileType];
+	public static function getFileType($image) {
+		return self::$imgtype[$image->fileType];
 	}
 	
-	public function getDataSize($image, $size) {
+	public static function getDataSize($image, $size) {
 		if ($image->height > $image->width) {
 			$width = $size * $image->width / $image->height;
 			$height = $size;
@@ -112,18 +151,18 @@ class ImageService {
 		return $width . 'x' . $height;
 	}
 	
-	public function getRelativePath($image) {
+	public static function getRelativePath($image) {
 		return str_replace(Yii::app()->params['imagePath'], '', $image->pathName);
 	}
 	
-	public function getThumbPath($image, $width, $height) {
+	public static function getThumbPath($image, $width, $height) {
 		$dir = pathinfo($image->pathName, PATHINFO_DIRNAME);
 		$baseThumbPath  = str_replace(Yii::app()->params['imagePath'],
 				Yii::app()->params['thumbPath'], $dir);
 		return $baseThumbPath . "/{$width}x{$height}";
 	}
 	
-	public function thumbFile($image, $width, $height) {
+	public static function thumbFile($image, $width, $height) {
 		$thumbPath = ImageService::getThumbPath($image, $width, $height);
 		$file = pathinfo($image->pathName, PATHINFO_BASENAME);
 		$fileName = $thumbPath . '/' . $file;
@@ -131,14 +170,14 @@ class ImageService {
 				Yii::app()->params['thumbUrl'], $fileName) : false;
 	}
 	
-	public function search($image, $type = 'front') {
+	public static function search($image, $type = 'front') {
 		$criteria = new CDbCriteria();
 		if ($type == 'front') {
 			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
-			$criteria->addCondition('{{image}}.status>=' . Image::STATUS_SHOW);
+			$criteria->addCondition('{{image}}.status>=' . self::STATUS_SHOW);
 		} else if ($type == 'home') {
 			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
-			$criteria->addCondition('{{image}}.status=' . Image::STATUS_HOMEPAGE);
+			$criteria->addCondition('{{image}}.status=' . self::STATUS_HOMEPAGE);
 		}
 		if (isset($image->id0->tags)) {
 			$criteria->addSearchCondition('tags', $image->id0->tags);
