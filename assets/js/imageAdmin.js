@@ -8,32 +8,6 @@ $(function() {
 		$(this).next().show().get(0).focus();
 	});
 	
-	$('button[name=saveDescription]').click(function() {
-		var jDescription = $(this).prev();
-		var jParent = $(this).parent();
-		var jqXhr = $.ajax({
-			type: 'POST',
-			url: $(this).val() + '&id=' + $(this).attr('id') + '&description=' + jDescription.val(),
-			success: function() {
-				jParent.hide();
-				jParent.prev().show();
-				jParent.prev().html(jDescription.val());
-			}
-		});
-	});
-	$('button[name=saveTags]').click(function() {
-		var jTags = $(this).parent().prev();
-		var jParent = $(this).parent().parent();
-		var jqXhr = $.ajax({
-			type: 'POST',
-			url: $(this).val() + '&tags=' + jTags.val(),
-			success: function() {
-				jParent.hide();
-				jParent.prev().show();
-				jParent.prev().html(jTags.val());
-			}
-		});
-	});
 
 });
 
@@ -69,7 +43,35 @@ function init() {
 		if(value=='')
 			value='[empty]';
 		$(this).before('<div class="value">'+value+'</div>').hide();
-	});	
+	});
+	
+	$('button[name=saveDescription]').click(function() {
+		var jDescription = $(this).prev();
+		var jParent = $(this).parent();
+		var jqXhr = $.ajax({
+			type: 'POST',
+			url: $(this).val() + '&id=' + $(this).attr('id') + '&description=' + jDescription.val(),
+			success: function() {
+				jParent.hide();
+				jParent.prev().show();
+				jParent.prev().html(jDescription.val());
+			}
+		});
+	});
+	$('button[name=saveTags]').click(function() {
+		var jTags = $(this).parent().prev();
+		var jParent = $(this).parent().parent();
+		var jqXhr = $.ajax({
+			type: 'POST',
+			url: $(this).val() + '&tags=' + jTags.val(),
+			success: function() {
+				jParent.hide();
+				jParent.prev().show();
+				jParent.prev().html(jTags.val());
+			}
+		});
+	});
+	
 }
 
 function adminLoadImages() {

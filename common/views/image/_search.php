@@ -4,22 +4,23 @@
 /* @var $form CActiveForm */
 ?>
 <?php
-$filterGroups = array(
-	'Basic' => array(
-		'make' => array(),
-		'model' => array(),
-	),
-	'Advanced' => array(
-		'flash' => array(),
-		'focalLength' => array(),
-		'exposureTime' => array(),
-		'ISOSpeedRatings' => array(),
-		'apertureFNumber' => array(),
-		'exposureBiasValue' => array(),
-		'meteringMode' => array(),
-		'lightSource' => array(),
-	),
-);
+if (!$front) {
+	$filterGroups['Basic'] = array(
+		'status' => array(),
+	); 
+}
+$filterGroups['Advanced'] = array(
+				'make' => array(),
+				'model' => array(),
+				'flash' => array(),
+				'focalLength' => array(),
+				'exposureTime' => array(),
+				'ISOSpeedRatings' => array(),
+				'apertureFNumber' => array(),
+				'exposureBiasValue' => array(),
+				'meteringMode' => array(),
+				'lightSource' => array(),
+		);
 ?>
 
 <div class="card">
@@ -62,11 +63,19 @@ $filterGroups = array(
 </div>
 <div class="collapse<?php echo $group == 'Basic' ? ' in' : ''?>" id="<?php echo $group ?>">
 <?php foreach ($listDatas as $field => $listData) {?>
+<?php
+if ($model->hasAttribute($field)) {
+	$object = $model;
+} else {
+	$model->id0 = new Image('search');
+	$object = $model->id0;
+}
+?>
 <div class="form-group row">
-	<?php echo $form->labelEx($model, $field, array('class' => 'col-md-2 col-form-label col-form-label-sm'))?>
+	<?php echo $form->labelEx($object, $field, array('class' => 'col-md-2 col-form-label col-form-label-sm'))?>
 	<div class="col-md-10 col-form-label col-form-label-sm">
 	<div class="row">
-	<?php echo $form->checkBoxList($model, $field,
+	<?php echo $form->checkBoxList($object, $field,
 			$listData,
 			array('template' => '<div class="col-md-3"><label class="custom-control custom-checkbox">{input}<span class="custom-control-indicator"></span><span class="custom-control-description">{labelTitle}</span></label></div>',
 					'separator' => '',

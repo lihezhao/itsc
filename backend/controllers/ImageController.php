@@ -27,7 +27,19 @@ class ImageController extends ExifController {
 		$cs->registerCoreScript('lazyload');
 		$cs->registerCoreScript('photoswipe');
 		$cs->registerScriptFile(Yii::app()->baseUrl . '/assets/js/photoswipe.js', CClientScript::POS_END);
-		parent::actionAdmin();
+		$model=new Exif('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Exif']))
+			$model->attributes=$_GET['Exif'];
+		if (isset($_GET['Image'])) {
+			$model->id0 = new Image('search');
+			$model->id0->unsetAttributes();
+			$model->id0->attributes = $_GET['Image'];
+		}
+		
+		$this->render('admin',array(
+			'model'=>$model,
+		));
 	}
 	
 	public function actionStorage($path = '') {

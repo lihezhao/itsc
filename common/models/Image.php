@@ -67,7 +67,7 @@ class Image extends CActiveRecord
 			'created_at' => 'Created At',
 			'description' => 'Description',
 			'tags' => 'Tags',
-			'status' => 'Status',
+			'status' => '状态',
 		);
 	}
 

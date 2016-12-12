@@ -57,6 +57,11 @@ class ImageService {
 			"6"   =>  "局部",
 			"255" =>  "其他"
 	);
+	private static $statusArr = array(
+			'0' => '隐藏',
+			'1' => '显示',
+			'2' => '显示/首页',
+	);
 	
 	public static function getStatus($image) {
 		switch ($image->status) {
@@ -98,7 +103,7 @@ class ImageService {
 		$result = array();
 		$sql = "select $field, count(*) as cnt from {{exif}} e, {{image}} i where e.id=i.id ";
 		if ($front) {
-			$sql .= 'and i.status=' . Image::STATUS_SHOW . ' ';
+			$sql .= 'and i.status=' . ImageService::STATUS_SHOW . ' ';
 		}
 		$sql .= "group by $field";
 		$connection = Yii::app()->db;
@@ -114,6 +119,9 @@ class ImageService {
 					break;
 				case 'flash':
 					$val = self::getVal($row[$field], self::$flashArr);
+					break;
+				case 'status':
+					$val = self::getVal($row[$field], self::$statusArr);
 					break;
 				default:
 					$val = $row[$field] == '' ? '未知' : $row[$field];
@@ -172,15 +180,17 @@ class ImageService {
 	
 	public static function search($image, $type = 'front') {
 		$criteria = new CDbCriteria();
+		$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
 		if ($type == 'front') {
-			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
 			$criteria->addCondition('{{image}}.status>=' . self::STATUS_SHOW);
 		} else if ($type == 'home') {
-			$criteria->join = 'INNER JOIN {{image}} ON t.id={{image}}.id';
 			$criteria->addCondition('{{image}}.status=' . self::STATUS_HOMEPAGE);
 		}
 		if (isset($image->id0->tags)) {
 			$criteria->addSearchCondition('tags', $image->id0->tags);
+		}
+		if (isset($image->id0->status)) {
+			$criteria->addInCondition('{{image}}.status', $image->id0->status);
 		}
 		if (isset($image->ISOSpeedRatings)) {
 			$criteria->addInCondition('isoSpeedRatings', $image->ISOSpeedRatings);
@@ -222,6 +232,8 @@ class ImageService {
 		}
 	
 		$criteria->order = 'pathName';
+		
+		Yii::log($criteria->condition);
 	
 		return new CActiveDataProvider($image, array(
 				'criteria' => $criteria,
