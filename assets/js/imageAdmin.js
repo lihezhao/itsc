@@ -76,6 +76,7 @@ function init() {
 
 function adminLoadImages() {
 	init();
+	initPhotoSwipeFromDOM('.grid-item');
 	loadImages();
-
+	
 }
